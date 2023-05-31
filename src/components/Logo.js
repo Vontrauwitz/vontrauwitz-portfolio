@@ -8,7 +8,7 @@ const Logo = () => {
 
   return (
     <div
-      className='flex items-center justify-center mt-2'
+      className='flex items-center justify-center mt-2 drop-shadow-[2px_3px_2px_rgba(0,0,0,0.4)]'
     >
       <MotionLink
         href="/"
@@ -25,3 +25,4 @@ const Logo = () => {
 }
 
 export default Logo
+
