@@ -17,6 +17,12 @@ export default function Home() {
             <div className='w-1/2'>
               <Image src={profileimg} alt="vontrauwitz" className='w-256 h-auto' />
             </div>
+            <div className='w-1/2'>
+              <h1>Unleashing the Power of Code to Transform Dreams into Digital Realities.</h1>
+              <p>
+                &apos;Hello there! I&apos;m a highly skilled full-stack developer passionate about transforming ideas into impressive web applications. Dive into my latest projects, showcasing my programming expertise and web development. Let&apos;s embark on an exciting journey where innovation meets coding excellence.&apos;
+              </p>
+            </div>
           </div>
         </Layout>
       </main>
