@@ -2,9 +2,10 @@ import Layout from '@/components/Layout'
 import Head from 'next/head'
 import Image from 'next/image'
 import profileimg from "../../public/images/profile/yo1.3sf.png"
-// import TypingCode from '@/components/TypingCode'
+//TODO import TypingCode from '@/components/TypingCode'
 import AnimatedText from '@/components/AnimatedText'
-import { motion } from 'framer-motion';
+import Link from 'next/link'
+import { LinkArrow } from '@/components/Icons'
 
 
 export default function Home() {
@@ -21,11 +22,32 @@ export default function Home() {
               <Image src={profileimg} alt="vontrauwitz" className='w-256 h-auto' />
             </div>
             <div className='w-1/2 flex flex-col items-center self-center'>
-              {/* <TypingCode />  CORREGIR ESTO Y HACERLO MAS TYPE*/}
-              <AnimatedText text="Code Artist: Turning Dreams into Digital Realities." className='!text-6xl !text-left' />
-              <p>
+              {/* //TODO <TypingCode />  CORREGIR ESTO Y HACERLO MAS TYPE*/}
+              <AnimatedText text="Code Artist: Turning Dreams into Digital Realities." className='!text-4xl !text-left' />
+              <p
+                className='my-4 text-base front-medium'
+              >
                 Hello there! I&apos;m a highly skilled full-stack developer passionate about transforming ideas into impressive web applications. Dive into my latest projects, showcasing my programming expertise and web development. Let&apos;s embark on an exciting journey where innovation meets coding excellence.;
               </p>
+              <div className='flex items-center self-start mt-2'>
+                <Link
+                  href="/cvhanstrauwitzbrita.pdf"
+                  target={"_blank"}
+                  className='flex items-center bg-dark text-light p-1.5 px-6 rounded-lg text-lg font-semibold 
+                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black'
+                  download={true}
+                >
+                  Resume
+                  <LinkArrow className={"w-6 ml-1"} />
+                </Link>
+                {/* //TODO NO ME GUSTA ESTO */}
+                <Link
+                  href="mailto:hans.trauwitz@gmail.com"
+                  target={"_blank"}
+                >
+                  Contact
+                </Link>
+              </div>
             </div>
           </div>
         </Layout>
