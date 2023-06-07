@@ -36,7 +36,7 @@ const NavBar = () => {
         <CustomLink href="/" title="Home" className='mr-4' />
         <CustomLink href="/about" title="About" className='mx-4' />
         <CustomLink href="/projects" title="Projects" className='mx-4' />
-        <CustomLink href="/certifications" title="Certifications" className='ml-4' />
+        <CustomLink href="/contact" title="Contact" className='ml-4' />
       </nav>
 
       <nav
@@ -65,6 +65,14 @@ const NavBar = () => {
         >
           <LinkedinIcon />
         </motion.a>
+
+        {/* <motion.a href="https://www.linkedin.com/in/vontrauwitzdev/" target={"_blank"}
+          className="w-6 ml-3"
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.9 }}
+          >
+          <React />
+        </motion.a> */}
         {/* <Link href="/" target={"_blank"}>T</Link>
         <Link href="/" target={"_blank"}>T</Link>
         <Link href="/" target={"_blank"}>T</Link> */}
