@@ -7,6 +7,8 @@ import profilePic from '../../public/images/profile/yo1.jpg'
 import profilePic2 from '../../public/images/profile/yo1.1.png'
 import { isMotionValue, useInView, useMotionValue, useSpring } from 'framer-motion';
 import Skills from '@/components/Skills';
+import Experience from '@/components/Experience';
+import Education from '@/components/Education';
 
 
 const AnimatedNumber = ({ value }) => {
@@ -85,6 +87,8 @@ const About = () => {
             </div>
           </div>
           <Skills />
+          <Experience />
+          <Education />
         </Layout>
       </main>
     </>

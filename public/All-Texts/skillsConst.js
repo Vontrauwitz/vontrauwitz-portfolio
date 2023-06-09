@@ -1,4 +1,4 @@
-import { AwsIcon, BootstrapIcon, ChakraUiIcon, CssIcon, ExpressIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, JavaIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NextJsIcon, NodeJsIcon, PhpIcon, PostgreSqlIcon, ReactIcon, ReduxIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon } from "@/components/Icons";
+import { AwsIcon, BlenderIcon, BootstrapIcon, ChakraUiIcon, CssIcon, ExpressIcon, FigmaIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, JavaIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NextJsIcon, NodeJsIcon, PhotoshopIcon, PhpIcon, PostgreSqlIcon, PostmanIcon, ReactIcon, ReduxIcon, SeoIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon, WebpackIcon } from "@/components/Icons";
 import Image from "next/image";
 
 export const frontend = [
@@ -27,7 +27,7 @@ export const frontend = [
     icon: <ReduxIcon className="w-5 ml-1" />
   },
   {
-    name: "TailwindCSS",
+    name: "Tailwind",
     link: "/",
     description: "Is a utility- first CSS framework that provides a set of pre - defined classes to rapidly build custom user interfaces.",
     icon: <TailwindIcon className="w-5 ml-1" />
@@ -51,13 +51,13 @@ export const frontend = [
     icon: <BootstrapIcon className="w-5 ml-1" />
   },
   {
-    name: "React-Native",
+    name: "R-Native",
     link: "/",
-    description: "Is a framework for building mobile applications using JavaScript and React.It allows for cross - platform development targeting iOS and Android.",
+    description: "React - Native s a framework for building mobile applications using JavaScript and React.It allows for cross - platform development targeting iOS and Android.",
     icon: <ReactIcon className="w-5 ml-1" />
   },
   {
-    name: "Redux-Toolkit",
+    name: "R-Toolkit",
     link: "/",
     description: "Is an opinionated set of utilities and tools that simplifies the process of working with Redux.It provides a standardized way of writing Redux code.",
     icon: <ReduxIcon className="w-5 ml-1" />
@@ -87,7 +87,7 @@ export const frontend = [
 ];
 export const backend = [
   {
-    name: "PostgreSQL",
+    name: "Postgres",
     link: "/",
     description: "Is an open- source relational database management system(RDBMS) known for its robustness, scalability, and adherence to SQL standards.",
     icon: <PostgreSqlIcon className="w-5 ml-1" />
@@ -128,7 +128,7 @@ export const backend = [
 
   },
   {
-    name: "ExpressAPI",
+    name: "Express",
     link: "/",
     description: "Is a minimal and flexible Node.js web application framework. It allows you to build robust APIs and web applications with features like routing, middleware support, and template rendering",
     icon: <ExpressIcon className="w-5 ml-1" />
@@ -159,7 +159,7 @@ export const backend = [
     name: "SpringBoot",
     link: "/",
     description: "Is a Java-based framework that simplifies the development of stand-alone, production-grade Spring applications. It provides a streamlined configuration and development experience for building robust and scalable applications.",
-    icon: <SpringBootIcon className="w-5 ml-1" />
+    icon: <SpringBootIcon className="w-3 ml-1" />
 
   },
 
@@ -211,7 +211,7 @@ export const tools = [
     name: "AWS",
     link: "/",
     description: "(Amazon Web Services) Is a comprehensive cloud computing platform offered by Amazon. It provides a wide range of services, including computing power, storage, databases, networking, and more. AWS offers scalability, security, and flexibility, allowing businesses to build and deploy various types of applications and services in the cloud.",
-    icon: <AwsIcon className="w-5.4 ml-1" />
+    icon: <AwsIcon className="w-5 ml-1" />
 
   },
   {
@@ -222,7 +222,9 @@ export const tools = [
   {
     name: "Postman",
     link: "/",
-    description: "Is a popular collaboration platform for API development. It allows you to design, test, and document APIs, making it easier to develop and maintain robust API integrations."
+    description: "Is a popular collaboration platform for API development. It allows you to design, test, and document APIs, making it easier to develop and maintain robust API integrations.",
+    icon: <PostmanIcon className="w-5 ml-1" />
+
   },
   {
     name: "Insomnia",
@@ -232,12 +234,9 @@ export const tools = [
   {
     name: "Webpack",
     link: "/",
-    description: "Is a module bundler commonly used in modern web development. It takes modules with dependencies and generates static assets that can be efficiently loaded by the browser, improving performance and optimizing code."
-  },
-  {
-    name: "TypeScript",
-    link: "/",
-    description: "Is a typed superset of JavaScript that adds static types to the language. It helps catch errors during development, provides better tooling support, and enables developers to write more scalable and maintainable code."
+    description: "Is a module bundler commonly used in modern web development. It takes modules with dependencies and generates static assets that can be efficiently loaded by the browser, improving performance and optimizing code.",
+    icon: <WebpackIcon className="w-5 ml-1" />
+
   },
   {
     name: "Jest",
@@ -252,7 +251,9 @@ export const tools = [
   {
     name: "SEO",
     link: "/",
-    description: "(Search Engine Optimization) Is the practice of optimizing websites to improve their visibility and ranking in search engine results. It involves various techniques and strategies to increase organic traffic and reach a wider audience."
+    description: "(Search Engine Optimization) Is the practice of optimizing websites to improve their visibility and ranking in search engine results. It involves various techniques and strategies to increase organic traffic and reach a wider audience.",
+    icon: <SeoIcon className="w-5 ml-1" />
+
   },
   {
     name: "IntelliJ",
@@ -262,7 +263,9 @@ export const tools = [
   {
     name: "Figma",
     link: "/",
-    description: "Is a cloud-based design and prototyping tool. It allows designers to collaborate in real-time, create UI designs, and create interactive prototypes. Figma is widely used for its ease of use, collaborative features, and versatility."
+    description: "Is a cloud-based design and prototyping tool. It allows designers to collaborate in real-time, create UI designs, and create interactive prototypes. Figma is widely used for its ease of use, collaborative features, and versatility.",
+    icon: <FigmaIcon className="w-3 ml-1" />
+
   },
   {
     name: "Notion",
@@ -272,18 +275,27 @@ export const tools = [
   {
     name: "Photoshop",
     link: "/",
-    description: "Is a powerful image editing software developed by Adobe. It is widely used for tasks such as photo retouching, image composition, and graphic design. Photoshop offers a wide range of tools and features for manipulating and enhancing digital images."
+    description: "Is a powerful image editing software developed by Adobe. It is widely used for tasks such as photo retouching, image composition, and graphic design. Photoshop offers a wide range of tools and features for manipulating and enhancing digital images.",
+    icon: <PhotoshopIcon className="w-5 ml-1" />
+
   },
   {
-    name: "DaVinci Resolve",
+    name: "Dv Resolve",
     link: "/",
     description: "Is a professional video editing and color grading software. It provides advanced editing tools, color correction capabilities, and visual effects. DaVinci Resolve is widely used in the film and television industry for its powerful features and high-quality output."
   },
   {
     name: "Blender",
     link: "/",
-    description: "Is a free and open-source 3D creation suite. It is used for tasks such as 3D modeling, animation, rendering, and compositing. Blender offers a robust set of tools and features, making it a popular choice among artists, designers, and animators."
-  }
+    description: "Is a free and open-source 3D creation suite. It is used for tasks such as 3D modeling, animation, rendering, and compositing. Blender offers a robust set of tools and features, making it a popular choice among artists, designers, and animators.",
+    icon: <BlenderIcon className="w-5 ml-1" />
+
+  },
+  // {
+  //   name: "TypeScript",
+  //   link: "/",
+  //   description: "Is a typed superset of JavaScript that adds static types to the language. It helps catch errors during development, provides better tooling support, and enables developers to write more scalable and maintainable code."
+  // },
 ];
 
 
