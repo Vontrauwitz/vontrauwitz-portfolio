@@ -9,6 +9,10 @@ import { isMotionValue, useInView, useMotionValue, useSpring } from 'framer-moti
 import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
 import Education from '@/components/Education';
+import Link from 'next/link'
+import { CertificateIcon } from '@/components/Icons'
+import Testimonials from '@/components/Testimonials';
+
 
 
 const AnimatedNumber = ({ value }) => {
@@ -89,6 +93,19 @@ const About = () => {
           <Skills />
           <Experience />
           <Education />
+          <div className='flex items-center self-start mt-2 mb-10'>
+            <Link
+              href="/certificates"
+              className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold 
+                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black'
+              download={true}
+            >
+              Certificates
+              <CertificateIcon className={"w-6 ml-4"} />
+
+            </Link>
+          </div>
+          <Testimonials />
         </Layout>
       </main>
     </>
@@ -96,3 +113,4 @@ const About = () => {
 }
 
 export default About;
+
