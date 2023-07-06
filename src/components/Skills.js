@@ -27,7 +27,7 @@ const Skills = () => {
         <div className="w-1/2">
           <div className="py-4 flex justify-center">
             <button
-              className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-200'
+              className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-300'
                 } mr-4 p-3 rounded text-white`}
               onClick={(e) => {
                 e.preventDefault();
@@ -37,7 +37,7 @@ const Skills = () => {
               Front-end
             </button>
             <button
-              className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-200'
+              className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-300'
                 } mx-4 p-3 rounded text-white`}
               onClick={(e) => {
                 e.preventDefault();
@@ -47,7 +47,7 @@ const Skills = () => {
               Back-end
             </button>
             <button
-              className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-200'
+              className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-300'
                 } ml-4 p-3 rounded text-white`}
               onClick={(e) => {
                 e.preventDefault();
@@ -61,21 +61,24 @@ const Skills = () => {
           <div className="grid grid-cols-4 gap-2">
             {listItems.map((item, index) => (
               <div
-                className="flex items-center self-start mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black"
+                className="flex items-center self-start mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3" style={{ minHeight: '70px' }}
                 key={index}
               >
                 <button
                   onClick={() => setSelectedItem(item)}
                   className={`${selectedItem === item ? 'text-primary' : ''} flex items-center justify-center p-0.5`}
                 >
-                  <div className="w-12">
+                  <div className="w-8">
                     {item.icon}
                   </div>
-                  <span>{item.name}</span>
+                  <span className="text-xs ml-2">{item.name}</span>
                 </button>
               </div>
             ))}
           </div>
+
+
+
         </div>
         <div className="w-1/2 flex justify-center">
           {selectedItem && (

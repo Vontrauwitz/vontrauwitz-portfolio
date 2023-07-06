@@ -1,26 +1,42 @@
 export const education = [
   {
-    type: "Bachelor Of Science In Computer Science",
-    schoolLink: "https://www.google.com",
-    time: "2016-2020",
-    place: "Massachusetts Institute Of Technology (MIT)",
-    info: "Relevant courses included Data Structures and Algorithms, Computer Systems Engineering, and Artificial Intelligence.",
+    type: "Bootcamp Full Stack Developer",
+    schoolLink: "https://www.soyhenry.com/",
+    time: "May 2022 - Jan 2023",
+    place: "Henry",
+    info: "no se que madres poner aqui",
     // icon: <JsIcon className="w-5 ml-1" />
   },
   {
-    type: "Master Of Computer Science",
-    schoolLink: "https://www.google.com",
-    time: "2020-2022 ",
-    place: "Stanford University",
-    info: "Completed a master's project on deep learning, developing a new neural network architecture for natural language understanding.",
+    type: "Full Stack Developer | Ongoing",
+    schoolLink: "https://www.platzi.com",
+    time: "jan 2023 - Present ",
+    place: "Platzi",
+    info: "no se que madres poner aqui",
     // icon: <JsIcon className="w-5 ml-1" />
   },
   {
-    type: "Online Coursework",
-    schoolLink: "https://www.google.com",
-    time: "2016-2020",
-    place: "Coursera And EdX",
-    info: "Completed coursework in advanced topics such as Reinforcement Learning, Computer Vision, and Machine Learning Engineering.",
+    type: "Meta Back-End Developer Professional Certificate | Ongoing",
+    schoolLink: "https://www.coursera.org/professional-certificates/meta-back-end-developer",
+    time: "Aug 2022 - Present",
+    place: "Coursera And Meta",
+    info: "no se que madres poner aqui",
+    // icon: <JsIcon className="w-5 ml-1" />
+  },
+  {
+    type: "Public Accountant",
+    schoolLink: "https://www.ebc.mx/",
+    time: "Jan 2009 - Dec 2013 ",
+    place: "Escuela Bancaria y Comercial",
+    info: "no se que madres poner aqui",
+    // icon: <JsIcon className="w-5 ml-1" />
+  },
+  {
+    type: "Mechatronic Engineering | Incomplete Studies",
+    schoolLink: "https://www.up.edu.mx/",
+    time: "Sep 2006 - Sep 2009",
+    place: "Universidad Panamericana",
+    info: "no se que madres poner aqui",
     // icon: <JsIcon className="w-5 ml-1" />
   },
 ]

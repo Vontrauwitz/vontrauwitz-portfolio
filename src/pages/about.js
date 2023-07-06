@@ -64,7 +64,6 @@ const About = () => {
               <div className='absolute top-0 -right-3 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark' />
               <Image src={profilePic} alt='Vontrauwitz' className='w.full h-auto rounded-2xl' />
             </div>
-
             <div className='col-span-2 flex flex-col items-end justify-between'>
 
               <div className='flex  flex-col items-end justify-center'>

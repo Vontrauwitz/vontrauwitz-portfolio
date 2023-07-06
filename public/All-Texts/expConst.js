@@ -1,48 +1,31 @@
 export const experience = [
   {
-    position: "Software Engineer",
-    company: "Google",
-    companyLink: "https://www.google.com",
-    time: "2022 - Present",
-    address: "Mountain View, CA",
-    work: "Worked on a team responsible for developing new features for Google's search engine, including improving the accuracy and relevance of search results and developing new tools for data analysis and visualization.",
+    position: "Front-End Developer (Project)",
+    company: "Agave Lab",
+    companyLink: "https://agavelab.com/",
+    time: "Jan 2023 - may 2023",
+    address: "Guadalajara Jalisco, México",
+    work: "Collaborate with the team as a Junior Front-End Developer for a project, contributing to the development of web applications.",
     // icon: <JsIcon className="w-5 ml-1" />
   },
   {
-    position: "Intern",
-    company: "Facebook",
-    companyLink: "/",
-    time: "Summer 2021",
-    address: "Mountain View, CA",
-    work: "Worked on a team responsible for developing a new mobile app feature that allowed users to create and share short - form video content, including designing and implementing a new user interface and developing the backend infrastructure to support the feature.",
+    position: "Full - Stack Teaching Assistant",
+    company: "Henry",
+    companyLink: "https://www.soyhenry.com/",
+    time: "feb 2021 - Present",
+    address: "CABA, Buenos Aires (remote)",
+    work: "Collaborate with the team as a Junior Front-End Developer for a project, contributing to the development of web applications.",
     // icon: <JsIcon className="w-5 ml-1" />
   },
   {
-    position: "Software Developer ",
-    company: "Amazon",
-    companyLink: "/",
-    time: "2020 - 2021",
-    address: "Seattle, WA.",
-    work: "Worked on a team responsible for developing Amazon's mobile app, including implementing new features such as product recommendations and user reviews, and optimizing the app's performance and reliability.",
+    position: "freelance web developer",
+    company: "freelance",
+    companyLink: "https://vontrauwitz-portfolio.vercel.app/",
+    time: "may 2022 - Present",
+    address: "México City, México",
+    work: "Collaborate with the team as a Junior Front-End Developer for a project, contributing to the development of web applications.",
     // icon: <JsIcon className="w-5 ml-1" />
   },
-  {
-    position: "Software Developer Intern",
-    company: "Microsoft",
-    companyLink: "/",
-    time: "Summer 2019 ",
-    address: "Redmond, WA.",
-    work: "Worked on a team responsible for developing new features for Microsoft's Windows operating system, including implementing a new user interface for a system settings panel and optimizing the performance of a core system component.",
-    // icon: <JsIcon className="w-5 ml-1" />
-  },
-  {
-    position: "Teaching Assistant",
-    company: "MIT",
-    companyLink: "/",
-    time: "Fall 2018 ",
-    address: "Massachusetts Ave, Cambridge, MA.",
-    work: "Assisted in teaching a course on computer programming, held office hours to help students with assignments, and graded exams and assignments.",
-    // icon: <JsIcon className="w-5 ml-1" />
-  },
+
 ]
 

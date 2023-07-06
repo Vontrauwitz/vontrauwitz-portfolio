@@ -76,10 +76,10 @@ const Certificates = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 px-9" style={{ minHeight: '300px' }}>
+          <div className="grid grid-cols-3 gap-2 px-4" style={{ minHeight: '300px' }}>
             {listItems.map((item, index) => (
               <div
-                className="flex items-center self-start mt-2 px-4 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black" style={{ minHeight: '100px' }}
+                className="flex items-center self-start mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '100px' }}
                 key={index}
               >
                 <button

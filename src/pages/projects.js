@@ -5,12 +5,11 @@ import AnimatedText from "@/components/AnimatedText";
 import Link from "next/link";
 import Image from "next/image";
 import { projects, project } from '../../public/All-Texts/projectConst';
-import project1 from '../../public/images/projects/agency-website-cover-image.jpg'
-import { GithubIcon } from '@/components/Icons';
 
 
 
-const FeaturedProject = ({ type, title, summary, img, link, icon }) => {
+
+const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => {
 
   return (
     <article
@@ -39,7 +38,7 @@ const FeaturedProject = ({ type, title, summary, img, link, icon }) => {
           {summary}
         </p>
         <div className='mt-2 flex items-center'>
-          <Link href={icon} target="_blank" className='w-10'>
+          <Link href={iconWeb} target="_blank" className='w-10'>
             {icon}
           </Link>
           <Link href={link} target="_blank"
@@ -54,7 +53,7 @@ const FeaturedProject = ({ type, title, summary, img, link, icon }) => {
   )
 }
 
-const Project = ({ title, img, link, icon }) => {
+const Project = ({ title, img, link, icon, iconWeb }) => {
 
   return (
     <article className='w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative mb-5'>
@@ -111,7 +110,7 @@ const Projects = () => {
           <div className="grid grid-cols-12 gap-24">
             {/* //TODO UN PROYECTO POR LINEA */}
 
-            {/* <div className='col-span-12'>
+            <div className='col-span-12'>
               <div className=''>
                 {projects.map((proj, index) => (
                   <FeaturedProject
@@ -122,22 +121,24 @@ const Projects = () => {
                     img={proj.img}
                     link={proj.link}
                     icon={proj.icon}
+                    iconWeb={proj.iconWeb}
                   />
                 ))}
               </div>
-            </div> */}
+            </div>
 
             {/* //TODO DOS PROYECTOS POR LINEA */}
-            {project.map((proj, index) => (
+            {/* {project.map((proj, index) => (
               <div className="col-span-6" key={index}>
                 <Project
                   title={proj.title}
                   img={proj.img}
                   link={proj.link}
                   icon={proj.icon}
+                  iconWeb={proj.iconWeb}
                 />
               </div>
-            ))}
+            ))} */}
           </div>
         </Layout>
       </main >

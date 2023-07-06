@@ -12,6 +12,8 @@ import digNegGog from '../../public/images/certificates/dig_neg.png'
 import introNative from '../../public/images/certificates/intro_react_native.png'
 import nativeApis from '../../public/images/certificates/native_apis.png'
 import nativeForms from '../../public/images/certificates/react_native_form.png'
+import contaCert from '../../public/images/certificates/conta_ebc.png'
+
 
 
 
@@ -53,14 +55,14 @@ export const frontend = [
     image: introNative,
   },
   {
-    title: "Curso Práctico de React Native: Formularios, Almacenamiento y Deploy",
+    title: "React Native: Formularios, Almacenamiento y Deploy",
     school: "Platzi",
     link: "https://platzi.com/p/hans.trauwitz/curso/2558-react-native-formularios-almacenamiento/diploma/detalle/",
     issued: "dec 2022",
     image: nativeForms,
   },
   {
-    title: "Curso Práctico de React Native: Manejo de Listas y Consumo de APIs",
+    title: "React Native: Manejo de Listas y Consumo de APIs",
     school: "Platzi",
     link: "https://platzi.com/p/hans.trauwitz/curso/2557-react-native-listas-apis/diploma/detalle/",
     issued: "dec 2022",
@@ -79,7 +81,7 @@ export const backend = [
     image: fundMongoPzi,
   },
   {
-    title: "Curso de Introducción a AWS: Fundamentos de Cloud Computing",
+    title: "Introducción a AWS: Fundamentos de Cloud Computing",
     school: "Platzi",
     link: "https://platzi.com/p/hans.trauwitz/curso/2731-aws-fundamentos/diploma/detalle/",
     issued: "dec 2022",
@@ -120,17 +122,20 @@ export const misc = [
 
   },
   {
-    title: "Digitaliza paso a paso tu negocio con herramientas de Google",
+    title: "Digitaliza paso a paso tu negocio",
     school: "Google Actívate",
     link: "https://learndigital.withgoogle.com/activate/validate-certificate-code",
     issued: "jun 2022",
     image: digNegGog,
   },
-  // {
-  //   title: "Bachelor Of Science In Computer Science",
-  //   school: "Open Bootcamp",
-  //   link: "https://www.google.com",
-  //   issued: "2016-2020",
-  //   image: sfpc,
-  // },
+  {
+    title: "Licenciado en Contaduria Pública",
+    school: "EBC",
+    link: "https://www.cedulaprofesional.sep.gob.mx/cedula/presidencia/indexAvanzada.action",
+    issued: "jun 2015",
+    image: contaCert,
+  },
 ]
+
+
+

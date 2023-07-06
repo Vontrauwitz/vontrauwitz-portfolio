@@ -10,7 +10,7 @@ const Details = ({ type, schoolLink, place, info, position, company, companyLink
   return (
 
     <li ref={ref}
-      className='my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col items-center justify-between'
+      className='my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col  justify-between'
     >
 
       <LilIcon reference={ref} />

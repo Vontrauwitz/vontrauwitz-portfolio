@@ -3,19 +3,19 @@ import Image from "next/image";
 
 export const frontend = [
   {
-    name: "JavaScript",
+    name: "Java Script",
     link: "/",
     description: "Is a popular programming language used for creating interactive web pages and web applications.",
     icon: <JsIcon className="w-5 ml-1" />
   },
   {
-    name: "ReactJS",
+    name: "React JS",
     link: "/",
     description: "Is a JavaScript library used for building user interfaces for single - page applications.It allows for the creation of reusable UI components.",
     icon: <ReactIcon className="w-5 ml-1" />
   },
   {
-    name: "NextJS",
+    name: "Next JS",
     link: "/",
     description: "Is a framework built on top of ReactJS that provides server- side rendering, static site generation, and other advanced features for building web applications.",
     icon: <NextJsIcon className="w-5 ml-1" />
@@ -33,7 +33,7 @@ export const frontend = [
     icon: <TailwindIcon className="w-5 ml-1" />
   },
   {
-    name: "ChakraUI",
+    name: "Chakra UI",
     link: "/",
     description: "Is a modular and accessible component library for React applications.It provides a set of customizable and responsive UI components.",
     icon: <ChakraUiIcon className="w-5 ml-1" />
@@ -51,19 +51,19 @@ export const frontend = [
     icon: <BootstrapIcon className="w-5 ml-1" />
   },
   {
-    name: "R-Native",
+    name: "React Native",
     link: "/",
     description: "React - Native s a framework for building mobile applications using JavaScript and React.It allows for cross - platform development targeting iOS and Android.",
     icon: <ReactIcon className="w-5 ml-1" />
   },
   {
-    name: "R-Toolkit",
+    name: "Redux Toolkit",
     link: "/",
     description: "Is an opinionated set of utilities and tools that simplifies the process of working with Redux.It provides a standardized way of writing Redux code.",
     icon: <ReduxIcon className="w-5 ml-1" />
   },
   {
-    name: "TypeScript",
+    name: "Type Script",
     link: "/",
     description: "Is a statically- typed superset of JavaScript that adds optional type annotations.It helps catch errors and improve code maintainability.",
     icon: <TypeScriptIcon className="w-5 ml-1" />
@@ -93,21 +93,21 @@ export const backend = [
     icon: <PostgreSqlIcon className="w-5 ml-1" />
   },
   {
-    name: "MongoDB",
+    name: "Mongo DB",
     link: "/",
     description: "Is a NoSQL document database that provides high performance, scalability, and flexibility for storing and querying unstructured data.",
     icon: <MongoDbIcon className="w-3 ml-1" />
 
   },
   {
-    name: "MySQL",
+    name: "My SQL",
     link: "/",
     description: "Is an open-source relational database management system (RDBMS) widely used for its simplicity, reliability, and performance.",
     icon: <MySqlIcon className="w-5 ml-1" />
 
   },
   {
-    name: "Node.js",
+    name: "Node js",
     link: "/",
     description: "Is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows you to run JavaScript code on the server-side, enabling the development of scalable and high-performance web applications.",
     icon: <NodeJsIcon className="w-5 ml-1" />
@@ -135,7 +135,7 @@ export const backend = [
 
   },
   {
-    name: "GraphQL",
+    name: "Graph QL",
     link: "/",
     description: "Is a query language and runtime for APIs. It provides a more efficient and flexible approach to data fetching, allowing clients to request specific data structures and reducing over-fetching and under-fetching of data.",
     icon: <GraphQLIcon className="w-5 ml-1" />
@@ -156,7 +156,7 @@ export const backend = [
 
   },
   {
-    name: "SpringBoot",
+    name: "Spring Boot",
     link: "/",
     description: "Is a Java-based framework that simplifies the development of stand-alone, production-grade Spring applications. It provides a streamlined configuration and development experience for building robust and scalable applications.",
     icon: <SpringBootIcon className="w-3 ml-1" />
@@ -273,7 +273,7 @@ export const tools = [
     description: "Is an all-in-one workspace and productivity tool. It allows you to create and organize notes, documents, databases, and tasks in a flexible and customizable manner. Notion is popular for its versatility and ability to adapt to various personal and team workflows."
   },
   {
-    name: "Photoshop",
+    name: "Photo shop",
     link: "/",
     description: "Is a powerful image editing software developed by Adobe. It is widely used for tasks such as photo retouching, image composition, and graphic design. Photoshop offers a wide range of tools and features for manipulating and enhancing digital images.",
     icon: <PhotoshopIcon className="w-5 ml-1" />

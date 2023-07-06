@@ -1,39 +1,98 @@
 import { GithubIcon } from "@/components/Icons"
 
-// export const projects = [
+export const projects = [
+  {
+    type: "E-Commerce Website",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "garantiplus",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "criptoweb",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "profy",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "pokemon js",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "pokemon native",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "countries",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+  {
+    type: "foods",
+    title: "Mercado Agave",
+    summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    link: "https://mercadoagave.vercel.app/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
+  },
+]
+
+// export const project = [
 //   {
-//     type: "Featured Project",
-//     title: "Crypto Screener Application",
-//     summary: "A feature-rich Crypto Screener App using React, Tailwind CSS, Context API, React Router, and Recharts. It shows details regarding almost all the cryptocurrency. You can easily convert the price to your local currency.",
-//     img: require("../../public/images/projects/crypto-screener-cover-image.jpg"),
-//     link: "https://criptoweb.vercel.app",
-//     icon: <GithubIcon className="w-5 ml-1" />
+//  type: "E-Commerce Website",
+// title: "Mercado Agave",
+//   summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+//     img: require("../../public/images/projects/proy/ondasagave.jpg"),
+//       link: "https://mercadoagave.vercel.app/",
+//         icon: <GithubIcon className="w-5 ml-1" />,
+//           iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
 //   },
 //   {
-//     type: "Featured Project",
-//     title: "Crypto Screener Application",
-//     summary: "A feature-rich Crypto Screener App using React, Tailwind CSS, Context API, React Router, and Recharts. It shows details regarding almost all the cryptocurrency. You can easily convert the price to your local currency.",
-//     img: require("../../public/images/projects/crypto-screener-cover-image.jpg"),
-//     link: "https://criptoweb.vercel.app",
-//     icon: <GithubIcon className="w-5 ml-1" />
+  // type: "E-Commerce Website",
+  // title: "Mercado Agave",
+  //   summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
+  //     img: require("../../public/images/projects/proy/ondasagave.jpg"),
+  //       link: "https://mercadoagave.vercel.app/",
+  //         icon: <GithubIcon className="w-5 ml-1" />,
+            // iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
 //   },
 // ]
 
-export const project = [
-  {
-    type: "pepito",
-    title: "Crypto Screener Application",
-    summary: "A feature-rich Crypto Screener App using React, Tailwind CSS, Context API, React Router, and Recharts. It shows details regarding almost all the cryptocurrency. You can easily convert the price to your local currency.",
-    img: require("../../public/images/projects/crypto-screener-cover-image.jpg"),
-    link: "https://criptoweb.vercel.app",
-    icon: <GithubIcon className="w-5 ml-1" />
-  },
-  {
-    type: "pepito",
-    title: "pepito2",
-    summary: "A feature-rich Crypto Screener App using React, Tailwind CSS, Context API, React Router, and Recharts. It shows details regarding almost all the cryptocurrency. You can easily convert the price to your local currency.",
-    img: require("../../public/images/projects/crypto-screener-cover-image.jpg"),
-    link: "https://criptoweb.vercel.app",
-    icon: <GithubIcon className="w-5 ml-1" />
-  },
-]
