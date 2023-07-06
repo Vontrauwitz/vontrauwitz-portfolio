@@ -15,37 +15,67 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
     <article
       className='w-full flex items-center justify-between rounded-3xl border border-solid border-dark bg-light shadow-2xl p-12 my-5 '
     >
+      {
+        // Check if the link prop is equal to "/"
+        link === '/' ?
+          <Image src={img} alt={title} className="h-auto w-1/2 overflow-hidden rounded-lg" />
+          : (
+            // If the link prop is not equal to "/", render the Link component
+            <Link href={link} target="_blank"
+              className='w-1/2 cursor-pointer overflow-hidden rounded-lg'
+            >
+              <Image src={img} alt={title} className="w-full h-auto" />
+            </Link>
+          )
+      }
 
-      <Link href={link} target="_blank"
-        className='w-1/2 cursor-pointer overflow-hidden rounded-lg'
-      >
-        <Image src={img} alt={title} className="w-full h-auto" />
-      </Link>
       <div className='w-1/2 flex flex-col items-start justify-between pl-6'>
         <span
           className='text-primary font-bold text-xl'
         >
           {type}
         </span>
-        <Link href={link} target="_blank" className='hover:underline underline-offset-2'>
-          <h2
-            className=' my-2 w-full text-left text-4xl font-bold'
-          >{title}</h2>
-        </Link>
+        {
+          // Check if the link prop is equal to "/"
+          link === '/' ?
+            <h2
+              className=' my-2 w-full text-left text-4xl font-bold hover:underline underline-offset-2'
+            >{title}</h2>
+            : (
+              // If the link prop is not equal to "/", render the Link component
+              <Link href={link} target="_blank" className='hover:underline underline-offset-2'>
+                <h2
+                  className=' my-2 w-full text-left text-4xl font-bold'
+                >{title}</h2>
+              </Link>
+            )
+        }
+
+
         <p
           className="my-2 font medium text-dark"
         >
           {summary}
         </p>
         <div className='mt-2 flex items-center'>
+
+
           <Link href={iconWeb} target="_blank" className='w-10'>
             {icon}
           </Link>
-          <Link href={link} target="_blank"
-            className='ml-4 rounded-xl bg-dark text-light p-2 px-6 text-lg font-semibold'
-          >
-            Visit Project
-          </Link>
+
+          {
+            // Check if the link prop is equal to "/"
+            link === '/' ? null : (
+              // If the link prop is not equal to "/", render the Link component
+              <Link href={link} target="_blank"
+                className='ml-4 rounded-xl bg-dark text-light p-2 px-6 text-lg font-semibold'
+              >
+                Visit Project
+              </Link>
+            )
+          }
+
         </div>
       </div>
 
@@ -53,6 +83,7 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
   )
 }
 
+// TODO this component have to change if i use it in the future
 const Project = ({ title, img, link, icon, iconWeb }) => {
 
   return (
@@ -101,16 +132,16 @@ const Projects = () => {
         className="w-full mb-16 flex flex-col items-center justify-center"
       >
         <Layout
-          className="pt-16"
+          className="pt-8"
         >
-          <AnimatedText text="Imagination Trumps Knowledge!"
-            className="mb-16"
+          <AnimatedText text="Knowledge is power, but imagination is limitless!"
+            className="mb-8"
           />
 
           <div className="grid grid-cols-12 gap-24">
             {/* //TODO UN PROYECTO POR LINEA */}
 
-            <div className='col-span-12'>
+            <div className='col-span-11'>
               <div className=''>
                 {projects.map((proj, index) => (
                   <FeaturedProject
@@ -141,7 +172,7 @@ const Projects = () => {
             ))} */}
           </div>
         </Layout>
-      </main >
+      </main>
     </>
   );
 };

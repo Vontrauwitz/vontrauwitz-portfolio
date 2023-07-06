@@ -17,14 +17,21 @@ export default function Home() {
         <Layout className='pt-0'>
           <div className='flex items-center'>
             <div className='w-1/2'>
-              <Image src={profileimg} alt="vontrauwitz" className='w-[70%] h-auto mb-20' />
+              <Image src={profileimg} alt="vontrauwitz" className='w-[70%] min-h-5rem mb-2' />
             </div>
             <div className='w-1/2 flex flex-col items-start self-center'>
-              <AnimatedText text="Code Artist: Turning Dreams into Digital Realities." className='!text-4xl !text-left' />
+              <AnimatedText text="Code Artist: Turning Dreams into Digital Reality." className='!text-4xl !text-left' />
               <p
-                className='my-4 text-base front-medium'
+                className='my-2 text-base front-medium'
               >
-                Hello there! I&apos;m a highly skilled full-stack developer passionate about transforming ideas into impressive web applications. Dive into my latest projects, showcasing my programming expertise and web development. Let&apos;s embark on an exciting journey where innovation meets coding excellence.;
+                Hello there! I am a full-stack developer with a passion for turning ideas into reality. I have a strong understanding of both the front-end and back-end development of web applications, and I am always looking for new and innovative ways to create user-friendly and engaging experiences.
+
+                I believe that code is a powerful tool that can be used to solve problems and create new possibilities. I am excited to use my skills to help businesses and individuals achieve their goals.
+
+                I am confident that I have the skills and experience to be a valuable asset to your team.
+
+                Let&aposs embark on an exciting journey where innovation meets coding excellence.
+
               </p>
               <div className='flex items-center self-start mt-2'>
                 <Link
@@ -39,13 +46,13 @@ export default function Home() {
 
                 </Link>
                 {/* //TODO NO ME GUSTA ESTO */}
-                <Link
-                  href="mailto:hans.trauwitz@gmail.com"
+                {/* <Link
+                  href="mailto:"
                   target={"_blank"}
                   className="ml-6 text-lg font-medium capitalize text-dark underline"
                 >
                   Contact
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

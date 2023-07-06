@@ -103,10 +103,7 @@ const Contact = () => {
               <p
                 className='my-4 text-base front-medium'
               >
-
-                I am interested in freelance opportunities - especially on ambitious
-                or large projects. However, if you have any other requests or
-                questions, don&apos;t hesitate to contact me using below form either.
+                I am open to freelance opportunities, especially on ambitious or large projects. I am also happy to discuss other opportunities, so please do not hesitate to contact me if you have any questions or requests.
 
               </p>
               <form onSubmit={handleSubmit}>
