@@ -90,8 +90,8 @@ const Contact = () => {
   return (
     <>
       <Head>
-        <title>VontrauwitzDEV | Projects</title>
-        <meta name="projects" content="my projects" />
+        <title>VontrauwitzDEV | Contact</title>
+        <meta name="contact" content="contact me" />
       </Head>
       <main>
         <Layout>
