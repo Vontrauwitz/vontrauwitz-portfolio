@@ -32,7 +32,7 @@ export const projects = [
     type: "profy",
     title: "Mercado Agave",
     summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
-    img: require("../../public/images/projects/proy/ondasagave.jpg"),
+    img: require("../../public/images/projects/proy/h_pro.jpg"),
     link: "/",
     icon: <GithubIcon className="w-5 ml-1" />,
     iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
