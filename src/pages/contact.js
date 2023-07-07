@@ -93,7 +93,7 @@ const Contact = () => {
         <title>VontrauwitzDEV | Contact</title>
         <meta name="contact" content="contact me" />
       </Head>
-      <main>
+      <main className='dark:text-light'>
         <Layout>
           <div className="flex items-center justify-between w-full mb-10">
 
@@ -130,7 +130,7 @@ const Contact = () => {
                   <button
                     onClick={handleSubmit}
                     className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold 
-                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black'
+                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                   >
                     Send
                   </button>

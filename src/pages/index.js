@@ -13,7 +13,7 @@ export default function Home() {
         <title>VontrauwitzDEV | Portfolio</title>
         <meta name="welcome" content="welcome" />
       </Head>
-      <main className='flex items-center text-dark w-full min-h-screen'>
+      <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
         <Layout className='pt-0'>
           <div className='flex items-center'>
             <div className='w-1/2'>
@@ -38,7 +38,7 @@ export default function Home() {
                   href="/cvhanstrauwitzbrita.pdf"
                   target={"_blank"}
                   className='flex items-center bg-dark text-light p-1.5 px-6 rounded-lg text-lg font-semibold 
-                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black'
+                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                   download={true}
                 >
                   Resume

@@ -28,7 +28,7 @@ const Skills = () => {
           <div className="py-4 flex justify-center">
             <button
               className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-300'
-                } mr-4 p-3 rounded text-white`}
+                } mr-4 p-3 rounded text-dark font-bold`}
               onClick={(e) => {
                 e.preventDefault();
                 handleButtonClick('button1');
@@ -38,7 +38,7 @@ const Skills = () => {
             </button>
             <button
               className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-300'
-                } mx-4 p-3 rounded text-white`}
+                } mx-4 p-3 rounded text-dark font-bold`}
               onClick={(e) => {
                 e.preventDefault();
                 handleButtonClick('button2');
@@ -48,7 +48,7 @@ const Skills = () => {
             </button>
             <button
               className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-300'
-                } ml-4 p-3 rounded text-white`}
+                } ml-4 p-3 rounded text-dark font-bold`}
               onClick={(e) => {
                 e.preventDefault();
                 handleButtonClick('button3');
@@ -61,7 +61,7 @@ const Skills = () => {
           <div className="grid grid-cols-4 gap-2">
             {listItems.map((item, index) => (
               <div
-                className="flex items-center self-start mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3" style={{ minHeight: '70px' }}
+                className="flex items-center self-start mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '70px' }}
                 key={index}
               >
                 <button
