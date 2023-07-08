@@ -14,13 +14,23 @@ export default function Home() {
         <meta name="welcome" content="welcome" />
       </Head>
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
-        <Layout className='pt-0'>
-          <div className='flex items-center'>
-            <div className='w-1/2'>
-              <Image src={profileimg} alt="vontrauwitz" className='w-[70%] min-h-5rem mb-2' />
+        <Layout className='pt-0 bg-slate-500'>
+          <div className='flex lg:items-center lg:flex-col'>
+            <div className='w-1/2 md:w-full'>
+              <Image
+                src={profileimg}
+                alt="vontrauwitz"
+                className='w-[100%] my-2 lg:mb-15'
+                priority
+                sizes='(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw,
+                50vw'
+              />
             </div>
-            <div className='w-1/2 flex flex-col items-start self-center'>
-              <AnimatedText text="Code Artist: Turning Dreams into Digital Reality." className='!text-4xl !text-left' />
+            <div className='w-1/2 lg:w-full flex flex-col items-start self-center'>
+              <AnimatedText text="Code Artist" className='text-left lg:text-6xl md:text-5xl lg:text-center sm:text-4xl xs:text-3xl ' />
+              <AnimatedText text="Turning Dreams into Digital Reality." className='text-xl text-left lg:text-center md:text-lg sm:text-sm' />
+
               <p
                 className='my-2 text-base front-medium'
               >
@@ -30,14 +40,14 @@ export default function Home() {
 
                 I am confident that I have the skills and experience to be a valuable asset to your team.
 
-                Let&aposs embark on an exciting journey where innovation meets coding excellence.
+                Let&apo;s embark on an exciting journey where innovation meets coding excellence.
 
               </p>
               <div className='flex items-center self-start mt-2'>
                 <Link
                   href="/cvhanstrauwitzbrita.pdf"
                   target={"_blank"}
-                  className='flex items-center bg-dark text-light p-1.5 px-6 rounded-lg text-lg font-semibold 
+                  className='flex items-center bg-dark text-light p-1.5 px-6 rounded-lg text-lg font-semibold
                   hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                   download={true}
                 >
@@ -61,3 +71,10 @@ export default function Home() {
     </>
   )
 }
+
+
+
+
+
+
+

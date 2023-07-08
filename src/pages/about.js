@@ -47,7 +47,7 @@ const About = () => {
         <title>VontrauwitzDEV | About</title>
         <meta name="description" content="my description" />
       </Head>
-      <main className='flex w-full flex-col items-center justify-center dark:text-light'>
+      <main className='flex w-full flex-col items-center justify-center dark:text-light '>
         <Layout className='pt-16'>
           <AnimatedText className='mb-16' text="Code To Solve Problems! " />
           <div className='grid w-full grid-cols-8 gap-16 pb-10'>
