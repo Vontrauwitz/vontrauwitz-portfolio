@@ -14,7 +14,7 @@ export default function Home() {
         <meta name="welcome" content="welcome" />
       </Head>
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
-        <Layout className='pt-0 bg-slate-500'>
+        <Layout className='pt-0 '>
           <div className='flex lg:items-center lg:flex-col'>
             <div className='w-1/2 md:w-full'>
               <Image

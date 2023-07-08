@@ -24,7 +24,7 @@ import React from 'react';
 
 const Layout = ({ children, className = "" }) => {
   return (
-    <div className={`w-full h-full bg-light p-8 sm:px-4 md:px-8 lg:px-16 xl:px-20 2xl:px-20 ${className}`}>
+    <div className={`w-full h-full bg-light dark:bg-dark p-8 sm:px-4 md:px-8 lg:px-16 xl:px-20 2xl:px-20 ${className}`}>
       <div className="mx-auto">{children}</div>
     </div>
   );
