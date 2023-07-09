@@ -10,7 +10,7 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
   return (
 
     <li ref={ref}
-      className='my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col items-center justify-between'
+      className='my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col items-center justify-between md:w-[80%]'
     >
 
       <LilIcon reference={ref} />
@@ -21,7 +21,7 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
         transition={{ duration: 0.5, type: "spring" }}
       >
         <h3
-          className='capitalize font-bold text-2xl'
+          className='capitalize font-bold text-2xl sm:text-xl xs:text-lg'
         >
           {position}&nbsp;
           <a
@@ -32,10 +32,10 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
             @{company}
           </a>
         </h3>
-        <span className='capitalize font-medium text-dark/75'>
+        <span className='capitalize font-medium text-dark/75 xs:text-sm'>
           {time} | {address}
         </span>
-        <p className='font-medium w-full'>
+        <p className='font-medium w-full md:text-sm'>
           {work}
         </p>
       </motion.div>
@@ -53,20 +53,22 @@ const Experience = () => {
 
   return (
     <div className='my-10'>
-      <h2 className='font-bold text-8xl mb-20 w-full text-center lg:!text-7xl md:!text-5xl sm:!text-4xl'>Experience</h2>
+      <h2 className='font-bold text-8xl mb-20 w-full text-center lg:!text-7xl md:!text-5xl sm:!text-4xl'>
+        Experience
+      </h2>
       <div
         ref={ref}
-        className='w-[75%] mx-auto relative '
+        className='w-[75%] mx-auto relative lg:w-[90%] md:w-full'
       >
 
         <motion.div
           style={{
             scaleY: scrollYProgress
           }}
-          className='absolute left-7 top-0 w-[4px] h-full bg-dark origin-top dark:bg-light' />
+          className='absolute left-7 top-0 w-[4px] h-full bg-dark origin-top dark:bg-light md:w-[2px] md_left-[30px] xs:left-[20px]' />
 
         <ul
-          className='w-full flex flex-col items-start justify-between ml-4:'
+          className='w-full flex flex-col items-start justify-between ml-4 xs:ml-2'
         >
           {experience.map((exp, index) => (
             <Details
