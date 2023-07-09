@@ -1,4 +1,4 @@
-import { AwsIcon, BlenderIcon, BootstrapIcon, ChakraUiIcon, CssIcon, ExpressIcon, FigmaIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, JavaIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NextJsIcon, NodeJsIcon, PhotoshopIcon, PhpIcon, PostgreSqlIcon, PostmanIcon, ReactIcon, ReduxIcon, SeoIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon, WebpackIcon } from "@/components/Icons";
+import { AwsIcon, BlenderIcon, BootstrapIcon, ChakraUiIcon, CssIcon, ExpressIcon, FigmaIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, JavaIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NetlifyIcon, NextJsIcon, NodeJsIcon, NotionIcon, PhotoshopIcon, PhpIcon, PostgreSqlIcon, PostmanIcon, ReactIcon, ReduxIcon, SeoIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon, WebpackIcon } from "@/components/Icons";
 import Image from "next/image";
 
 export const frontend = [
@@ -205,7 +205,7 @@ export const tools = [
     name: "Netlify",
     link: "/",
     description: "Is a web development platform that offers features like continuous deployment, hosting, and serverless functions. It simplifies the process of deploying and managing static websites and web applications.",
-
+    icon: <NetlifyIcon className="w-5 ml-1" />
   },
   {
     name: "AWS",
@@ -217,7 +217,8 @@ export const tools = [
   {
     name: "VSCode",
     link: "/",
-    description: "(Visual Studio Code) Is a popular source code editor developed by Microsoft. It provides a wide range of features, including code highlighting, debugging, and extensions, making it highly customizable and suitable for various programming languages."
+    description: "(Visual Studio Code) Is a popular source code editor developed by Microsoft. It provides a wide range of features, including code highlighting, debugging, and extensions, making it highly customizable and suitable for various programming languages.",
+    // icon: <VscIcon className="w-5 ml-1" />
   },
   {
     name: "Postman",
@@ -270,7 +271,8 @@ export const tools = [
   {
     name: "Notion",
     link: "/",
-    description: "Is an all-in-one workspace and productivity tool. It allows you to create and organize notes, documents, databases, and tasks in a flexible and customizable manner. Notion is popular for its versatility and ability to adapt to various personal and team workflows."
+    description: "Is an all-in-one workspace and productivity tool. It allows you to create and organize notes, documents, databases, and tasks in a flexible and customizable manner. Notion is popular for its versatility and ability to adapt to various personal and team workflows.",
+    icon: <NotionIcon className="w-5 ml-1" />
   },
   {
     name: "Photo shop",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Logo from './Logo'
 import { useRouter } from 'next/router';
@@ -64,6 +64,20 @@ const NavBar = () => {
 
   const [mode, setMode] = UseThemeSwitcher();
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   const handleClick = () => {
     setIsOpen(!isOpen)
@@ -156,7 +170,9 @@ const NavBar = () => {
           <motion.div
             initial={{ scale: 0, opacity: 0, x: "-50%", y: "-50%", }}
             animate={{ scale: 1, opacity: 1 }}
-            className='min-w-[70vw] flex flex-col justify-between z-30 items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-32'>
+            className='min-w-[70vw] flex flex-col justify-between z-30 items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-32'
+            ref={menuRef}
+          >
             <nav className='flex items-center flex-col justify-center'>
               <CustomMobilLink href="/" title="Home" className='' toggle={handleClick} />
               <CustomMobilLink href="/about" title="About" className='' toggle={handleClick} />
