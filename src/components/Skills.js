@@ -24,11 +24,11 @@ const Skills = () => {
       <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Skills" />
 
       <div className="flex pt-10 justify-between w-full lg:flex-col">
-        <div className="w-1/2">
+        <div className="w-1/2 lg:w-full">
           <div className="py-4 flex justify-center">
             <button
               className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-300'
-                } mr-4 p-3 rounded text-dark font-bold`}
+                } mr-4 p-3 rounded text-dark font-bold  sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
               onClick={(e) => {
                 e.preventDefault();
                 handleButtonClick('button1');
@@ -38,7 +38,7 @@ const Skills = () => {
             </button>
             <button
               className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-300'
-                } mx-4 p-3 rounded text-dark font-bold`}
+                } mx-2 p-2 rounded text-dark font-bold sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
               onClick={(e) => {
                 e.preventDefault();
                 handleButtonClick('button2');
@@ -48,7 +48,7 @@ const Skills = () => {
             </button>
             <button
               className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-300'
-                } ml-4 p-3 rounded text-dark font-bold`}
+                } ml-4 p-3 rounded text-dark font-bold sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
               onClick={(e) => {
                 e.preventDefault();
                 handleButtonClick('button3');
@@ -58,31 +58,31 @@ const Skills = () => {
             </button>
           </div>
 
-          {/* <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-2">
             {listItems.map((item, index) => (
               <div
-                className="flex items-center self-start mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '70px' }}
+                // className="flex flex-col mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
+
+                className="flex flex-col items-center justify-center mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
                 key={index}
               >
-                <button
-                  onClick={() => setSelectedItem(item)}
-                  className={`${selectedItem === item ? 'text-primary' : ''} flex items-center justify-center p-0.5`}
-                >
-                  <div className="w-8">
+                <button onClick={() => setSelectedItem(item)} className={`${selectedItem === item ? 'text-primary' : ''} flex flex-col items-center`}>
+                  <svg className="w-6 h-6">
                     {item.icon}
-                  </div>
-                  <span className="text-xs ml-2">{item.name}</span>
+                  </svg>
+                  <span className="mt-2 sm:text-xs md:text-sm lg:text-md">
+                    {item.name}
+                  </span>
                 </button>
+
               </div>
             ))}
-          </div> */}
-
-
+          </div>
 
         </div>
-        <div className="w-1/2 flex justify-center">
+        <div className="w-1/2 lg:w-full flex items-center justify-center">
           {selectedItem && (
-            <div className="mt-4 px-20 pt-8">
+            <div className="px-5">
               <h3 className=" mt-10 py-5">{selectedItem.name}</h3>
               <p>{selectedItem.description}</p>
             </div>

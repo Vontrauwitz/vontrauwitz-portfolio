@@ -43,7 +43,7 @@ const Certificates = () => {
               <div className="flex justify-center space-x-4">
                 <button
                   className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                    } rounded text-white button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button1');
@@ -53,7 +53,7 @@ const Certificates = () => {
                 </button>
                 <button
                   className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                    } rounded text-white button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button2');
@@ -63,7 +63,7 @@ const Certificates = () => {
                 </button>
                 <button
                   className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                    } rounded text-white button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button3');
@@ -73,7 +73,7 @@ const Certificates = () => {
                 </button>
                 <button
                   className={`${selectedButton === 'button4' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button px-2 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                    } rounded text-white button px-2 sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button4');
@@ -85,30 +85,7 @@ const Certificates = () => {
 
             </div>
 
-            {/* <div className="grid grid-cols-3 gap-2 px-4" style={{ minHeight: '300px' }}>
-              {listItems.map((item, index) => (
-                <div
-                  className="flex items-center self-start mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '100px' }}
-                  key={index}
-                >
-                  <button
-                    onClick={() => setSelectedItem(item)}
-                    className={`${selectedItem === item ? 'text-primary' : ''} flex items-center justify-center`}
-                  >
-
-                    <div className="flex flex-col items-center text-xs">
-                      <p className="mb-2">{item.title}</p>
-                      <div className="flex">
-                        <p>{item.school}</p>
-                        <p className="ml-2">{item.issued}</p>
-                      </div>
-                    </div>
-                  </button>
-                </div>
-              ))}
-            </div> */}
-
-            <div className="grid grid-cols-3 gap-2 px-4 py-4 bg-slate-400" style={{ minHeight: '100px' }}>
+            <div className="grid grid-cols-3 gap-2 px-4 py-4" style={{ minHeight: '100px' }}>
               {listItems.map((item, index) => (
                 <div
                   className="flex items-center mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '125px' }}
@@ -130,8 +107,6 @@ const Certificates = () => {
                 </div>
               ))}
             </div>
-
-
 
           </div>
           <div className="w-1/2 flex justify-center lg:w-full">
