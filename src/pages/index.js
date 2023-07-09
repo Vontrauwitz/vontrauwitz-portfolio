@@ -5,6 +5,7 @@ import profileimg from "../../public/images/profile/yo1.3sf.png"
 import AnimatedText from '@/components/AnimatedText'
 import Link from 'next/link'
 import { LinkArrow } from '@/components/Icons'
+import TransitionEffect from '@/components/TransitionEffect'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <title>VontrauwitzDEV | Portfolio</title>
         <meta name="welcome" content="welcome" />
       </Head>
+      <TransitionEffect />
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
         <Layout className='pt-0 '>
           <div className='flex lg:items-center lg:flex-col'>

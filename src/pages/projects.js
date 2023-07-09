@@ -7,6 +7,7 @@ import Image from "next/image";
 import { projects, project } from '../../public/All-Texts/projectConst';
 import project1 from '../../public/images/projects/proy/curved_lines_diagonal_pokemon.jpg'
 import { GithubIcon } from '@/components/Icons';
+import TransitionEffect from "@/components/TransitionEffect";
 
 const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -69,6 +70,7 @@ const Projects = () => {
         <title>VontrauwitzDEV | Projects</title>
         <meta name="projects" content="my projects" />
       </Head>
+      <TransitionEffect />
       <main className="w-full mb-16 flex flex-col items-center justify-center">
         <Layout className="pt-16">
           <AnimatedText text="Imagination Trumps Knowledge!" className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" />

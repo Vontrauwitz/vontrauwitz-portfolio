@@ -1,4 +1,4 @@
-import { AwsIcon, BlenderIcon, BootstrapIcon, ChakraUiIcon, CssIcon, ExpressIcon, FigmaIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, JavaIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NetlifyIcon, NextJsIcon, NodeJsIcon, NotionIcon, PhotoshopIcon, PhpIcon, PostgreSqlIcon, PostmanIcon, ReactIcon, ReduxIcon, SeoIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon, WebpackIcon } from "@/components/Icons";
+import { AwsIcon, BlenderIcon, BootstrapIcon, ChakraUiIcon, CssIcon, DaVinciIcon, ExpressIcon, FigmaIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, InsomniaIcon, InteliJComponent, JavaIcon, JestIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NetlifyIcon, NextJsIcon, NodeJsIcon, NotionIcon, PhotoshopIcon, PhpIcon, PostgreSqlIcon, PostmanIcon, ReactIcon, ReduxIcon, ScrumIcon, SeoIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon, VscIcon, WebpackIcon } from "@/components/Icons";
 import Image from "next/image";
 
 export const frontend = [
@@ -218,7 +218,7 @@ export const tools = [
     name: "VSCode",
     link: "/",
     description: "(Visual Studio Code) Is a popular source code editor developed by Microsoft. It provides a wide range of features, including code highlighting, debugging, and extensions, making it highly customizable and suitable for various programming languages.",
-    // icon: <VscIcon className="w-5 ml-1" />
+    icon: <VscIcon className="w-5 ml-1" />
   },
   {
     name: "Postman",
@@ -230,7 +230,8 @@ export const tools = [
   {
     name: "Insomnia",
     link: "/",
-    description: "Is a powerful API client that helps you design, debug, and test APIs. It provides an intuitive interface for creating requests, organizing APIs, and managing environments, making API development and testing more efficient."
+    description: "Is a powerful API client that helps you design, debug, and test APIs. It provides an intuitive interface for creating requests, organizing APIs, and managing environments, making API development and testing more efficient.",
+    icon: <InsomniaIcon className="w-5 ml-1" />
   },
   {
     name: "Webpack",
@@ -242,12 +243,14 @@ export const tools = [
   {
     name: "Jest",
     link: "/",
-    description: "Is a popular JavaScript testing framework developed by Facebook. It provides a simple and intuitive way to write tests, with features like snapshot testing, mocking, and code coverage analysis."
+    description: "Is a popular JavaScript testing framework developed by Facebook. It provides a simple and intuitive way to write tests, with features like snapshot testing, mocking, and code coverage analysis.",
+    icon: <JestIcon className="w-5 ml-1" />
   },
   {
     name: "Scrum Board",
     link: "/",
-    description: "Is a visual tool used in Agile project management. It helps teams track and manage their work using columns representing different stages of the project, such as to-do, in progress, and done."
+    description: "Is a visual tool used in Agile project management. It helps teams track and manage their work using columns representing different stages of the project, such as to-do, in progress, and done.",
+    icon: <ScrumIcon className="w-5 ml-1" />
   },
   {
     name: "SEO",
@@ -259,7 +262,8 @@ export const tools = [
   {
     name: "IntelliJ",
     link: "/",
-    description: "Is a popular integrated development environment (IDE) for Java, Kotlin, and other programming languages. It provides advanced coding assistance, productivity features, and support for various frameworks and technologies."
+    description: "Is a popular integrated development environment (IDE) for Java, Kotlin, and other programming languages. It provides advanced coding assistance, productivity features, and support for various frameworks and technologies.",
+    icon: <InteliJComponent className="w-5 ml-1" />
   },
   {
     name: "Figma",
@@ -284,7 +288,8 @@ export const tools = [
   {
     name: "Dv Resolve",
     link: "/",
-    description: "Is a professional video editing and color grading software. It provides advanced editing tools, color correction capabilities, and visual effects. DaVinci Resolve is widely used in the film and television industry for its powerful features and high-quality output."
+    description: "Is a professional video editing and color grading software. It provides advanced editing tools, color correction capabilities, and visual effects. DaVinci Resolve is widely used in the film and television industry for its powerful features and high-quality output.",
+    icon: <DaVinciIcon className="w-5 ml-1" />
   },
   {
     name: "Blender",

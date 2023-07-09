@@ -4,6 +4,7 @@ import AnimatedText from '@/components/AnimatedText';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import TransitionEffect from '@/components/TransitionEffect';
 
 const Certificates = () => {
   const [selectedButton, setSelectedButton] = useState('button1');
@@ -34,6 +35,7 @@ const Certificates = () => {
         <title>VontrauwitzDEV | Certificates</title>
         <meta name="certificates" content="my certificates" />
       </Head>
+      <TransitionEffect />
       <main className="flex w-full flex-col items-center justify-center ">
         <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Certificates" />
 

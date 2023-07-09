@@ -8,6 +8,7 @@ import { sendContactForm } from '@/lib/api';
 import { LoadIcon } from '@/components/Icons';
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
+import TransitionEffect from '@/components/TransitionEffect';
 
 const initValues = {
   name: "",
@@ -97,6 +98,7 @@ const Contact = () => {
         <title>VontrauwitzDEV | Contact</title>
         <meta name="contact" content="contact me" />
       </Head>
+      <TransitionEffect />
       <main className='dark:text-light'>
         <Layout>
 

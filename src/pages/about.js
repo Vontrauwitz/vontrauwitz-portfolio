@@ -12,6 +12,7 @@ import Education from '@/components/Education';
 import Link from 'next/link'
 import { CertificateIcon } from '@/components/Icons'
 import Testimonials from '@/components/Testimonials';
+import TransitionEffect from '@/components/TransitionEffect';
 
 
 
@@ -47,6 +48,7 @@ const About = () => {
         <title>VontrauwitzDEV | About</title>
         <meta name="description" content="my description" />
       </Head>
+      <TransitionEffect />
       <main className='flex w-full flex-col items-center justify-center dark:text-light '>
         <Layout className='pt-16'>
           <AnimatedText className='mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl' text="Code To Solve Problems!" />
