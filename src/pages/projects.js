@@ -19,6 +19,7 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
     setIsHovered(false);
   };
 
+
   return (
     <article className='w-full h-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light py-1 px-2 relative mb-5'>
       <div
@@ -28,7 +29,7 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
         <Image src={img} alt={title} className="w-full h-60" />
         {isHovered && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-            <p className="text-light text-center p-4 text-xs">{summary}</p>
+            <p className="text-light text-center p-4 text-xs overflow-y-auto max-h-60">{summary}</p>
           </div>
         )}
       </div>
@@ -48,6 +49,7 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
       </div>
     </article>
   );
+
 };
 
 const Projects = () => {
@@ -59,8 +61,8 @@ const Projects = () => {
       </Head>
       <main className="w-full mb-16 flex flex-col items-center justify-center">
         <Layout className="pt-16">
-          <AnimatedText text="Imagination Trumps Knowledge!" className="mb-16" />
-          <div className="grid grid-cols-12 gap-10 ">
+          <AnimatedText text="Imagination Trumps Knowledge!" className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" />
+          <div className="grid grid-cols-12 gap-10  lg:flex lg:flex-col">
 
 
             {/* TODO DOS PROYECTOS POR LINEA */}
