@@ -23,7 +23,7 @@ const Skills = () => {
     <main className="flex w-full flex-col items-center justify-center">
       <AnimatedText className="mb-16" text="Skills" />
 
-      <div className="flex pt-10 justify-between w-full">
+      <div className="flex pt-10 justify-between w-full lg:flex-col">
         <div className="w-1/2">
           <div className="py-4 flex justify-center">
             <button
@@ -58,7 +58,7 @@ const Skills = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-4 gap-2">
+          {/* <div className="grid grid-cols-4 gap-2">
             {listItems.map((item, index) => (
               <div
                 className="flex items-center self-start mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '70px' }}
@@ -75,7 +75,7 @@ const Skills = () => {
                 </button>
               </div>
             ))}
-          </div>
+          </div> */}
 
 
 
