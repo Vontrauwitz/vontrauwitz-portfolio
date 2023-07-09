@@ -21,7 +21,7 @@ const Skills = () => {
 
   return (
     <main className="flex w-full flex-col items-center justify-center">
-      <AnimatedText className="mb-16" text="Skills" />
+      <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Skills" />
 
       <div className="flex pt-10 justify-between w-full lg:flex-col">
         <div className="w-1/2">

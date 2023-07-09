@@ -53,7 +53,7 @@ const Education = () => {
 
   return (
     <div className='my-20'>
-      <h2 className='font-bold text-8xl mb-20 w-full text-center'>Education</h2>
+      <h2 className='font-bold text-8xl mb-20 w-full text-center lg:!text-7xl md:!text-5xl sm:!text-4xl'>Education</h2>
       <div
         ref={ref}
         className='w-[75%] mx-auto relative '

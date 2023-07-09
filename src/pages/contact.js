@@ -95,11 +95,11 @@ const Contact = () => {
       </Head>
       <main className='dark:text-light'>
         <Layout>
-          <div className="flex items-center justify-between w-full mb-10">
+          <div className="flex items-center justify-between w-full mb-10  lg:flex-col-reverse">
 
-            <div className='w-1/2 flex flex-col items-center self-center px-11'>
+            <div className='w-1/2 lg:w-full flex flex-col items-center self-center px-2'>
               {/* //TODO <TypingCode />  CORREGIR ESTO Y HACERLO MAS TYPE*/}
-              <AnimatedText text="Contact me!" className='!text-4xl !text-left' />
+              <AnimatedText text="Contact me!" className='w-full mb-16 lg:!text-6xl md:!text-4xl sm:!text-3xl' />
               <p
                 className='my-4 text-base front-medium'
               >
@@ -140,10 +140,10 @@ const Contact = () => {
             </div>
             {/* //TODO esto no funciona y arrgelar el onblurr  pobner un disabled al boton/}
             {/* //TODO revisar bien estas caracteristicas pero si dejar el borde , hacer un isloading al boton */}
-            <div className='col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 mr-20 mt-10'>
+            <div className='w-full col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-2  lg:w-65%'>
               {/* //TODO esta es la ceja pero no se ve */}
               {/* <div className='absolute top-0 -right-6 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark' /> */}
-              <Image src={profilePic} alt='Vontrauwitz' className='w.full h-auto rounded-2xl' />
+              <Image src={profilePic} alt='Vontrauwitz' className='w-full h-auto rounded-2xl' />
             </div>
           </div>
         </Layout>
