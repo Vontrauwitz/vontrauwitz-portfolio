@@ -39,10 +39,10 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
           <h2 className='my-2 w-full text-left text-3xl font-bold'>{title}</h2>
         </Link>
         <div className='w-full mt-2 flex items-center justify-between'>
-          <Link href={link} target="_blank" className='text-lg font-semibold underline'>
+          <Link href={link} target={link} className='text-lg font-semibold underline'>
             Visit
           </Link>
-          <Link href={icon} target="_blank" className='w-8'>
+          <Link href={iconWeb} target={iconWeb} className='w-8'>
             {icon}
           </Link>
         </div>

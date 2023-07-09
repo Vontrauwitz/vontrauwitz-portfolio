@@ -1,18 +1,15 @@
 import Link from 'next/link';
 import React from 'react';
+import Layout from './Layout';
 
 const Testimonials = () => {
   return (
     <>
-      <footer className='flex flex-row items-center justify-between'>
-
-        <span>
-          Designed and Developed by Vontrauwitz
-        </span>
+      <Layout>
         <div>
-          {new Date().getFullYear()} <span className='text-primary text-bold text-2xl px-1'>&copy;</span>All Right Reserved.</div>
-      </footer>
-
+          Testimonials
+        </div>
+      </Layout>
     </>
   );
 }
