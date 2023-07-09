@@ -108,10 +108,10 @@ const Certificates = () => {
               ))}
             </div> */}
 
-            <div className="grid grid-cols-3 gap-2 px-4" style={{ minHeight: '300px' }}>
+            <div className="grid grid-cols-3 gap-2 px-4 py-4 bg-slate-400" style={{ minHeight: '100px' }}>
               {listItems.map((item, index) => (
                 <div
-                  className="flex items-center self-start mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '100px' }}
+                  className="flex items-center mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '125px' }}
                   key={index}
                 >
                   <button
@@ -131,13 +131,14 @@ const Certificates = () => {
               ))}
             </div>
 
+
+
           </div>
           <div className="w-1/2 flex justify-center lg:w-full">
             {selectedItem && (
-              <div className="mt-4 px-20 pt-8">
+              <div className="mt-4 px-5 pt-5 ">
                 <Image src={selectedItem.image} alt={selectedItem.title} width={500} height={300} className="my-4" />
 
-                {/* <p>{selectedItem.description}</p> */}
                 <Link
                   href={selectedItem.link}
                   target={"_blank"}
