@@ -134,11 +134,10 @@ const Contact = () => {
                 <div>
                   <button
                     onClick={handleSubmit}
-                    className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold 
-                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
-
+                    className='flex items-center bg-dark text-light p-.5 px-3 rounded-lg text-lg font-semibold 
+  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                   >
-                    {isLoading && <LoadIcon />}
+                    {isLoading && <LoadIcon className="text-black" />}
                     send
                   </button>
                 </div>
