@@ -20,6 +20,36 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
   };
 
 
+  // return (
+  //   <article className='w-full h-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light py-1 px-2 relative mb-5'>
+  //     <div
+  //       className={`relative w-full h-auto overflow-hidden rounded-lg ${isHovered ? 'opacity-95' : ''}`}
+  //       onMouseEnter={handleMouseEnter}
+  //       onMouseLeave={handleMouseLeave} >
+  //       <Image src={img} alt={title} className="w-full h-60" />
+  //       {isHovered && (
+  //         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+  //           <p className="text-light text-center p-4 text-xs overflow-y-auto max-h-60">{summary}</p>
+  //         </div>
+  //       )}
+  //     </div>
+  //     <div className='w-full flex flex-col items-start justify-between mt-4'>
+  //       <span className='text-primary font-bold text-xs'>{type}</span>
+  //       <Link href={link} target="_blank" className='hover:underline underline-offset-2'>
+  //         <h2 className='my-2 w-full text-left text-3xl font-bold'>{title}</h2>
+  //       </Link>
+  //       <div className='w-full mt-2 flex items-center justify-between'>
+  //         <Link href={link} target={link} className='text-lg font-semibold underline'>
+  //           Visit
+  //         </Link>
+  //         <Link href={iconWeb} target={iconWeb} className='w-8'>
+  //           {icon}
+  //         </Link>
+  //       </div>
+  //     </div>
+  //   </article>
+  // );
+
   return (
     <article className='w-full h-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light py-1 px-2 relative mb-5'>
       <div
@@ -39,9 +69,13 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
           <h2 className='my-2 w-full text-left text-3xl font-bold'>{title}</h2>
         </Link>
         <div className='w-full mt-2 flex items-center justify-between'>
-          <Link href={link} target={link} className='text-lg font-semibold underline'>
-            Visit
-          </Link>
+          {link === "/" ? (
+            <span className='text-lg font-semibold'>{/* Renderiza aquí el texto de la visita sin enlace */}</span>
+          ) : (
+            <Link href={link} target={link} className='text-lg font-semibold underline'>
+              Visit
+            </Link>
+          )}
           <Link href={iconWeb} target={iconWeb} className='w-8'>
             {icon}
           </Link>
