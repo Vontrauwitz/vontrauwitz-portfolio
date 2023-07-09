@@ -86,7 +86,7 @@ const About = () => {
 
             </Link>
           </div>
-          <Testimonials />
+
         </Layout>
       </main>
     </>

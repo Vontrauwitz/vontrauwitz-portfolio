@@ -25,7 +25,7 @@ export const projects = [
       (
         <div>
           Criptoweb
-          <p className='text-red-500 text-xs'>(final name pending)</p>
+          <p className='text-red-500 text-xs ml-10'>(final name pending)</p>
         </div>
       ),
     summary:
@@ -79,7 +79,7 @@ export const projects = [
   },
   {
     type: "Full-Stack Countries & Activities Website APP",
-    title: "Countries & Activities Website",
+    title: "Countries Website",
     summary: (
       <div>
         This is an individual project from Bootcamp Henry, that uses an API (Restcountries) that brings data from the countries and a section was created so that you can create activities in each country or in several and view them, it allows you to filter and search for countries as well as activities It is a CRUD since it has a Postgres Database and uses Sequelize and Node.js in the backend. The technologies used by this website are: React, React DOM, React Router DOM, Redux, Axios, Node.js, Sequelize, Postgres, etc.
@@ -107,26 +107,4 @@ export const projects = [
   },
 ]
 
-// this website is going to be renewed and redeployed
-
-// export const project = [
-//   {
-//  type: "E-Commerce Website",
-// title: "Mercado Agave",
-//   summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
-//     img: require("../../public/images/projects/proy/ondasagave.jpg"),
-//       link: "https://mercadoagave.vercel.app/",
-//         icon: <GithubIcon className="w-5 ml-1" />,
-//           iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
-//   },
-//   {
-  // type: "E-Commerce Website",
-  // title: "Mercado Agave",
-  //   summary: "Built a web app using React, Redux, Axios, CSS Modules, and a fake API store for back-end. Deployed on Vercel. The website features a list of products(cards), a product detail component, an upper navigation bar, a menu of categories, and shopping cart logic with local storage.",
-  //     img: require("../../public/images/projects/proy/ondasagave.jpg"),
-  //       link: "https://mercadoagave.vercel.app/",
-  //         icon: <GithubIcon className="w-5 ml-1" />,
-            // iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
-//   },
-// ]
 

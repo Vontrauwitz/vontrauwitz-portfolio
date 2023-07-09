@@ -16,7 +16,7 @@ export default function Home() {
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
         <Layout className='pt-0 '>
           <div className='flex lg:items-center lg:flex-col'>
-            <div className='w-1/2 md:w-full'>
+            <div className='w-1/2 md:w-75%'>
               <Image
                 src={profileimg}
                 alt="vontrauwitz"
@@ -32,7 +32,7 @@ export default function Home() {
               <AnimatedText text="Turning Dreams into Digital Reality." className='text-xl text-left lg:text-center md:text-lg sm:text-sm' />
 
               <p
-                className='my-2 text-base front-medium'
+                className='my-2 text-base front-medium lg:px-2'
               >
                 Hello there! I am a full-stack developer with a passion for turning ideas into reality. I have a strong understanding of both the front-end and back-end development of web applications, and I am always looking for new and innovative ways to create user-friendly and engaging experiences.
 

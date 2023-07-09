@@ -1,175 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from '@/components/Layout';
 import Head from 'next/head';
 import AnimatedText from "@/components/AnimatedText";
 import Link from "next/link";
 import Image from "next/image";
 import { projects, project } from '../../public/All-Texts/projectConst';
-
-
-
+import project1 from '../../public/images/projects/proy/curved_lines_diagonal_pokemon.jpg'
+import { GithubIcon } from '@/components/Icons';
 
 const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   return (
-    <article
-      className='w-full flex items-center justify-between rounded-3xl border border-solid border-dark bg-light shadow-2xl p-12 my-5 '
-    >
-      {
-        // Check if the link prop is equal to "/"
-        link === '/' ?
-          <Image src={img} alt={title} className="h-auto w-1/2 overflow-hidden rounded-lg" />
-          : (
-            // If the link prop is not equal to "/", render the Link component
-            <Link href={link} target="_blank"
-              className='w-1/2 cursor-pointer overflow-hidden rounded-lg'
-            >
-              <Image src={img} alt={title} className="w-full h-auto" />
-            </Link>
-          )
-      }
-
-      <div className='w-1/2 flex flex-col items-start justify-between pl-6'>
-        <span
-          className='text-primary font-bold text-xl'
-        >
-          {type}
-        </span>
-        {
-          // Check if the link prop is equal to "/"
-          link === '/' ?
-            <h2
-              className=' my-2 w-full text-left text-4xl font-bold hover:underline underline-offset-2'
-            >{title}</h2>
-            : (
-              // If the link prop is not equal to "/", render the Link component
-              <Link href={link} target="_blank" className='hover:underline underline-offset-2'>
-                <h2
-                  className=' my-2 w-full text-left text-4xl font-bold'
-                >{title}</h2>
-              </Link>
-            )
-        }
-
-
-        <p
-          className="my-2 font medium text-dark"
-        >
-          {summary}
-        </p>
-        <div className='mt-2 flex items-center'>
-
-
-          <Link href={iconWeb} target="_blank" className='w-10'>
-            {icon}
-          </Link>
-
-          {
-            // Check if the link prop is equal to "/"
-            link === '/' ? null : (
-              // If the link prop is not equal to "/", render the Link component
-              <Link href={link} target="_blank"
-                className='ml-4 rounded-xl bg-dark text-light p-2 px-6 text-lg font-semibold'
-              >
-                Visit Project
-              </Link>
-            )
-          }
-
-        </div>
-      </div>
-
-    </article>
-  )
-}
-
-// TODO this component have to change if i use it in the future
-const Project = ({ title, img, link, icon, iconWeb }) => {
-
-  return (
-    <article className='w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative mb-5'>
-      <div>
-        <Link href={link} target="_blank"
-          className='w-full cursor-pointer overflow-hidden rounded-lg'
-        >
-          <Image src={img} alt={title} className="w-full h-auto" />
-        </Link>
-
+    <article className='w-full h-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light py-1 px-2 relative mb-5'>
+      <div
+        className={`relative w-full h-auto overflow-hidden rounded-lg ${isHovered ? 'opacity-95' : ''}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave} >
+        <Image src={img} alt={title} className="w-full h-60" />
+        {isHovered && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+            <p className="text-light text-center p-4 text-xs">{summary}</p>
+          </div>
+        )}
       </div>
       <div className='w-full flex flex-col items-start justify-between mt-4'>
-
+        <span className='text-primary font-bold text-xs'>{type}</span>
         <Link href={link} target="_blank" className='hover:underline underline-offset-2'>
-          <h2
-            className=' my-2 w-full text-left text-3xl font-bold'
-          >{title}</h2>
+          <h2 className='my-2 w-full text-left text-3xl font-bold'>{title}</h2>
         </Link>
-        <div className=' w-full mt-2 flex items-center justify-between'>
-          <Link href={link} target="_blank"
-            className='text-lg font-semibold underline'
-          >
+        <div className='w-full mt-2 flex items-center justify-between'>
+          <Link href={link} target="_blank" className='text-lg font-semibold underline'>
             Visit
           </Link>
           <Link href={icon} target="_blank" className='w-8'>
             {icon}
           </Link>
-
         </div>
       </div>
     </article>
-  )
-}
-
+  );
+};
 
 const Projects = () => {
-
   return (
     <>
       <Head>
         <title>VontrauwitzDEV | Projects</title>
         <meta name="projects" content="my projects" />
       </Head>
-      <main
-        className="w-full mb-16 flex flex-col items-center justify-center"
-      >
-        <Layout
-          className="pt-8"
-        >
-          <AnimatedText text="Knowledge is power, but imagination is limitless!"
-            className="mb-8"
-          />
+      <main className="w-full mb-16 flex flex-col items-center justify-center">
+        <Layout className="pt-16">
+          <AnimatedText text="Imagination Trumps Knowledge!" className="mb-16" />
+          <div className="grid grid-cols-12 gap-10 ">
 
-          <div className="grid grid-cols-12 gap-24">
-            {/* //TODO UN PROYECTO POR LINEA */}
 
-            <div className='col-span-11'>
-              <div className=''>
-                {projects.map((proj, index) => (
-                  <FeaturedProject
-                    key={index}
-                    type={proj.type}
-                    title={proj.title}
-                    summary={proj.summary}
-                    img={proj.img}
-                    link={proj.link}
-                    icon={proj.icon}
-                    iconWeb={proj.iconWeb}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* //TODO DOS PROYECTOS POR LINEA */}
-            {/* {project.map((proj, index) => (
+            {/* TODO DOS PROYECTOS POR LINEA */}
+            {projects.map((proj, index) => (
               <div className="col-span-6" key={index}>
-                <Project
+                <FeaturedProject
+                  key={index}
+                  type={proj.type}
                   title={proj.title}
+                  summary={proj.summary}
                   img={proj.img}
                   link={proj.link}
                   icon={proj.icon}
                   iconWeb={proj.iconWeb}
                 />
               </div>
-            ))} */}
+            ))}
           </div>
         </Layout>
       </main>
@@ -177,6 +85,5 @@ const Projects = () => {
   );
 };
 
-
-
 export default Projects;
+
