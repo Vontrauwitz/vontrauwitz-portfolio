@@ -5,6 +5,9 @@ import AnimatedText from '@/components/AnimatedText';
 import Image from 'next/image';
 import profilePic from '../../public/images/contact/mexico1.png'
 import { sendContactForm } from '@/lib/api';
+import { LoadIcon } from '@/components/Icons';
+import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
 
 const initValues = {
   name: "",
@@ -27,9 +30,11 @@ const Contact = () => {
 
   const [state, setState] = useState(initState);
   const [touched, setTouched] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const { values, errors } = state;
+  const router = useRouter();
 
   const handleChange = ({ target }) =>
     setState((prev) => ({
@@ -64,28 +69,27 @@ const Contact = () => {
     return Object.values(newErrors).every((error) => !error);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (validateForm()) {
-  //     // Lógica para enviar el formulario
-  //     console.log("Formulario enviado:", values);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
+      setIsLoading(true);
       console.log("Formulario enviado:", values);
+      setTimeout(() => {
+        router.push('/');
+      }, 1500);
       try {
         await sendContactForm(values); // Asegúrate de que sendContactForm sea una función asíncrona que envíe el formulario
+        const toastId = toast.success('El mensaje se envió correctamente');
+        setTimeout(() => toast.dismiss(toastId), 3000); // Esto quitará la notificación después de 5 segundos
+        setState(initState);
       } catch (error) {
         console.error("Error al enviar el formulario:", error);
+      } finally {
+        setIsLoading(false); // Desactivar el loading después de enviar el formulario
       }
     }
   };
-
 
   return (
     <>
@@ -95,8 +99,9 @@ const Contact = () => {
       </Head>
       <main className='dark:text-light'>
         <Layout>
-          <div className="flex items-center justify-between w-full mb-10  lg:flex-col-reverse">
 
+          <div className="flex items-center justify-between w-full mb-10  lg:flex-col-reverse">
+            {/* <ToastContainer className="fixed top-0 right-0 m-4 p-2 z-50" /> */}
             <div className='w-1/2 lg:w-full flex flex-col items-center self-center px-2'>
               {/* //TODO <TypingCode />  CORREGIR ESTO Y HACERLO MAS TYPE*/}
               <AnimatedText text="Contact me!" className='w-full mb-16 lg:!text-6xl md:!text-4xl sm:!text-3xl' />
@@ -131,8 +136,10 @@ const Contact = () => {
                     onClick={handleSubmit}
                     className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold 
                   hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
+
                   >
-                    Send
+                    {isLoading && <LoadIcon />}
+                    send
                   </button>
                 </div>
               </form>
@@ -183,3 +190,14 @@ export default Contact;
                   <label htmlFor="name" className='absolute left-0 top-1 text-gray-600 cursor-text peer-focus:text-xs peer-focus:-top-4 peer-focus:text-primary transition-all duration-500'>Your Name</label>
                 </div>
               </form> */}
+
+
+{/* <button
+                    onClick={handleSubmit}
+                    className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold 
+                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light' */}
+
+                                  // class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                  // >
+                  //   Send
+                  // </button>
