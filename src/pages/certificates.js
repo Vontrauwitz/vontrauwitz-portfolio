@@ -34,55 +34,58 @@ const Certificates = () => {
         <title>VontrauwitzDEV | Certificates</title>
         <meta name="certificates" content="my certificates" />
       </Head>
-      <main className="flex w-full flex-col items-center justify-center">
-        <AnimatedText className="mb-16" text="Certificates" />
+      <main className="flex w-full flex-col items-center justify-center ">
+        <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Certificates" />
 
-        <div className="flex pt-10 justify-between w-full mb-20">
-          <div className="w-1/2">
-            <div className="py-4 flex justify-center">
-              <button
-                className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-200'
-                  } mr-4 p-3 rounded text-white`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleButtonClick('button1');
-                }}
-              >
-                Full-Stack
-              </button>
-              <button
-                className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-200'
-                  } mr-4 p-3 rounded text-white`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleButtonClick('button2');
-                }}
-              >
-                Front-end
-              </button>
-              <button
-                className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-200'
-                  } mx-4 p-3 rounded text-white`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleButtonClick('button3');
-                }}
-              >
-                Back-end
-              </button>
-              <button
-                className={`${selectedButton === 'button4' ? 'bg-primary' : 'bg-gray-200'
-                  } ml-4 p-3 rounded text-white`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleButtonClick('button4');
-                }}
-              >
-                Misc
-              </button>
+        <div className="flex pt-10 justify-between w-full mb-20 lg:flex-col lg:mx-5  ">
+          <div className="w-1/2  lg:w-full">
+            <div className="py-4 px-5 flex justify-between lg:text-xs ">
+              <div className="flex justify-center space-x-4">
+                <button
+                  className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-200'
+                    } rounded text-white button sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleButtonClick('button1');
+                  }}
+                >
+                  Full Stack
+                </button>
+                <button
+                  className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-200'
+                    } rounded text-white button sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleButtonClick('button2');
+                  }}
+                >
+                  Front End
+                </button>
+                <button
+                  className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-200'
+                    } rounded text-white button sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleButtonClick('button3');
+                  }}
+                >
+                  Back End
+                </button>
+                <button
+                  className={`${selectedButton === 'button4' ? 'bg-primary' : 'bg-gray-200'
+                    } rounded text-white button px-2 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleButtonClick('button4');
+                  }}
+                >
+                  Misc
+                </button>
+              </div>
+
             </div>
 
-            <div className="grid grid-cols-3 gap-2 px-4" style={{ minHeight: '300px' }}>
+            {/* <div className="grid grid-cols-3 gap-2 px-4" style={{ minHeight: '300px' }}>
               {listItems.map((item, index) => (
                 <div
                   className="flex items-center self-start mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '100px' }}
@@ -103,9 +106,33 @@ const Certificates = () => {
                   </button>
                 </div>
               ))}
+            </div> */}
+
+            <div className="grid grid-cols-3 gap-2 px-4" style={{ minHeight: '300px' }}>
+              {listItems.map((item, index) => (
+                <div
+                  className="flex items-center self-start mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '100px' }}
+                  key={index}
+                >
+                  <button
+                    onClick={() => setSelectedItem(item)}
+                    className={`${selectedItem === item ? 'text-primary' : ''} flex items-center justify-center`}
+                  >
+
+                    <div className="flex flex-col items-center text-xs lg:flex-col">
+                      <p className="mb-2">{item.title}</p>
+                      <div className="flex">
+                        <p>{item.school}</p>
+                        <p className="ml-2 lg:flex-col">{item.issued}</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              ))}
             </div>
+
           </div>
-          <div className="w-1/2 flex justify-center">
+          <div className="w-1/2 flex justify-center lg:w-full">
             {selectedItem && (
               <div className="mt-4 px-20 pt-8">
                 <Image src={selectedItem.image} alt={selectedItem.title} width={500} height={300} className="my-4" />

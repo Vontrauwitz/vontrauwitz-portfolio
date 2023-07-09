@@ -42,7 +42,7 @@ export const frontend = [
   },
   {
     title: "ReactJS Avanzado",
-    school: "Open Bootcamp",
+    school: "Open Boot camp",
     link: "https://community.open-bootcamp.com/user/vontrauwitz/certificaciones/c6153d80-a943-4e66-9fc8-c621661d1abe",
     issued: "jan 2023",
     image: reactAvanzadoOb,
@@ -115,7 +115,7 @@ export const misc = [
   },
   {
     title: "Scrum Foundation Professional Certificate",
-    school: "CertiProf",
+    school: "Certi Prof",
     link: "https://www.credly.com/badges/da0f797e-ae30-4eba-b505-e74384349616/linked_in_profile",
     issued: "nov 2022",
     image: sfpc,
