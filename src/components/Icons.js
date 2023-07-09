@@ -76,9 +76,8 @@ export const LinkArrow = ({ className, ...rest }) => (
 export const ReactIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={1600}
-    height={1448}
     viewBox="0 0 1200 1086"
+    preserveAspectRatio="xMidYMid meet"
     className={`w-10 h-10 ${className}`}
     {...rest}
   >
@@ -94,8 +93,7 @@ export const ReactIcon = ({ className, ...rest }) => (
 export const ReduxIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={716}
-    height={682.667}
+    preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 537 512"
     className={`w-10 h-10 ${className}`}
     {...rest}
@@ -159,8 +157,7 @@ export const JsIcon = ({ className, ...rest }) => (
 export const NextJsIcon = ({ className, ...rest }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={1226.667}
-    height={1226.667}
+    preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 920 920"
     fill="currentColor"
     className={`w-10 h-10 ${className}`}

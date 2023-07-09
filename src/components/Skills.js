@@ -34,7 +34,7 @@ const Skills = () => {
                 handleButtonClick('button1');
               }}
             >
-              Front-end
+              Front - end
             </button>
             <button
               className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-300'
@@ -44,7 +44,7 @@ const Skills = () => {
                 handleButtonClick('button2');
               }}
             >
-              Back-end
+              Back - end
             </button>
             <button
               className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-300'
@@ -63,7 +63,7 @@ const Skills = () => {
               <div
                 // className="flex flex-col mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
 
-                className="flex flex-col items-center justify-center mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
+                className="flex flex-col items-center text-sm justify-center mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
                 key={index}
               >
                 <button onClick={() => setSelectedItem(item)} className={`${selectedItem === item ? 'text-primary' : ''} flex flex-col items-center`}>
