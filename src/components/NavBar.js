@@ -223,6 +223,20 @@ const NavBar = () => {
 
               </button>
 
+
+              <div className="flex flex-row items-center justify-center">
+                <span className="ml-10 text-sm font-medium text-light dark:text-dark">Es</span>
+                <label className="relative inline-flex items-center  cursor-pointer">
+                  <input type="checkbox" value="" className="sr-only peer" />
+                  <div className="w-11 h-6 bg-yellow-700 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-yellow-300 dark:peer-focus:ring-yellow-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-green-400 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-yellow-400"></div>
+                </label>
+                <span className="mr-10 text-sm font-medium text-light dark:text-dark">En</span>
+              </div>
+
+
+
+
+
               {/* <motion.a href="https://www.linkedin.com/in/vontrauwitzdev/" target={"_blank"}
           className="w-6 ml-3"
           whileHover={{ y: -2 }}

@@ -12,9 +12,9 @@ export const experience = [
     position: "Full - Stack Teaching Assistant",
     company: "Henry",
     companyLink: "https://www.soyhenry.com/",
-    time: "feb 2021 - Present",
+    time: "feb 2022 - Present",
     address: "CABA, Buenos Aires (remote)",
-    work: "Collaborate with the team as a Junior Front-End Developer for a project, contributing to the development of web applications.",
+    work: " Coordinate a group of students to achieve integration to the study group. Guide students in the first steps of the course. Assist to solve exercises and promote group collaboration(Pair Programming).Propose ideas to improve the Bootcamp processes.",
     // icon: <JsIcon className="w-5 ml-1" />
   },
   {
@@ -23,7 +23,7 @@ export const experience = [
     companyLink: "https://vontrauwitz-portfolio.vercel.app/",
     time: "may 2022 - Present",
     address: "México City, México",
-    work: "Collaborate with the team as a Junior Front-End Developer for a project, contributing to the development of web applications.",
+    work: "I have made pages for clients such as garanitimex, and I have helped in groups that have very large projects.",
     // icon: <JsIcon className="w-5 ml-1" />
   },
 
