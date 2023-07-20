@@ -106,7 +106,7 @@ const Contact = () => {
             {/* <ToastContainer className="fixed top-0 right-0 m-4 p-2 z-50" /> */}
             <div className='w-1/2 lg:w-full flex flex-col items-center self-center px-2'>
               {/* //TODO <TypingCode />  CORREGIR ESTO Y HACERLO MAS TYPE*/}
-              <AnimatedText text="Contact me!" className='w-full mb-16 lg:!text-6xl md:!text-4xl sm:!text-3xl' />
+              <AnimatedText text="Contact me! 🖖🏽" className='w-full mb-16 lg:!text-6xl md:!text-4xl sm:!text-3xl' />
               <p
                 className='my-4 text-base front-medium'
               >
@@ -140,7 +140,7 @@ const Contact = () => {
   hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                   >
                     {isLoading && <LoadIcon className="text-black" />}
-                    send
+                    Send 🤟🏽
                   </button>
                 </div>
               </form>

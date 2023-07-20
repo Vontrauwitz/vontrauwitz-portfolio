@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { frontend, backend, tools } from '../../public/All-Texts/skillsConst';
 import AnimatedText from '@/components/AnimatedText';
+import { motion } from 'framer-motion';
+
 
 const Skills = () => {
   const [selectedButton, setSelectedButton] = useState('button1');
@@ -21,10 +23,15 @@ const Skills = () => {
 
   return (
     <main className="flex w-full flex-col items-center justify-center">
-      <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Skills" />
+      <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Skills 😏" />
 
       <div className="flex pt-10 justify-between w-full lg:flex-col">
-        <div className="w-1/2 lg:w-full">
+        <motion.div
+          className="w-1/2 lg:w-full"
+          initial={{ y: 50 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.5, type: "spring" }}
+        >
           <div className="py-4 flex justify-center">
             <button
               className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-300'
@@ -79,7 +86,7 @@ const Skills = () => {
             ))}
           </div>
 
-        </div>
+        </motion.div>
         <div className="w-1/2 lg:w-full flex items-center justify-center">
           {selectedItem && (
             <div className="px-5">

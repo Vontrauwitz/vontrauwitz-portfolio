@@ -54,7 +54,7 @@ const Experience = () => {
   return (
     <div className='my-10'>
       <h2 className='font-bold text-8xl mb-20 w-full text-center lg:!text-7xl md:!text-5xl sm:!text-4xl'>
-        Experience
+        Experience 🤺
       </h2>
       <div
         ref={ref}
