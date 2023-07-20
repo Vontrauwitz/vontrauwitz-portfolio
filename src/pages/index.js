@@ -4,7 +4,7 @@ import Image from 'next/image'
 import profileimg from "../../public/images/profile/yo1.3sf.png"
 import AnimatedText from '@/components/AnimatedText'
 import Link from 'next/link'
-import { LinkArrow } from '@/components/Icons'
+import { LinkArrow, ViewCv } from '@/components/Icons'
 import TransitionEffect from '@/components/TransitionEffect'
 
 export default function Home() {
@@ -45,7 +45,18 @@ export default function Home() {
                 Let&apo;s embark on an exciting journey where innovation meets coding excellence.
 
               </p>
-              <div className='flex items-center self-start mt-2'>
+              <h2 className='w-full flex justify-center text-lg font-bold uppercase text-dark/75'>Resume:</h2>
+              <div className='flex items-center self-start mt-2 w-full justify-evenly md:items-center md:flex-col'>
+                <Link
+                  href="/cv_hans_trauwitz_portfolio.pdf"
+                  target={"_blank"}
+                  // className="ml-6 text-lg font-medium capitalize text-dark underline"
+                  className='flex items-center bg-dark text-light p-1.5 px-6 rounded-lg text-lg font-semibold
+                  hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light md:mb-5'
+                >
+                  View
+                  <ViewCv className={"w-6 ml-3"} />
+                </Link>
                 <Link
                   href="/cv_hans_trauwitz_portfolio.pdf"
                   target={"_blank"}
@@ -53,18 +64,10 @@ export default function Home() {
                   hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                   download={true}
                 >
-                  Resume
-                  <LinkArrow className={"w-6 ml-1"} />
+                  Download
+                  <LinkArrow className={"w-6 ml-3"} />
 
                 </Link>
-                {/* //TODO NO ME GUSTA ESTO */}
-                {/* <Link
-                  href="mailto:"
-                  target={"_blank"}
-                  className="ml-6 text-lg font-medium capitalize text-dark underline"
-                >
-                  Contact
-                </Link> */}
               </div>
             </div>
           </div>

@@ -37,7 +37,7 @@ const Certificates = () => {
       </Head>
       <TransitionEffect />
       <main className="flex w-full flex-col items-center justify-center ">
-        <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Certificates" />
+        <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Certificates 🎉" />
 
         <div className="flex pt-10 justify-between w-full mb-20 lg:flex-col lg:mx-5  ">
           <div className="w-1/2  lg:w-full">

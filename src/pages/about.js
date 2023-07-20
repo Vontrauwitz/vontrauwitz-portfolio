@@ -86,8 +86,8 @@ const About = () => {
               Certificates
               <CertificateIcon className={"w-6 ml-4"} />
             </Link>
-            <Testimonials />
           </div>
+          <Testimonials />
 
         </Layout>
       </main>
