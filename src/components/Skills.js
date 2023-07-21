@@ -68,7 +68,6 @@ const Skills = () => {
           <div className="grid grid-cols-4 gap-2">
             {listItems.map((item, index) => (
               <div
-                // className="flex flex-col mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
 
                 className="flex flex-col items-center text-sm justify-center mt-2 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black px-3 dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light" style={{ minHeight: '90px' }}
                 key={index}

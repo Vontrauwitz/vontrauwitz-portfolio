@@ -1,6 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from "framer-motion"
+import Image from 'next/image';
+import charizard from '../../public/images/gifs/charizard.gif'
+import casa from '../../public/images/gifs/casa.gif'
+
 
 const Logo = () => {
 
@@ -8,9 +12,9 @@ const Logo = () => {
 
   return (
     <div
-      className='mx-3 flex items-center justify-center mt-2 drop-shadow-[2px_3px_2px_rgba(0,0,0,0.4)]'
+      className='mx-3 flex items-center justify-center my -2 '
     >
-      <MotionLink
+      {/* <MotionLink
         href="/"
         className='w-16 h-16 bg-dark text-light flex items-center justify-center rounded-full text-2xl font-bold border border-solid border-transparent dark:border-light'
         whileHover={{
@@ -19,6 +23,27 @@ const Logo = () => {
           transition: { duration: 1, repeat: Infinity }
         }}
       >HT
+      </MotionLink> */}
+      <MotionLink
+        href="/"
+        className='w-16  flex items-center justify-center rounded-full'
+      >
+
+        <Image
+          alt="testimonial photo"
+          src={casa}
+          // src={charizard}
+
+          className="
+    w-16
+    h-16
+    rounded-full
+    object-cover
+    mr-4
+    drop-shadow-[2px_3px_2px_rgba(255,255,255,.4)]
+    dark:drop-shadow-[2px_3px_2px_rgba(0,0,0,.4)]
+    "
+        />
       </MotionLink>
     </div>
   )
