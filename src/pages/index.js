@@ -45,7 +45,7 @@ export default function Home() {
                 Let&apo;s embark on an exciting journey where innovation meets coding excellence.
 
               </p>
-              <h2 className='w-full flex justify-center text-lg font-bold uppercase text-dark/75'>Resume:</h2>
+              <h2 className='w-full flex justify-center text-lg font-bold uppercase text-dark/75 dark:text-light/75 my-3'>Resume:</h2>
               <div className='flex items-center self-start mt-2 w-full justify-evenly md:items-center md:flex-col'>
                 <Link
                   href="/cv_hans_trauwitz_portfolio.pdf"
