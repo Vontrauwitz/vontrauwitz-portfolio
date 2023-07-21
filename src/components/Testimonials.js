@@ -4,6 +4,8 @@ import Layout from './Layout';
 import Image from 'next/image';
 import { cards } from '../../public/All-Texts/testimonialConst';
 import AnimatedText from './AnimatedText';
+import { motion } from 'framer-motion';
+
 
 const ScrollableCard = ({ title, content, img, link }) => {
   return (
@@ -45,7 +47,11 @@ const Testimonials = () => {
   return (
     <Layout>
       <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="What people say! 🙊" />
-      <div className="flex flex-wrap justify-center">
+      <motion.div
+        initial={{ y: 100 }}
+        whileInView={{ y: 0 }}
+        transition={{ duration: 0.9, type: "spring" }}
+        className="flex flex-wrap justify-center">
         {cards.map((card, index) => (
           <ScrollableCard
             key={index}
@@ -55,7 +61,7 @@ const Testimonials = () => {
             link={card.link}
           />
         ))}
-      </div>
+      </motion.div>
     </Layout>
   );
 };
