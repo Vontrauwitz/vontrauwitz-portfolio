@@ -13,6 +13,14 @@ import introNative from '../../public/images/certificates/intro_react_native.png
 import nativeApis from '../../public/images/certificates/native_apis.png'
 import nativeForms from '../../public/images/certificates/react_native_form.png'
 import contaCert from '../../public/images/certificates/conta_ebc.png'
+import githubPlz from '../../public/images/certificates/github_platzi.png'
+import practicoJS from '../../public/images/certificates/practicoJS.png'
+import entWin from '../../public/images/certificates/ent_win.png'
+import fccJs from '../../public/images/certificates/fcc_js.png'
+import fund_ang from '../../public/images/certificates/fund_ang.png'
+
+
+
 
 
 
@@ -33,12 +41,27 @@ export const fullstack = [
   },
 ]
 export const frontend = [
+
+  {
+    title: "JavaScript Algorithms and Data Structures",
+    school: "FreeCodeCamp.org",
+    link: "https://www.freecodecamp.org/certification/fcc02f18421-81eb-47a0-94f1-cb9ccd3ad362/javascript-algorithms-and-data-structures",
+    issued: "jul 2023",
+    image: fccJs,
+  },
   {
     title: "Curso Básico de JavaScript",
     school: "Platzi",
-    link: "https://platzi.com/p/hans.trauwitz/curso/1814-basico-javascript/diploma/detalle/",
+    link: "https://platzi.com/p/hans.trauwitz/curso/3271-javascript-practico/diploma/detalle/",
     issued: "dec 2022",
     image: basicoJsPzi,
+  },
+  {
+    title: "Curso Práctico de JavaScript",
+    school: "Platzi",
+    link: "https://platzi.com/p/hans.trauwitz/curso/1814-basico-javascript/diploma/detalle/",
+    issued: "jul 2023",
+    image: practicoJS,
   },
   {
     title: "ReactJS Avanzado",
@@ -46,6 +69,13 @@ export const frontend = [
     link: "https://community.open-bootcamp.com/user/vontrauwitz/certificaciones/c6153d80-a943-4e66-9fc8-c621661d1abe",
     issued: "jan 2023",
     image: reactAvanzadoOb,
+  },
+  {
+    title: "Fundamentos de Angular",
+    school: "Platzi",
+    link: "https://platzi.com/p/hans.trauwitz/curso/2478-angular/diploma/detalle/",
+    issued: "jul 2023",
+    image: fund_ang,
   },
   {
     title: "Curso de Introducción a React Native",
@@ -114,11 +144,26 @@ export const misc = [
 
   },
   {
+    title: "Curso Profesional de Git y GitHub",
+    school: "Platzi",
+    link: "https://platzi.com/p/hans.trauwitz/curso/1557-git-github/diploma/detalle/",
+    issued: "jul 2023",
+    image: githubPlz,
+  },
+  {
     title: "Scrum Foundation Professional Certificate",
     school: "Certi Prof",
     link: "https://www.credly.com/badges/da0f797e-ae30-4eba-b505-e74384349616/linked_in_profile",
     issued: "nov 2022",
     image: sfpc,
+
+  },
+  {
+    title: "Configuración de Entorno de Desarrollo en Windows",
+    school: "Platzi",
+    link: "https://platzi.com/p/hans.trauwitz/curso/6900-configuracion-windows/diploma/detalle/",
+    issued: "jul 2023",
+    image: entWin,
 
   },
   {
@@ -135,6 +180,7 @@ export const misc = [
     issued: "jun 2015",
     image: contaCert,
   },
+
 ]
 
 
