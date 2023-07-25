@@ -36,7 +36,7 @@ const Certificates = () => {
         <meta name="certificates" content="my certificates" />
       </Head>
       <TransitionEffect />
-      <main className="flex w-full flex-col items-center justify-center ">
+      <main className="flex w-full h-full flex-col items-center justify-center mb-20 ">
         <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="Certificates 🎉" />
 
         <div className="flex pt-10 justify-between w-full mb-20 lg:flex-col lg:mx-5  ">
@@ -44,8 +44,8 @@ const Certificates = () => {
             <div className="py-4 px-5 flex justify-between lg:text-xs ">
               <div className="flex justify-center space-x-4">
                 <button
-                  className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
+                  className={`${selectedButton === 'button1' ? 'bg-primary' : 'bg-gray-300'
+                    } rounded p-3 text-dark button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button1');
@@ -54,8 +54,8 @@ const Certificates = () => {
                   Full Stack
                 </button>
                 <button
-                  className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
+                  className={`${selectedButton === 'button2' ? 'bg-primary' : 'bg-gray-300'
+                    } rounded p-3 text-dark button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button2');
@@ -64,8 +64,8 @@ const Certificates = () => {
                   Front End
                 </button>
                 <button
-                  className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
+                  className={`${selectedButton === 'button3' ? 'bg-primary' : 'bg-gray-300'
+                    } rounded p-3 text-dark button sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button3');
@@ -74,8 +74,8 @@ const Certificates = () => {
                   Back End
                 </button>
                 <button
-                  className={`${selectedButton === 'button4' ? 'bg-primary' : 'bg-gray-200'
-                    } rounded text-white button px-2 sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
+                  className={`${selectedButton === 'button4' ? 'bg-primary' : 'bg-gray-300'
+                    } rounded p-3 text-dark font-bold button px-2 sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleButtonClick('button4');
@@ -90,7 +90,7 @@ const Certificates = () => {
             <div className="grid grid-cols-3 gap-2 px-4 py-4" style={{ minHeight: '100px' }}>
               {listItems.map((item, index) => (
                 <div
-                  className="flex items-center mt-2 px-1 bg-dark text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '125px' }}
+                  className="flex justify-center items-center mt-2 px-1 bg-dark dark:border-light text-light rounded-md text-md font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black " style={{ minHeight: '125px' }}
                   key={index}
                 >
                   <button
@@ -119,7 +119,7 @@ const Certificates = () => {
                 <Link
                   href={selectedItem.link}
                   target={"_blank"}
-                  className="text-xs  hover:text-primary font-medium capitalize text-dark underline"
+                  className="text-xs  hover:text-primary font-medium capitalize text-dark underline dark:text-light dark:hover:text-primary "
                 >
                   show credential
                 </Link>

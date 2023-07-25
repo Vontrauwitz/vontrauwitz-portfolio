@@ -18,6 +18,7 @@ import practicoJS from '../../public/images/certificates/practicoJS.png'
 import entWin from '../../public/images/certificates/ent_win.png'
 import fccJs from '../../public/images/certificates/fcc_js.png'
 import fund_ang from '../../public/images/certificates/fund_ang.png'
+import fund_pyt from '../../public/images/certificates/funPyt.png'
 
 
 
@@ -44,7 +45,7 @@ export const frontend = [
 
   {
     title: "JavaScript Algorithms and Data Structures",
-    school: "FreeCodeCamp.org",
+    school: "FCC org",
     link: "https://www.freecodecamp.org/certification/fcc02f18421-81eb-47a0-94f1-cb9ccd3ad362/javascript-algorithms-and-data-structures",
     issued: "jul 2023",
     image: fccJs,
@@ -116,6 +117,13 @@ export const backend = [
     link: "https://platzi.com/p/hans.trauwitz/curso/2731-aws-fundamentos/diploma/detalle/",
     issued: "dec 2022",
     image: introAws,
+  },
+  {
+    title: "Fundamentos de Python",
+    school: "Platzi",
+    link: "https://platzi.com/p/hans.trauwitz/curso/4227-python/diploma/detalle/",
+    issued: "jul 2023",
+    image: fund_pyt,
   },
   {
     title: "Curso de Introducción a Java SE",
