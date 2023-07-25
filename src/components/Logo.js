@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { motion } from "framer-motion"
 import Image from 'next/image';
 import charizard from '../../public/images/gifs/charizard.gif'
-import casa from '../../public/images/gifs/casa-min.gif'
+import casa from '../../public/images/gifs/casa-min.mp4'
 
 
 const Logo = () => {
