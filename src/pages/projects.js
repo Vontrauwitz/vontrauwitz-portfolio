@@ -26,7 +26,15 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
         className={`relative w-full h-auto overflow-hidden rounded-lg ${isHovered ? 'opacity-95' : ''}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave} >
-        <Image src={img} alt={title} className="w-full h-60" />
+        <Image
+          src={img}
+          alt={title}
+          className="w-full h-60"
+          priority
+          sizes='(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw,
+                50vw'
+        />
         {isHovered && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
             <p className="text-light text-center p-4 text-xs overflow-y-auto max-h-60">{summary}</p>

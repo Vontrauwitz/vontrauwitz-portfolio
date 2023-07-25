@@ -39,14 +39,15 @@ export default function Home() {
                 Hello there! I am a full-stack developer with a passion for turning ideas into reality. I have a strong understanding of both the front-end and back-end development of web applications, and I am always looking for new and innovative ways to create user-friendly and engaging experiences.
 
                 I believe that code is a powerful tool that can be used to solve problems and create new possibilities. I am excited to use my skills to help businesses and individuals achieve their goals.
-                <br />
-                <br />
-                <p className='font-bold'>
-                  I am confident that I have the skills and experience to be a valuable asset to your team, but I love challenges and am eager to learn new technologies. Let&apos;s dare each other
-                </p>
-                <br />
+              </p>
+              <br />
+              <br />
+              <p className='font-bold'>
+                I am confident that I have the skills and experience to be a valuable asset to your team, but I love challenges and am eager to learn new technologies. Let&apos;s dare each other
+              </p>
+              <br />
+              <p>
                 Let &apos;s embark on an exciting journey where innovation meets coding excellence.
-
               </p>
               <h2 className='w-full flex justify-center text-lg font-bold uppercase text-dark/75 dark:text-light/75 my-3'>Resume:</h2>
               <div className='flex items-center self-start mt-2 w-full justify-evenly md:items-center md:flex-col'>

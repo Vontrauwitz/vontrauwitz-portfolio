@@ -67,7 +67,15 @@ const About = () => {
             <div className='col-span-4  flex items-center justify-center lg:w-75%'>
               <div className='max-w-full  relative h-auto rounded-2xl border-2 border-solid border-dark bg-light dark:bg-dark dark:border-light p-8'>
                 <div className='absolute top-0 -right-3 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark dark:bg-light' />
-                <Image src={profilePic} alt='Vontrauwitz' className='w-full h-auto rounded-2xl object-contain' />
+                <Image
+                  src={profilePic}
+                  alt='Vontrauwitz'
+                  className='w-full h-auto rounded-2xl object-contain'
+                  priority
+                  sizes='(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw,
+                50vw'
+                />
               </div>
             </div>
 
