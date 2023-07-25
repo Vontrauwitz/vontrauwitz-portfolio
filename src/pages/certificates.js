@@ -114,7 +114,16 @@ const Certificates = () => {
           <div className="w-1/2 flex justify-center lg:w-full">
             {selectedItem && (
               <div className="mt-4 px-5 pt-5 ">
-                <Image src={selectedItem.image} alt={selectedItem.title} width={500} height={300} className="my-4" />
+                <Image
+                  src={selectedItem.image}
+                  alt={selectedItem.title}
+                  width={500} height={300}
+                  className="my-4"
+                  priority
+                  sizes='(max-width: 768px) 100vw,
+                (max-width: 1200px) 50vw,
+                50vw'
+                />
 
                 <Link
                   href={selectedItem.link}

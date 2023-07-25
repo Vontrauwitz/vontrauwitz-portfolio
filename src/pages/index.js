@@ -27,6 +27,7 @@ export default function Home() {
                 sizes='(max-width: 768px) 100vw,
                 (max-width: 1200px) 50vw,
                 50vw'
+                quality={75}
               />
             </div>
             <div className='w-1/2 lg:w-full flex flex-col items-start self-center'>
