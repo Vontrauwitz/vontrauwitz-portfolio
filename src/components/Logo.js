@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { motion } from "framer-motion"
 import Image from 'next/image';
 import charizard from '../../public/images/gifs/charizard.gif'
-import casa from '../../public/images/gifs/casa-min.mp4'
+import casa from '../../public/images/gifs/casa-min.gif'
 
 
 const Logo = () => {
@@ -34,6 +34,7 @@ const Logo = () => {
           src={casa}
           // src={charizard}
           priority
+          quality={75}
           sizes='(max-width: 768px) 100vw,
                 (max-width: 1200px) 50vw,
                 50vw'
