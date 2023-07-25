@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout'
 import Head from 'next/head'
 import Image from 'next/image'
-import profileimg from "../../public/images/profile/yo1.3sf.png"
+import profileimg from "../../public/images/profile/yo1.3sf-min.png"
 import AnimatedText from '@/components/AnimatedText'
 import Link from 'next/link'
 import { LinkArrow, ViewCv } from '@/components/Icons'
