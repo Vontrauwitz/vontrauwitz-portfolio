@@ -11,6 +11,15 @@ export const projects = [
     iconWeb: "https://github.com/Vontrauwitz/mercadoagave",
   },
   {
+    type: "Technical assessment of a backend-integrated form for a full-stack role.",
+    title: "Pilou Form",
+    summary: "It's a technical assessment of a form built in Next.js with Tailwind CSS, integrated with a Python backend using the Django framework and libraries such as REST. The form is validated using JavaScript without libraries, designed with simplicity inspired by the company's webpage, in accordance with the nature of the technical test.",
+    img: require("../../public/images/projects/proy/expRB_P_Test.jpg"),
+    link: "https://front-pilou-test.vercel.app/formulario/",
+    icon: <GithubIcon className="w-5 ml-1" />,
+    iconWeb: "https://github.com/Vontrauwitz/prueba_rails",
+  },
+  {
     type: "Front-End Pre-Owned Services Website",
     title: "GarantiMex",
     summary: "A client wanted a page of services for pre-owned cars such as guarantees, protection services such as the GAP and painting job promotions, etc. Technologies such as React, Next, and Chakara UI were used.",
