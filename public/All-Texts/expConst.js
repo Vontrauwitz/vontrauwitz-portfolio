@@ -1,5 +1,14 @@
 export const experience = [
   {
+    position: "Full Stack Software Engineer",
+    company: "Pilou",
+    companyLink: "https://www.pilou.io/",
+    time: "Aug 2023 - present",
+    address: "México City, México",
+    work: "As the sole developer in my role, I manage and maintain diverse repositories utilizing technologies such as RoR, Python, React, AWS, and Postgres. I collaborate closely with the landing page team and lead the integration of new, cutting-edge repositories. This involves seamless transitions to ensure uninterrupted customer service. Serving as a vital bridge between management and various hired teams, I offer comprehensive technical support and swiftly address customer issues. I also implement code updates in compliance with evolving regulatory standards and drive enhancements based on emerging requirements. My responsibilities encompass debugging code, refining databases, and optimizing storage solutions, among other tasks.",
+    // icon: <JsIcon className="w-5 ml-1" />
+  },
+  {
     position: "Front-End Developer (Project)",
     company: "Agave Lab",
     companyLink: "https://agavelab.com/",

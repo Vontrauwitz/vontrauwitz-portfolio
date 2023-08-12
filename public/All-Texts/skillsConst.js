@@ -162,6 +162,30 @@ export const backend = [
     icon: <SpringBootIcon className="w-3 ml-1" />
 
   },
+  {
+    name: "Python",
+    link: "/",
+    description: "A versatile and user-friendly programming language celebrated for its readability and extensive library support, making it ideal for diverse applications from web development to data analysis.",
+    // icon: <SpringBootIcon className="w-3 ml-1" />
+  },
+  {
+    name: "Django",
+    link: "/",
+    description: "Is a high-level Python web framework prized for its built-in features, enabling rapid development of secure and scalable web applications with a clean and pragmatic design.",
+    // icon: <SpringBootIcon className="w-3 ml-1" />
+  },
+  {
+    name: "Ruby",
+    link: "/",
+    description: "Is a dynamic, object-oriented programming language known for its elegant syntax. Ruby on Rails is a web development framework built on Ruby, facilitating efficient application creation.",
+    // icon: <SpringBootIcon className="w-3 ml-1" />
+  },
+  {
+    name: "RoR",
+    link: "/",
+    description: "Ruby on Rails (RoR) is a powerful web development framework renowned for rapid and efficient application building through its convention-over-configuration approach.",
+    // icon: <SpringBootIcon className="w-3 ml-1" />
+  },
 
 ];
 
