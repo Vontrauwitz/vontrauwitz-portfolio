@@ -39,7 +39,7 @@ export const experience = [
     position: "Freelance Accountant, Mexico",
     company: "freelance",
     companyLink: "https://vontrauwitz-portfolio.vercel.app/",
-    time: "aug 2014 - Nov 20222",
+    time: "aug 2014 - Nov 2022",
     address: "México City, México",
     work: "Operated as an independent public accountant, managing financial records and providing accounting services",
     // icon: <JsIcon className="w-5 ml-1" />
