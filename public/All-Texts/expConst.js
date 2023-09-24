@@ -12,7 +12,7 @@ export const experience = [
     position: "Front-End Developer (Project)",
     company: "Agave Lab",
     companyLink: "https://agavelab.com/",
-    time: "Jan 2023 - may 2023",
+    time: "Dic 2022 – Aug 2023  ",
     address: "Guadalajara Jalisco, México",
     work: "Collaborate with the team as a Junior Front-End Developer for a project, contributing to the development of web applications.",
     // icon: <JsIcon className="w-5 ml-1" />
@@ -27,7 +27,7 @@ export const experience = [
     // icon: <JsIcon className="w-5 ml-1" />
   },
   {
-    position: "freelance web developer",
+    position: "Freelance web developer",
     company: "freelance",
     companyLink: "https://vontrauwitz-portfolio.vercel.app/",
     time: "may 2022 - Present",
@@ -35,6 +35,14 @@ export const experience = [
     work: "I have made pages for clients such as garanitimex, and I have helped in groups that have very large projects.",
     // icon: <JsIcon className="w-5 ml-1" />
   },
-
+  {
+    position: "Freelance Accountant, Mexico",
+    company: "freelance",
+    companyLink: "https://vontrauwitz-portfolio.vercel.app/",
+    time: "aug 2014 - Nov 20222",
+    address: "México City, México",
+    work: "Operated as an independent public accountant, managing financial records and providing accounting services",
+    // icon: <JsIcon className="w-5 ml-1" />
+  },
 ]
 
