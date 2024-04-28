@@ -4,6 +4,7 @@ import Head from 'next/head';
 import AnimatedText from '@/components/AnimatedText';
 import Image from 'next/image';
 import profilePic from '../../public/images/contact/mexico1.png'
+import profilePicMon from '../../public/images/contact/montreal1.png'
 import { sendContactForm } from '@/lib/api';
 import { LoadIcon } from '@/components/Icons';
 import { useRouter } from 'next/router';
@@ -106,7 +107,7 @@ const Contact = () => {
             {/* <ToastContainer className="fixed top-0 right-0 m-4 p-2 z-50" /> */}
             <div className='w-1/2 lg:w-full flex flex-col items-center self-center px-2'>
               {/* //TODO <TypingCode />  CORREGIR ESTO Y HACERLO MAS TYPE*/}
-              <AnimatedText text="Contact me! 🖖🏽" className='w-full mb-16 lg:!text-6xl md:!text-4xl sm:!text-3xl' />
+              <AnimatedText text="Contact me! 🖖🏽" className='w-full mb-16 lg:!text-6xl md:!text-4xl sm:!text-3xl sm:mb-2  md:mb-2 lg:mb-2' />
               <p
                 className='my-4 text-base front-medium'
               >
@@ -146,13 +147,24 @@ const Contact = () => {
               </form>
 
             </div>
+
+
             {/* //TODO esto no funciona y arrgelar el onblurr  pobner un disabled al boton/}
             {/* //TODO revisar bien estas caracteristicas pero si dejar el borde , hacer un isloading al boton */}
-            <div className='w-full col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-2  lg:w-65%'>
+            {/* <div className='w-full col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-2  lg:w-65%'>
               {/* //TODO esta es la ceja pero no se ve */}
               {/* <div className='absolute top-0 -right-6 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark' /> */}
-              <Image src={profilePic} alt='Vontrauwitz' className='w-full h-auto rounded-2xl' />
+              {/* <Image src={profilePic} alt='Vontrauwitz' className='w-full h-auto rounded-2xl' /> */}
+            {/* </div> */}
+            <div className='lg:mr-10 lg:ml-10 sm:mx-0'>
+              <Image src={profilePicMon} alt='Vontrauwitz' className='w-full h-auto rounded-3xl' />
+
             </div>
+
+            {/* //TODO mapa  */}
+            {/* <div>
+              aqui va el mapa
+            </div> */}
           </div>
         </Layout>
       </main>

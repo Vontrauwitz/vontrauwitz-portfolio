@@ -24,7 +24,7 @@ export const projects = [
     title: "GarantiMex",
     summary: "A client wanted a page of services for pre-owned cars such as guarantees, protection services such as the GAP and painting job promotions, etc. Technologies such as React, Next, and Chakara UI were used.",
     img: require("../../public/images/projects/proy/expgaranti.jpg"),
-    link: "https://garantimex.com/",
+    link: "https://safe-and-sound-6bjn5go66-vontrauwitz.vercel.app",
     icon: <GithubIcon className="w-5 ml-1" />,
     iconWeb: "https://github.com/Vontrauwitz/SafeAndSound",
   },

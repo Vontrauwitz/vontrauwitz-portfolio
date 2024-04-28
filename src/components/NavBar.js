@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Logo from './Logo'
 import { useRouter } from 'next/router';
-import { TwitterIcon, GithubIcon, LinkedinIcon, SunIcon, MoonIcon } from './Icons';
+import { TwitterIcon, GithubIcon, LinkedinIcon, SunIcon, MoonIcon, InstagramIcon } from './Icons';
 import { motion } from 'framer-motion';
 import UseThemeSwitcher from './hooks/useThemeSwitcher';
 
@@ -108,12 +108,12 @@ const NavBar = () => {
         <nav
           className='flex items-center justify-center flex-wrap'
         >
-          <motion.a href="https://twitter.com" target={"_blank"}
+          <motion.a href="https://www.instagram.com/trauwitz1/" target={"_blank"}
             className="w-6 mr-3"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.9 }}
           >
-            <TwitterIcon />
+            <InstagramIcon />
           </motion.a>
 
           <motion.a href="https://github.com/Vontrauwitz" target={"_blank"}
@@ -125,7 +125,7 @@ const NavBar = () => {
           </motion.a>
 
           <motion.a href="https://www.linkedin.com/in/vontrauwitzdev/" target={"_blank"}
-            className="w-6 ml-3"
+            className="w-6 ml-3 mr-6"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -183,12 +183,12 @@ const NavBar = () => {
             <nav
               className='flex items-center justify-center flex-wrap mt-2'
             >
-              <motion.a href="https://twitter.com" target={"_blank"}
+              <motion.a href="https://www.instagram.com/trauwitz1/" target={"_blank"}
                 className="w-6 mr-3 sm:mx-1"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <TwitterIcon />
+                <InstagramIcon />
               </motion.a>
 
               <motion.a href="https://github.com/Vontrauwitz" target={"_blank"}
@@ -200,7 +200,7 @@ const NavBar = () => {
               </motion.a>
 
               <motion.a href="https://www.linkedin.com/in/vontrauwitzdev/" target={"_blank"}
-                className="w-6 ml-3 sm:mx-1"
+                className="w-6 ml-3 sm:mx-1 "
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -211,7 +211,7 @@ const NavBar = () => {
                 onClick={() => setMode(mode === "light" ? "dark" : "light")}
                 className={`ml-3 items-center justify-center rounded-full p-1
           ${mode === "light" ? "bg-dark text-light" : "bg-light text-dark"}
-          `}
+          `} 
               >
                 {
                   mode === "dark"
