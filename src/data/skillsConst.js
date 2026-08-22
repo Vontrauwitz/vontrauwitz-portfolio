@@ -1,370 +1,453 @@
-import { AwsIcon, BlenderIcon, BootstrapIcon, ChakraUiIcon, CssIcon, DaVinciIcon, ExpressIcon, FigmaIcon, GitIcon, GitLabIcon, GithubIcon, GraphQLIcon, HerokuIcon, HtmlIcon, InsomniaIcon, InteliJComponent, JavaIcon, JestIcon, JsIcon, MaterialUiIcon, MongoDbIcon, MongooseIcon, MySqlIcon, NetlifyIcon, NextJsIcon, NodeJsIcon, NotionIcon, PhotoshopIcon, PhpIcon, PostgreSqlIcon, PostmanIcon, ReactIcon, ReduxIcon, ScrumIcon, SeoIcon, SequelizeIcon, SpringBootIcon, TailwindIcon, TypeScriptIcon, VercelIcon, VscIcon, WebpackIcon } from "@/components/Icons";
-import Image from "next/image";
-
-export const frontend = [
-  {
-    name: "Java Script",
-    link: "/",
-    description: "Is a popular programming language used for creating interactive web pages and web applications.",
-    icon: <JsIcon className="w-5 ml-1" />
-  },
-  {
-    name: "React JS",
-    link: "/",
-    description: "Is a JavaScript library used for building user interfaces for single - page applications.It allows for the creation of reusable UI components.",
-    icon: <ReactIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Next JS",
-    link: "/",
-    description: "Is a framework built on top of ReactJS that provides server- side rendering, static site generation, and other advanced features for building web applications.",
-    icon: <NextJsIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Redux",
-    link: "/",
-    description: "Is a predictable state management library for JavaScript applications.It is commonly used with React to manage the global state of an application.",
-    icon: <ReduxIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Tailwind",
-    link: "/",
-    description: "Is a utility- first CSS framework that provides a set of pre - defined classes to rapidly build custom user interfaces.",
-    icon: <TailwindIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Chakra UI",
-    link: "/",
-    description: "Is a modular and accessible component library for React applications.It provides a set of customizable and responsive UI components.",
-    icon: <ChakraUiIcon className="w-5 ml-1" />
-  },
-  {
-    name: "MUI",
-    link: "/",
-    description: "(Material - UI) Is a popular React UI framework that implements Google's Material Design guidelines. It offers a wide range of ready-to-use components.",
-    icon: <MaterialUiIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Bootstrap",
-    link: "/",
-    description: "Is a widely- used CSS framework that provides a collection of responsive and mobile - first components and styles for web development.",
-    icon: <BootstrapIcon className="w-5 ml-1" />
-  },
-  {
-    name: "React Native",
-    link: "/",
-    description: "React - Native s a framework for building mobile applications using JavaScript and React.It allows for cross - platform development targeting iOS and Android.",
-    icon: <ReactIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Redux Toolkit",
-    link: "/",
-    description: "Is an opinionated set of utilities and tools that simplifies the process of working with Redux.It provides a standardized way of writing Redux code.",
-    icon: <ReduxIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Type Script",
-    link: "/",
-    description: "Is a statically- typed superset of JavaScript that adds optional type annotations.It helps catch errors and improve code maintainability.",
-    icon: <TypeScriptIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Html",
-    link: "/",
-    description: "Is the standard markup language for creating web pages.",
-    icon: <HtmlIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Css",
-    link: "/",
-    description: "Is used for styling web pages and applications.",
-    icon: <CssIcon className="w-5 ml-1" />
-
-  },
-
-];
-export const backend = [
-  {
-    name: "Postgres",
-    link: "/",
-    description: "Is an open- source relational database management system(RDBMS) known for its robustness, scalability, and adherence to SQL standards.",
-    icon: <PostgreSqlIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Mongo DB",
-    link: "/",
-    description: "Is a NoSQL document database that provides high performance, scalability, and flexibility for storing and querying unstructured data.",
-    icon: <MongoDbIcon className="w-3 ml-1" />
-
-  },
-  {
-    name: "My SQL",
-    link: "/",
-    description: "Is an open-source relational database management system (RDBMS) widely used for its simplicity, reliability, and performance.",
-    icon: <MySqlIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Node js",
-    link: "/",
-    description: "Is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows you to run JavaScript code on the server-side, enabling the development of scalable and high-performance web applications.",
-    icon: <NodeJsIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Sequelize",
-    link: "/",
-    description: "Is a promise-based ORM (Object-Relational Mapping) for Node.js that supports multiple databases, including PostgreSQL, MySQL, and SQLite. It simplifies database interactions and provides a set of tools for querying and managing data.",
-    icon: <SequelizeIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Mongoose",
-    link: "/",
-    description: "Is an Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a straightforward and schema-based solution for modeling and interacting with MongoDB documents.",
-    icon: <MongooseIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Express",
-    link: "/",
-    description: "Is a minimal and flexible Node.js web application framework. It allows you to build robust APIs and web applications with features like routing, middleware support, and template rendering",
-    icon: <ExpressIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Graph QL",
-    link: "/",
-    description: "Is a query language and runtime for APIs. It provides a more efficient and flexible approach to data fetching, allowing clients to request specific data structures and reducing over-fetching and under-fetching of data.",
-    icon: <GraphQLIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "PHP",
-    link: "/",
-    description: "Is a popular server-side scripting language used for web development. It provides a wide range of features and has a large community supporting various frameworks and libraries.",
-    icon: <PhpIcon className="w-4 ml-1" />
-
-  },
-  {
-    name: "Java",
-    link: "/",
-    description: "Is a widely-used, general-purpose programming language known for its portability, security, and robustness. It is commonly used for developing enterprise-level applications and Android mobile apps.",
-    icon: <JavaIcon className="w-3 ml-1" />
-
-  },
-  {
-    name: "Spring Boot",
-    link: "/",
-    description: "Is a Java-based framework that simplifies the development of stand-alone, production-grade Spring applications. It provides a streamlined configuration and development experience for building robust and scalable applications.",
-    icon: <SpringBootIcon className="w-3 ml-1" />
-
-  },
-  {
-    name: "Python",
-    link: "/",
-    description: "A versatile and user-friendly programming language celebrated for its readability and extensive library support, making it ideal for diverse applications from web development to data analysis.",
-    // icon: <SpringBootIcon className="w-3 ml-1" />
-  },
-  {
-    name: "Django",
-    link: "/",
-    description: "Is a high-level Python web framework prized for its built-in features, enabling rapid development of secure and scalable web applications with a clean and pragmatic design.",
-    // icon: <SpringBootIcon className="w-3 ml-1" />
-  },
-  {
-    name: "Ruby",
-    link: "/",
-    description: "Is a dynamic, object-oriented programming language known for its elegant syntax. Ruby on Rails is a web development framework built on Ruby, facilitating efficient application creation.",
-    // icon: <SpringBootIcon className="w-3 ml-1" />
-  },
-  {
-    name: "RoR",
-    link: "/",
-    description: "Ruby on Rails (RoR) is a powerful web development framework renowned for rapid and efficient application building through its convention-over-configuration approach.",
-    // icon: <SpringBootIcon className="w-3 ml-1" />
-  },
-
-];
-
-export const tools = [
-  {
-    name: "Git",
-    link: "/",
-    description: "Is a distributed version control system that allows you to track changes in your codebase, collaborate with others, and manage different versions of your project.",
-    icon: <GitIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "GitHub",
-    link: "/",
-    description: "Is a web-based platform that provides hosting for Git repositories. It offers features like code collaboration, issue tracking, and pull requests, making it popular among developers for open-source and team-based projects.",
-    icon: <GithubIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "GitLab",
-    link: "/",
-    description: "Is a web-based DevOps lifecycle tool that provides a complete set of features for managing the software development process. It includes version control, issue tracking, continuous integration/continuous deployment (CI/CD), and more.",
-    icon: <GitLabIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Heroku",
-    link: "/",
-    description: "Is a cloud platform that allows you to deploy, manage, and scale applications. It supports various programming languages and frameworks, making it easy to deploy your web applications quickly.",
-    icon: <HerokuIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Vercel",
-    link: "/",
-    description: "Is a cloud platform for static sites and serverless functions. It offers seamless deployment and hosting of web applications, providing scalability, performance, and ease of use.",
-    icon: <VercelIcon className="w-5.4 ml-1" />
-
-  },
-  {
-    name: "Netlify",
-    link: "/",
-    description: "Is a web development platform that offers features like continuous deployment, hosting, and serverless functions. It simplifies the process of deploying and managing static websites and web applications.",
-    icon: <NetlifyIcon className="w-5 ml-1" />
-  },
-  {
-    name: "AWS",
-    link: "/",
-    description: "(Amazon Web Services) Is a comprehensive cloud computing platform offered by Amazon. It provides a wide range of services, including computing power, storage, databases, networking, and more. AWS offers scalability, security, and flexibility, allowing businesses to build and deploy various types of applications and services in the cloud.",
-    icon: <AwsIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "VSCode",
-    link: "/",
-    description: "(Visual Studio Code) Is a popular source code editor developed by Microsoft. It provides a wide range of features, including code highlighting, debugging, and extensions, making it highly customizable and suitable for various programming languages.",
-    icon: <VscIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Postman",
-    link: "/",
-    description: "Is a popular collaboration platform for API development. It allows you to design, test, and document APIs, making it easier to develop and maintain robust API integrations.",
-    icon: <PostmanIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Insomnia",
-    link: "/",
-    description: "Is a powerful API client that helps you design, debug, and test APIs. It provides an intuitive interface for creating requests, organizing APIs, and managing environments, making API development and testing more efficient.",
-    icon: <InsomniaIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Webpack",
-    link: "/",
-    description: "Is a module bundler commonly used in modern web development. It takes modules with dependencies and generates static assets that can be efficiently loaded by the browser, improving performance and optimizing code.",
-    icon: <WebpackIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Jest",
-    link: "/",
-    description: "Is a popular JavaScript testing framework developed by Facebook. It provides a simple and intuitive way to write tests, with features like snapshot testing, mocking, and code coverage analysis.",
-    icon: <JestIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Scrum Board",
-    link: "/",
-    description: "Is a visual tool used in Agile project management. It helps teams track and manage their work using columns representing different stages of the project, such as to-do, in progress, and done.",
-    icon: <ScrumIcon className="w-5 ml-1" />
-  },
-  {
-    name: "SEO",
-    link: "/",
-    description: "(Search Engine Optimization) Is the practice of optimizing websites to improve their visibility and ranking in search engine results. It involves various techniques and strategies to increase organic traffic and reach a wider audience.",
-    icon: <SeoIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "IntelliJ",
-    link: "/",
-    description: "Is a popular integrated development environment (IDE) for Java, Kotlin, and other programming languages. It provides advanced coding assistance, productivity features, and support for various frameworks and technologies.",
-    icon: <InteliJComponent className="w-5 ml-1" />
-  },
-  {
-    name: "Figma",
-    link: "/",
-    description: "Is a cloud-based design and prototyping tool. It allows designers to collaborate in real-time, create UI designs, and create interactive prototypes. Figma is widely used for its ease of use, collaborative features, and versatility.",
-    icon: <FigmaIcon className="w-3 ml-1" />
-
-  },
-  {
-    name: "Notion",
-    link: "/",
-    description: "Is an all-in-one workspace and productivity tool. It allows you to create and organize notes, documents, databases, and tasks in a flexible and customizable manner. Notion is popular for its versatility and ability to adapt to various personal and team workflows.",
-    icon: <NotionIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Photo shop",
-    link: "/",
-    description: "Is a powerful image editing software developed by Adobe. It is widely used for tasks such as photo retouching, image composition, and graphic design. Photoshop offers a wide range of tools and features for manipulating and enhancing digital images.",
-    icon: <PhotoshopIcon className="w-5 ml-1" />
-
-  },
-  {
-    name: "Dv Resolve",
-    link: "/",
-    description: "Is a professional video editing and color grading software. It provides advanced editing tools, color correction capabilities, and visual effects. DaVinci Resolve is widely used in the film and television industry for its powerful features and high-quality output.",
-    icon: <DaVinciIcon className="w-5 ml-1" />
-  },
-  {
-    name: "Blender",
-    link: "/",
-    description: "Is a free and open-source 3D creation suite. It is used for tasks such as 3D modeling, animation, rendering, and compositing. Blender offers a robust set of tools and features, making it a popular choice among artists, designers, and animators.",
-    icon: <BlenderIcon className="w-5 ml-1" />
-
-  },
-  // {
-  //   name: "TypeScript",
-  //   link: "/",
-  //   description: "Is a typed superset of JavaScript that adds static types to the language. It helps catch errors during development, provides better tooling support, and enables developers to write more scalable and maintainable code."
-  // },
-];
-
-
-// export const servicios = [
-//   // { name: "Nuestros Servicios", link: "/" },
-//   { name: "Conocenos", link: "/nosotros" },
-// ];
-
-// import { HiPhoneArrowUpRight } from "react-icons/hi2";
-// import { AiOutlineWhatsApp } from "react-icons/ai";
+// Skills content. Every entry is a plain, JSON-serializable object (no JSX):
+// strings, booleans, and null only. `icon` is a stable string key resolved
+// against src/lib/iconMap.js by the <Icon /> component at render time, so
+// the same visual icon set is preserved without embedding JSX in data.
 //
+// `category` groups skills the way the UI currently tabs them
+// ("frontend" | "backend" | "tools") and doubles as the field a future
+// database collection would filter/query on.
+//
+// `link` is kept for shape-compatibility with a future admin ("learn more"
+// URL per skill) but every skill currently has no real link — preserved as
+// null rather than the placeholder "/" the JSX version used, since that
+// placeholder was never rendered as a working link anywhere in the UI.
 
-// export const navigationLinks = [
-//   {
-//     title: 'Productos',
-//     link: '',
-//     sublinks: [
-//       { title: 'GarantiAuto', link: '/productos' },
-//       { title: 'GarantiRevisa', link: '/ServiciosDeRevision' },
-//       // { title: 'GarantiPutazos', link: '/producto-3' }
-//     ],
-//   },
-//   { title: 'Nosotros', link: '/nosotros' },
-//   { title: '+ 52 (55)33124708', link: 'tel:(55)33124708', icon: <HiPhoneArrowUpRight /> },
-//   {
-//     title: 'WhatsApp',
-//     link: 'https://api.whatsapp.com/send?phone=15533124708',
-//     icon: <AiOutlineWhatsApp />
-//   },
-// ];
-// export const servicios = [
-//   // { name: "Nuestros Servicios", link: "/" },
-//   { name: "Conocenos", link: "/nosotros" },
-// ];
+export const skills = [
+  // --- frontend ---
+  {
+    slug: "java-script",
+    name: "Java Script",
+    category: "frontend",
+    description: "Is a popular programming language used for creating interactive web pages and web applications.",
+    icon: "javascript",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "react-js",
+    name: "React JS",
+    category: "frontend",
+    description: "Is a JavaScript library used for building user interfaces for single - page applications.It allows for the creation of reusable UI components.",
+    icon: "react",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "next-js",
+    name: "Next JS",
+    category: "frontend",
+    description: "Is a framework built on top of ReactJS that provides server- side rendering, static site generation, and other advanced features for building web applications.",
+    icon: "nextjs",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "redux",
+    name: "Redux",
+    category: "frontend",
+    description: "Is a predictable state management library for JavaScript applications.It is commonly used with React to manage the global state of an application.",
+    icon: "redux",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "tailwind",
+    name: "Tailwind",
+    category: "frontend",
+    description: "Is a utility- first CSS framework that provides a set of pre - defined classes to rapidly build custom user interfaces.",
+    icon: "tailwind",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "chakra-ui",
+    name: "Chakra UI",
+    category: "frontend",
+    description: "Is a modular and accessible component library for React applications.It provides a set of customizable and responsive UI components.",
+    icon: "chakraui",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "mui",
+    name: "MUI",
+    category: "frontend",
+    description: "(Material - UI) Is a popular React UI framework that implements Google's Material Design guidelines. It offers a wide range of ready-to-use components.",
+    icon: "materialui",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "bootstrap",
+    name: "Bootstrap",
+    category: "frontend",
+    description: "Is a widely- used CSS framework that provides a collection of responsive and mobile - first components and styles for web development.",
+    icon: "bootstrap",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "react-native",
+    name: "React Native",
+    category: "frontend",
+    description: "React - Native s a framework for building mobile applications using JavaScript and React.It allows for cross - platform development targeting iOS and Android.",
+    icon: "react",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "redux-toolkit",
+    name: "Redux Toolkit",
+    category: "frontend",
+    description: "Is an opinionated set of utilities and tools that simplifies the process of working with Redux.It provides a standardized way of writing Redux code.",
+    icon: "redux",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "type-script",
+    name: "Type Script",
+    category: "frontend",
+    description: "Is a statically- typed superset of JavaScript that adds optional type annotations.It helps catch errors and improve code maintainability.",
+    icon: "typescript",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "html",
+    name: "Html",
+    category: "frontend",
+    description: "Is the standard markup language for creating web pages.",
+    icon: "html",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "css",
+    name: "Css",
+    category: "frontend",
+    description: "Is used for styling web pages and applications.",
+    icon: "css",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
 
-// export const garantias = [
-//   { name: "Garanti-Auto", link: "/productos" },
-//   { name: "revisión", link: "/" },
-  // { name: "Movil", link: "/" },
-  // { name: "GAP", link: "/" },
-// ];
+  // --- backend ---
+  {
+    slug: "postgres",
+    name: "Postgres",
+    category: "backend",
+    description: "Is an open- source relational database management system(RDBMS) known for its robustness, scalability, and adherence to SQL standards.",
+    icon: "postgresql",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "mongo-db",
+    name: "Mongo DB",
+    category: "backend",
+    description: "Is a NoSQL document database that provides high performance, scalability, and flexibility for storing and querying unstructured data.",
+    icon: "mongodb",
+    iconClassName: "w-3 ml-1",
+    link: null,
+  },
+  {
+    slug: "my-sql",
+    name: "My SQL",
+    category: "backend",
+    description: "Is an open-source relational database management system (RDBMS) widely used for its simplicity, reliability, and performance.",
+    icon: "mysql",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "node-js",
+    name: "Node js",
+    category: "backend",
+    description: "Is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows you to run JavaScript code on the server-side, enabling the development of scalable and high-performance web applications.",
+    icon: "nodejs",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "sequelize",
+    name: "Sequelize",
+    category: "backend",
+    description: "Is a promise-based ORM (Object-Relational Mapping) for Node.js that supports multiple databases, including PostgreSQL, MySQL, and SQLite. It simplifies database interactions and provides a set of tools for querying and managing data.",
+    icon: "sequelize",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "mongoose",
+    name: "Mongoose",
+    category: "backend",
+    description: "Is an Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a straightforward and schema-based solution for modeling and interacting with MongoDB documents.",
+    icon: "mongoose",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "express",
+    name: "Express",
+    category: "backend",
+    description: "Is a minimal and flexible Node.js web application framework. It allows you to build robust APIs and web applications with features like routing, middleware support, and template rendering",
+    icon: "express",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "graph-ql",
+    name: "Graph QL",
+    category: "backend",
+    description: "Is a query language and runtime for APIs. It provides a more efficient and flexible approach to data fetching, allowing clients to request specific data structures and reducing over-fetching and under-fetching of data.",
+    icon: "graphql",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "php",
+    name: "PHP",
+    category: "backend",
+    description: "Is a popular server-side scripting language used for web development. It provides a wide range of features and has a large community supporting various frameworks and libraries.",
+    icon: "php",
+    iconClassName: "w-4 ml-1",
+    link: null,
+  },
+  {
+    slug: "java",
+    name: "Java",
+    category: "backend",
+    description: "Is a widely-used, general-purpose programming language known for its portability, security, and robustness. It is commonly used for developing enterprise-level applications and Android mobile apps.",
+    icon: "java",
+    iconClassName: "w-3 ml-1",
+    link: null,
+  },
+  {
+    slug: "spring-boot",
+    name: "Spring Boot",
+    category: "backend",
+    description: "Is a Java-based framework that simplifies the development of stand-alone, production-grade Spring applications. It provides a streamlined configuration and development experience for building robust and scalable applications.",
+    icon: "springboot",
+    iconClassName: "w-3 ml-1",
+    link: null,
+  },
+  {
+    slug: "python",
+    name: "Python",
+    category: "backend",
+    description: "A versatile and user-friendly programming language celebrated for its readability and extensive library support, making it ideal for diverse applications from web development to data analysis.",
+    icon: null,
+    iconClassName: null,
+    link: null,
+  },
+  {
+    slug: "django",
+    name: "Django",
+    category: "backend",
+    description: "Is a high-level Python web framework prized for its built-in features, enabling rapid development of secure and scalable web applications with a clean and pragmatic design.",
+    icon: null,
+    iconClassName: null,
+    link: null,
+  },
+  {
+    slug: "ruby",
+    name: "Ruby",
+    category: "backend",
+    description: "Is a dynamic, object-oriented programming language known for its elegant syntax. Ruby on Rails is a web development framework built on Ruby, facilitating efficient application creation.",
+    icon: null,
+    iconClassName: null,
+    link: null,
+  },
+  {
+    slug: "ror",
+    name: "RoR",
+    category: "backend",
+    description: "Ruby on Rails (RoR) is a powerful web development framework renowned for rapid and efficient application building through its convention-over-configuration approach.",
+    icon: null,
+    iconClassName: null,
+    link: null,
+  },
+
+  // --- tools ---
+  {
+    slug: "git",
+    name: "Git",
+    category: "tools",
+    description: "Is a distributed version control system that allows you to track changes in your codebase, collaborate with others, and manage different versions of your project.",
+    icon: "git",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "github",
+    name: "GitHub",
+    category: "tools",
+    description: "Is a web-based platform that provides hosting for Git repositories. It offers features like code collaboration, issue tracking, and pull requests, making it popular among developers for open-source and team-based projects.",
+    icon: "github",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "gitlab",
+    name: "GitLab",
+    category: "tools",
+    description: "Is a web-based DevOps lifecycle tool that provides a complete set of features for managing the software development process. It includes version control, issue tracking, continuous integration/continuous deployment (CI/CD), and more.",
+    icon: "gitlab",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "heroku",
+    name: "Heroku",
+    category: "tools",
+    description: "Is a cloud platform that allows you to deploy, manage, and scale applications. It supports various programming languages and frameworks, making it easy to deploy your web applications quickly.",
+    icon: "heroku",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "vercel",
+    name: "Vercel",
+    category: "tools",
+    description: "Is a cloud platform for static sites and serverless functions. It offers seamless deployment and hosting of web applications, providing scalability, performance, and ease of use.",
+    icon: "vercel",
+    iconClassName: "w-5.4 ml-1",
+    link: null,
+  },
+  {
+    slug: "netlify",
+    name: "Netlify",
+    category: "tools",
+    description: "Is a web development platform that offers features like continuous deployment, hosting, and serverless functions. It simplifies the process of deploying and managing static websites and web applications.",
+    icon: "netlify",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "aws",
+    name: "AWS",
+    category: "tools",
+    description: "(Amazon Web Services) Is a comprehensive cloud computing platform offered by Amazon. It provides a wide range of services, including computing power, storage, databases, networking, and more. AWS offers scalability, security, and flexibility, allowing businesses to build and deploy various types of applications and services in the cloud.",
+    icon: "aws",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "vscode",
+    name: "VSCode",
+    category: "tools",
+    description: "(Visual Studio Code) Is a popular source code editor developed by Microsoft. It provides a wide range of features, including code highlighting, debugging, and extensions, making it highly customizable and suitable for various programming languages.",
+    icon: "vscode",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "postman",
+    name: "Postman",
+    category: "tools",
+    description: "Is a popular collaboration platform for API development. It allows you to design, test, and document APIs, making it easier to develop and maintain robust API integrations.",
+    icon: "postman",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "insomnia",
+    name: "Insomnia",
+    category: "tools",
+    description: "Is a powerful API client that helps you design, debug, and test APIs. It provides an intuitive interface for creating requests, organizing APIs, and managing environments, making API development and testing more efficient.",
+    icon: "insomnia",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "webpack",
+    name: "Webpack",
+    category: "tools",
+    description: "Is a module bundler commonly used in modern web development. It takes modules with dependencies and generates static assets that can be efficiently loaded by the browser, improving performance and optimizing code.",
+    icon: "webpack",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "jest",
+    name: "Jest",
+    category: "tools",
+    description: "Is a popular JavaScript testing framework developed by Facebook. It provides a simple and intuitive way to write tests, with features like snapshot testing, mocking, and code coverage analysis.",
+    icon: "jest",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "scrum-board",
+    name: "Scrum Board",
+    category: "tools",
+    description: "Is a visual tool used in Agile project management. It helps teams track and manage their work using columns representing different stages of the project, such as to-do, in progress, and done.",
+    icon: "scrum",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "seo",
+    name: "SEO",
+    category: "tools",
+    description: "(Search Engine Optimization) Is the practice of optimizing websites to improve their visibility and ranking in search engine results. It involves various techniques and strategies to increase organic traffic and reach a wider audience.",
+    icon: "seo",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "intellij",
+    name: "IntelliJ",
+    category: "tools",
+    description: "Is a popular integrated development environment (IDE) for Java, Kotlin, and other programming languages. It provides advanced coding assistance, productivity features, and support for various frameworks and technologies.",
+    icon: "intellij",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "figma",
+    name: "Figma",
+    category: "tools",
+    description: "Is a cloud-based design and prototyping tool. It allows designers to collaborate in real-time, create UI designs, and create interactive prototypes. Figma is widely used for its ease of use, collaborative features, and versatility.",
+    icon: "figma",
+    iconClassName: "w-3 ml-1",
+    link: null,
+  },
+  {
+    slug: "notion",
+    name: "Notion",
+    category: "tools",
+    description: "Is an all-in-one workspace and productivity tool. It allows you to create and organize notes, documents, databases, and tasks in a flexible and customizable manner. Notion is popular for its versatility and ability to adapt to various personal and team workflows.",
+    icon: "notion",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "photoshop",
+    name: "Photo shop",
+    category: "tools",
+    description: "Is a powerful image editing software developed by Adobe. It is widely used for tasks such as photo retouching, image composition, and graphic design. Photoshop offers a wide range of tools and features for manipulating and enhancing digital images.",
+    icon: "photoshop",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "davinci-resolve",
+    name: "Dv Resolve",
+    category: "tools",
+    description: "Is a professional video editing and color grading software. It provides advanced editing tools, color correction capabilities, and visual effects. DaVinci Resolve is widely used in the film and television industry for its powerful features and high-quality output.",
+    icon: "davinci",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+  {
+    slug: "blender",
+    name: "Blender",
+    category: "tools",
+    description: "Is a free and open-source 3D creation suite. It is used for tasks such as 3D modeling, animation, rendering, and compositing. Blender offers a robust set of tools and features, making it a popular choice among artists, designers, and animators.",
+    icon: "blender",
+    iconClassName: "w-5 ml-1",
+    link: null,
+  },
+];

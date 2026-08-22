@@ -1,9 +1,9 @@
-import { experience } from '../../public/All-Texts/expConst';
+import { experience } from '@/data/expConst';
 import { motion, useScroll } from 'framer-motion';
 import { useRef } from 'react';
 import LilIcon from './LilIcon';
 
-const Details = ({ position, company, companyLink, time, address, work }) => {
+const Details = ({ position, company, companyUrl, period, location, description }) => {
 
   const ref = useRef(null)
 
@@ -25,7 +25,7 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
         >
           {position}&nbsp;
           <a
-            href={companyLink}
+            href={companyUrl}
             target='_blank'
             className='text-primary capitalize'
           >
@@ -33,10 +33,10 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
           </a>
         </h3>
         <span className='capitalize font-medium text-dark/75 xs:text-sm'>
-          {time} | {address}
+          {period} | {location}
         </span>
         <p className='font-medium w-full md:text-sm'>
-          {work}
+          {description}
         </p>
       </motion.div>
     </li>
@@ -70,15 +70,15 @@ const Experience = () => {
         <ul
           className='w-full flex flex-col items-start justify-between ml-4 xs:ml-2'
         >
-          {experience.map((exp, index) => (
+          {experience.map((exp) => (
             <Details
-              key={index}
+              key={exp.slug}
               position={exp.position}
               company={exp.company}
-              companyLink={exp.companyLink}
-              time={exp.time}
-              address={exp.address}
-              work={exp.work}
+              companyUrl={exp.companyUrl}
+              period={exp.period}
+              location={exp.location}
+              description={exp.description}
             />
           ))}
         </ul>

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { frontend, backend, tools } from '../../public/All-Texts/skillsConst';
+import { skills } from '@/data/skillsConst';
 import AnimatedText from '@/components/AnimatedText';
+import Icon from '@/components/Icon';
 import { motion } from 'framer-motion';
 
+const CATEGORY_BY_BUTTON = {
+  button1: 'frontend',
+  button2: 'backend',
+  button3: 'tools',
+};
 
 const Skills = () => {
   const [selectedButton, setSelectedButton] = useState('button1');
-  const [listItems, setListItems] = useState(frontend);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const listItems = skills.filter((item) => item.category === CATEGORY_BY_BUTTON[selectedButton]);
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
     setSelectedItem(null);
-    if (buttonName === 'button1') {
-      setListItems(frontend);
-    } else if (buttonName === 'button2') {
-      setListItems(backend);
-    } else if (buttonName === 'button3') {
-      setListItems(tools);
-    }
   };
 
   return (
@@ -74,7 +74,7 @@ const Skills = () => {
               >
                 <button onClick={() => setSelectedItem(item)} className={`${selectedItem === item ? 'text-primary' : ''} flex flex-col items-center`}>
                   <svg className="w-6 h-6">
-                    {item.icon}
+                    <Icon name={item.icon} className={item.iconClassName} />
                   </svg>
                   <span className="mt-2 sm:text-xs md:text-sm lg:text-md">
                     {item.name}

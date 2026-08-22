@@ -2,19 +2,21 @@ import Link from 'next/link';
 import React from 'react';
 import Layout from './Layout';
 import Image from 'next/image';
-import { cards } from '../../public/All-Texts/testimonialConst';
+import { cards } from '@/data/testimonialConst';
 import AnimatedText from './AnimatedText';
 import { motion } from 'framer-motion';
 
 
-const ScrollableCard = ({ title, content, img, link }) => {
+const ScrollableCard = ({ title, content, image, imageWidth, imageHeight, profileUrl }) => {
   return (
     <div className="bg-dark rounded-lg shadow-md p-4 m-2 w-64 h-auto  dark:bg-light text-light font-semibold">
       <div className="flex flex-col items-center mb-5">
         <div className="flex items-center mb-2">
           <Image
             alt="testimonial photo"
-            src={img}
+            src={image}
+            width={imageWidth}
+            height={imageHeight}
             className="
     w-[30%]
     rounded-full
@@ -26,7 +28,7 @@ const ScrollableCard = ({ title, content, img, link }) => {
           />
           <h2 className=" w-[70%] text-lg font-semibold dark:text-dark ">
             <Link
-              href={link}
+              href={profileUrl}
               target={"_blank"}
               className='text-primary hover:underline '
             >
@@ -52,13 +54,15 @@ const Testimonials = () => {
         whileInView={{ y: 0 }}
         transition={{ duration: 0.9, type: "spring" }}
         className="flex flex-wrap justify-center">
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <ScrollableCard
-            key={index}
+            key={card.slug}
             title={card.title}
             content={card.content}
-            img={card.img}
-            link={card.link}
+            image={card.image}
+            imageWidth={card.imageWidth}
+            imageHeight={card.imageHeight}
+            profileUrl={card.profileUrl}
           />
         ))}
       </motion.div>

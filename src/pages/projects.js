@@ -4,12 +4,11 @@ import Head from 'next/head';
 import AnimatedText from "@/components/AnimatedText";
 import Link from "next/link";
 import Image from "next/image";
-import { projects, project } from '../../public/All-Texts/projectConst';
-import project1 from '../../public/images/projects/proy/curved_lines_diagonal_pokemon.jpg'
-import { GithubIcon } from '@/components/Icons';
+import { projects } from '@/data/projectConst';
+import Icon from '@/components/Icon';
 import TransitionEffect from "@/components/TransitionEffect";
 
-const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => {
+const FeaturedProject = ({ type, title, titleNote, summary, note, image, imageWidth, imageHeight, deployUrl, icon, githubUrl }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -27,8 +26,10 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave} >
         <Image
-          src={img}
+          src={image}
           alt={title}
+          width={imageWidth}
+          height={imageHeight}
           className="w-full h-60"
           priority
           sizes='(max-width: 768px) 100vw,
@@ -37,7 +38,10 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
         />
         {isHovered && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-            <p className="text-light text-center p-4 text-xs overflow-y-auto max-h-60">{summary}</p>
+            <p className="text-light text-center p-4 text-xs overflow-y-auto max-h-60">
+              {summary}
+              {note && <strong> {note}</strong>}
+            </p>
           </div>
         )}
       </div>
@@ -45,24 +49,30 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
         <span className='text-primary font-bold text-xs'>{type}</span>
 
 
-        {link === "/" ? (
-          <span className='my-2 w-full text-left text-3xl font-bold hover:underline underline-offset-2'>{title}</span>
+        {!deployUrl ? (
+          <span className='my-2 w-full text-left text-3xl font-bold hover:underline underline-offset-2'>
+            {title}
+            {titleNote && <span className='block text-red-500 text-xs ml-10'>{titleNote}</span>}
+          </span>
         ) : (
-          <Link href={link} target="_blank" className='hover:underline underline-offset-2'>
-            <h2 className='my-2 w-full text-left text-3xl font-bold'>{title}</h2>
+          <Link href={deployUrl} target="_blank" className='hover:underline underline-offset-2'>
+            <h2 className='my-2 w-full text-left text-3xl font-bold'>
+              {title}
+              {titleNote && <span className='block text-red-500 text-xs ml-10'>{titleNote}</span>}
+            </h2>
           </Link>
         )}
 
         <div className='w-full mt-2 flex items-center justify-between'>
-          {link === "/" ? (
+          {!deployUrl ? (
             <span className='text-lg font-semibold'>{/* Renderiza aquí el texto de la visita sin enlace */}</span>
           ) : (
-            <Link href={link} target="_blank" className='text-lg font-semibold underline'>
+            <Link href={deployUrl} target="_blank" className='text-lg font-semibold underline'>
               Visit
             </Link>
           )}
-          <Link href={iconWeb} target="_blank" className='w-8'>
-            {icon}
+          <Link href={githubUrl} target="_blank" className='w-8'>
+            <Icon name={icon} className="w-5 ml-1" />
           </Link>
         </div>
       </div>
@@ -86,17 +96,20 @@ const Projects = () => {
 
 
             {/* TODO DOS PROYECTOS POR LINEA */}
-            {projects.map((proj, index) => (
-              <div className="col-span-6" key={index}>
+            {projects.map((proj) => (
+              <div className="col-span-6" key={proj.slug}>
                 <FeaturedProject
-                  key={index}
                   type={proj.type}
                   title={proj.title}
+                  titleNote={proj.titleNote}
                   summary={proj.summary}
-                  img={proj.img}
-                  link={proj.link}
+                  note={proj.note}
+                  image={proj.image}
+                  imageWidth={proj.imageWidth}
+                  imageHeight={proj.imageHeight}
+                  deployUrl={proj.deployUrl}
                   icon={proj.icon}
-                  iconWeb={proj.iconWeb}
+                  githubUrl={proj.githubUrl}
                 />
               </div>
             ))}
@@ -108,4 +121,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

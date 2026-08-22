@@ -1,9 +1,9 @@
-import { education } from '../../public/All-Texts/eduConst';
+import { education } from '@/data/eduConst';
 import { motion, useScroll } from 'framer-motion';
 import { useRef } from 'react';
 import LilIcon from './LilIcon';
 
-const Details = ({ type, schoolLink, place, info, position, company, companyLink, time, address, work }) => {
+const Details = ({ program, institutionUrl, institution, description, period }) => {
 
   const ref = useRef(null)
 
@@ -22,20 +22,20 @@ const Details = ({ type, schoolLink, place, info, position, company, companyLink
       >
         <h3
           className='capitalize font-bold text-2xl sm:text-xl xs:text-lg'
-        >{type}
+        >{program}
         </h3>
         <span className='capitalize font-medium text-dark/75 xs:text-sm'>
-          {time} | &nbsp;
+          {period} | &nbsp;
           <a
-            href={schoolLink}
+            href={institutionUrl}
             target='_blank'
             className='text-primary capitalize'
           >
-            @{place}
+            @{institution}
           </a>
         </span>
         <p className='font-medium w-full md:text-sm'>
-          {info}
+          {description}
         </p>
       </motion.div>
     </li>
@@ -70,14 +70,14 @@ const Education = () => {
         <ul
           className='w-full flex flex-col items-start justify-between ml-4 xs:ml-2'
         >
-          {education.map((edu, index) => (
+          {education.map((edu) => (
             <Details
-              key={index}
-              type={edu.type}
-              schoolLink={edu.schoolLink}
-              time={edu.time}
-              place={edu.place}
-              info={edu.info}
+              key={edu.slug}
+              program={edu.program}
+              institutionUrl={edu.institutionUrl}
+              institution={edu.institution}
+              period={edu.period}
+              description={edu.description}
             />
           ))}
         </ul>

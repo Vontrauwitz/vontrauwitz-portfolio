@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { fullstack, frontend, backend, misc } from '../../public/All-Texts/certConst';
+import { certificates } from '@/data/certConst';
 import AnimatedText from '@/components/AnimatedText';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import TransitionEffect from '@/components/TransitionEffect';
+
+const CATEGORY_BY_BUTTON = {
+  button1: 'fullstack',
+  button2: 'frontend',
+  button3: 'backend',
+  button4: 'misc',
+};
 
 const Certificates = () => {
   const [selectedButton, setSelectedButton] = useState('button1');
@@ -15,20 +22,7 @@ const Certificates = () => {
     setSelectedItem(null);
   };
 
-  //TODO Lógica para seleccionar los elementos iniciales según el botón seleccionado
-  const selectInitialItems = () => {
-    if (selectedButton === 'button1') {
-      return fullstack;
-    } else if (selectedButton === 'button2') {
-      return frontend;
-    } else if (selectedButton === 'button3') {
-      return backend;
-    } else if (selectedButton === 'button4') {
-      return misc;
-    }
-  };
-
-  const listItems = selectInitialItems();
+  const listItems = certificates.filter((item) => item.category === CATEGORY_BY_BUTTON[selectedButton]);
   return (
     <>
       <Head>
@@ -126,7 +120,7 @@ const Certificates = () => {
                 />
 
                 <Link
-                  href={selectedItem.link}
+                  href={selectedItem.credentialUrl}
                   target={"_blank"}
                   className="text-xs  hover:text-primary font-medium capitalize text-dark underline dark:text-light dark:hover:text-primary "
                 >

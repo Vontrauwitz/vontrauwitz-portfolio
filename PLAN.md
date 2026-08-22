@@ -1,6 +1,6 @@
 # PLAN.md — Vontrauwitz Portfolio: Codebase Analysis & Modernization Plan
 
-> Status: **Phase 0 complete** (hygiene: bug fixes, dead-boilerplate removal, README rewrite). Phases 1+ not started. This document describes the codebase as it exists today and proposes a phased, incremental modernization path toward the future goals (admin dashboard, auth, CMS-style content management, analytics, Job Application Studio, premium animations).
+> Status: **Phase 0 and Phase 1 complete.** Phase 0 = hygiene (bug fixes, dead-boilerplate removal, README rewrite). Phase 1 = content-model extraction (all `public/All-Texts/*.js` content is now JSX-free and JSON-serializable, with a centralized icon resolver). Phase 2+ not started. This document describes the codebase as it exists today and proposes a phased, incremental modernization path toward the future goals (admin dashboard, auth, CMS-style content management, analytics, Job Application Studio, premium animations).
 
 ---
 
@@ -261,10 +261,56 @@ The plan is intentionally incremental: each phase ships independently, keeps the
 
 **Verification:** `npm run lint` → no warnings or errors, both before and after changes. `npm run build` → succeeds both before and after changes, with no new warnings; bundle sizes essentially unchanged (About +~0.2 kB from the added `TransitionEffect` import, Contact's route CSS +~2 kB from the now-actually-imported `ReactToastify.css`).
 
-### Phase 1 — Content model extraction
-- Convert `public/All-Texts/*.js` into JSX-free, JSON-serializable data (still committed as static files at this stage — no DB yet).
-- Update consuming components to resolve icons/rich text from string keys instead of embedded JSX.
-- This is prep work; site behavior is unchanged, but the codebase becomes migration-ready.
+### Phase 1 — Content model extraction — ✅ COMPLETE
+
+- [x] Converted every `public/All-Texts/*.js` file to JSX-free, JSON-serializable data (strings/numbers/booleans/arrays/plain objects only) — still committed as static files at this stage, no DB yet.
+- [x] Removed embedded JSX from project titles/summaries, skill icons, and certificate data (certificates never actually had embedded JSX — see notes below).
+- [x] Built a centralized icon resolver (`src/lib/iconMap.js` + `src/components/Icon.js`) so content references icons by stable string key (e.g. `"github"`, `"javascript"`) instead of embedding icon JSX; all consumers updated to render `<Icon name={...} className={...} />` in place of the old inline elements, with per-entry icon sizing preserved exactly.
+- [x] Converted the two projects that used JSX-wrapped titles/summaries (Criptoweb's "(final name pending)" note, and the "(under construction...)" / "(going to be renewed...)" caveats on several projects) into plain string fields (`titleNote`, `note`), re-rendered by the consuming component instead of stored as JSX.
+- [x] Normalized project data to the requested shape: `slug`, `title`, `type`, `summary`, `image`, `deployUrl`, `githubUrl`, `technologies`, `featured`, plus `titleNote`/`note` to carry wording that used to be embedded JSX. No missing data was invented — see "ambiguous content" notes below for exactly what was left null/empty and why.
+- [x] Applied the same normalization to skills, experience, education, certificates, and testimonials — see the file-by-file notes below for the exact field renames.
+- [x] Kept the static-file source of truth; no database introduced.
+
+**No visual/behavioral change intended.** Verified via `npm run build` + `npm run lint` (clean before and after) and a runtime smoke test against `next start`, diffing rendered HTML for key content (hero text, project titles/notes, certificate titles, experience/education timelines, and a spot-check that the JS-skill icon's actual SVG path data still renders next to "Java Script").
+
+**New data model:**
+
+| File | Old shape | New shape |
+|---|---|---|
+| `public/All-Texts/projectConst.js` | `{ type, title (string\|JSX), summary (string\|JSX), img, link, icon (JSX), iconWeb }` | `{ slug, title, titleNote, type, summary, note, image, deployUrl, githubUrl, icon (string key), technologies: [], featured: false }` |
+| `public/All-Texts/skillsConst.js` | 3 separate exports (`frontend`, `backend`, `tools`), each `{ name, link, description, icon (JSX) }` | One `skills` export, each `{ slug, name, category, description, icon (string key \| null), iconClassName, link: null }` |
+| `public/All-Texts/certConst.js` | 4 separate exports (`fullstack`, `frontend`, `backend`, `misc`), each `{ title, school, link, issued, image }` | One `certificates` export, each `{ slug, title, category, school, credentialUrl, issued, image }` |
+| `public/All-Texts/expConst.js` | `{ position, company, companyLink, time, address, work }` | `{ slug, position, company, companyUrl, period, location, description }` |
+| `public/All-Texts/eduConst.js` | `{ type, schoolLink, time, place, info }` | `{ slug, program, institution, institutionUrl, period, description }` |
+| `public/All-Texts/testimonialConst.js` | `{ id, title, content, img, link }` | `{ slug, title, content, image, profileUrl }` |
+
+New files: `src/lib/iconMap.js` (string-key → icon-component map), `src/components/Icon.js` (`<Icon name className />` resolver component).
+
+**Files changed (consumers updated to match):** `src/pages/projects.js`, `src/pages/certificates.js`, `src/components/Skills.js`, `src/components/Experience.js`, `src/components/Education.js`, `src/components/Testimonials.js`.
+
+**Ambiguous content preserved instead of guessed:**
+- **`technologies: []`** on every project — the free-text `summary` fields do mention specific stacks (e.g. "React, Redux, Axios, CSS Modules"), but parsing prose into a structured tag list requires subjective judgment about what counts as a "technology" and risks mis-tagging or omitting things. Left empty for an admin to fill in deliberately rather than invented.
+- **`featured: false`** on every project — the current UI doesn't curate/highlight any project differently from another, so there is no existing signal for which (if any) should default to `true`. Defaulted to `false` uniformly rather than guessing a curation that doesn't exist.
+- **`deployUrl: null`** wherever a project's original `link` was just `"/"` (ProFY, Poke App Mobile, Poke App Website, Countries Website, Food App Website) — `"/"` was never a real deployed URL (the UI already special-cased it to hide the "Visit" link), so it's now represented as an honest absence of data instead of a placeholder path.
+- **`period` fields (experience/education) kept as free-text strings**, not split into structured start/end dates — the source strings mix languages and casing inconsistently (e.g. "Dec 2022 - Ene 2024" uses the Spanish abbreviation "Ene" for January; "aug 2014 - Nov 2022" mixes lower/upper case), and parsing them would risk silently mis-reading a date that was never entered in one consistent format.
+- **`skills[].link` kept as `null` for every entry** — the original data had every skill's `link` hardcoded to `"/"`, and the field was never actually rendered anywhere in `Skills.js`. Preserved the field (for a future "learn more" URL) but represented "no data" honestly instead of keeping the placeholder.
+- **`icon: null` preserved for Python/Django/Ruby/RoR** in skills — these already had no icon in the original data (the JSX line was commented out); carried forward as an explicit `null` rather than assigning a lookalike icon.
+- **certConst.js's dead `HenrySvg` import was removed** — it was imported but never referenced anywhere in that file (certificates never had an `icon` field at all), so there was no embedded-JSX problem to fix there, just an unused import to drop while touching the file.
+
+Not started, and intentionally out of scope for this phase: no MongoDB/database, no Cloudinary/file storage, no authentication, no UI/animation redesign, no Next.js upgrade.
+
+**Phase 1 follow-up cleanup (post-review) — ✅ COMPLETE**
+
+Two additional cleanup items requested after the first Phase 1 review, both now done:
+
+1. **Made image fields truly database-ready.** `projectConst.js`, `certConst.js`, and `testimonialConst.js` previously had `image` fields that were imported/`require()`d `StaticImageData` objects — not plain values a database could store. All three now store `image` as a root-relative string path (e.g. `"/images/projects/proy/ondasagave.jpg"`), matching how any file under `public/` is already served. Since `next/image` can no longer infer intrinsic dimensions from a plain string source, `imageWidth`/`imageHeight` (real pixel dimensions, read from the source files) were added to the records that needed them:
+   - `certConst.js` needed no new fields — `certificates.js` already rendered images at a hardcoded `width={500} height={300}`, decoupled from the source's real size.
+   - `projectConst.js` and `testimonialConst.js` didn't have explicit width/height before (they relied entirely on the static import), so `imageWidth`/`imageHeight` were added and threaded through `src/pages/projects.js` and `src/components/Testimonials.js`.
+   - Confirmed via `grep` that every `src/data/*.js` file now contains zero `import`/`require` statements and zero function/arrow definitions — only strings, numbers, booleans, null, arrays, and plain objects.
+
+2. **Moved all content files from `public/All-Texts/` to `src/data/`.** Filenames kept identical (`projectConst.js`, `skillsConst.js`, `expConst.js`, `eduConst.js`, `certConst.js`, `testimonialConst.js`); the old `public/All-Texts/` directory was removed. All six consumers (`src/pages/projects.js`, `src/pages/certificates.js`, `src/components/Skills.js`, `src/components/Experience.js`, `src/components/Education.js`, `src/components/Testimonials.js`) now import via the `@/data/...` alias instead of a relative `../../public/All-Texts/...` path.
+
+Verified with `npm run lint` + `npm run build` (both clean) and a second runtime smoke test against `next start`: confirmed the optimized `/_next/image?url=%2Fimages%2F...` requests actually resolve and serve real image bytes (not just that the markup looks right), and re-checked project titles/notes, certificate titles, and the JS-skill icon's SVG path all still render identically.
 
 ### Phase 2 — Animation/visual modernization (the explicitly requested design work)
 - Design and implement the new page-transition animation (replacing `TransitionEffect`), applied uniformly across all pages.
