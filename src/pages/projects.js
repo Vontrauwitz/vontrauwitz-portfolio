@@ -57,11 +57,11 @@ const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => 
           {link === "/" ? (
             <span className='text-lg font-semibold'>{/* Renderiza aquí el texto de la visita sin enlace */}</span>
           ) : (
-            <Link href={link} target={link} className='text-lg font-semibold underline'>
+            <Link href={link} target="_blank" className='text-lg font-semibold underline'>
               Visit
             </Link>
           )}
-          <Link href={iconWeb} target={iconWeb} className='w-8'>
+          <Link href={iconWeb} target="_blank" className='w-8'>
             {icon}
           </Link>
         </div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const UseThemeSwitcher = () => {
 
   //TODO css feature investigate
-  const preferDarkQuery = "(prefer-color-scheme: dark)";
+  const preferDarkQuery = "(prefers-color-scheme: dark)";
   //preferDarkQuery.matches
   const [mode, setMode] = useState("");
 

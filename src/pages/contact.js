@@ -11,9 +11,10 @@ import { sendContactForm } from '@/lib/api';
 import { LoadIcon } from '@/components/Icons';
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import TransitionEffect from '@/components/TransitionEffect';
 import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const initValues = {
@@ -77,17 +78,18 @@ const Contact = () => {
 
     if (validateForm()) {
       setIsLoading(true);
-      console.log("Formulario enviado:", values);
-      setTimeout(() => {
-        router.push('/');
-      }, 1500);
       try {
-        await sendContactForm(values); // Asegúrate de que sendContactForm sea una función asíncrona que envíe el formulario
+        await sendContactForm(values);
         const toastId = toast.success('El mensaje se envió correctamente');
         setTimeout(() => toast.dismiss(toastId), 3000); // Esto quitará la notificación después de 3 segundos
         setState(initState);
+        setTimeout(() => {
+          router.push('/');
+        }, 1500);
       } catch (error) {
         console.error("Error al enviar el formulario:", error);
+        const toastId = toast.error('Hubo un error al enviar el mensaje. Intenta de nuevo.');
+        setTimeout(() => toast.dismiss(toastId), 3000);
       } finally {
         setIsLoading(false); // Desactivar el loading después de enviar el formulario
       }
@@ -166,6 +168,7 @@ const Contact = () => {
           </div>
         </Layout>
       </main>
+      <ToastContainer />
     </>
   );
 };

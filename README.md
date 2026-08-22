@@ -1,84 +1,61 @@
-import React, { useState } from "react";
-import Layout from '@/components/Layout';
-import Head from 'next/head';
-import AnimatedText from "@/components/AnimatedText";
-import Link from "next/link";
-import Image from "next/image";
-import { projects, project } from '../../public/All-Texts/projectConst';
+# Vontrauwitz Portfolio
 
-const FeaturedProject = ({ type, title, summary, img, link, icon, iconWeb }) => {
-const [isHovered, setIsHovered] = useState(false);
+Personal portfolio site for Hans Trauwitz — full-stack developer. Built with Next.js (Pages Router) and Tailwind CSS, deployed on Vercel.
 
-const handleMouseEnter = () => {
-setIsHovered(true);
-};
+Live: https://vontrauwitz-portfolio.vercel.app
 
-const handleMouseLeave = () => {
-setIsHovered(false);
-};
+## Tech Stack
 
-return (
-<article className='w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative mb-5'>
-<div
-className={`relative w-full h-auto overflow-hidden rounded-lg ${isHovered ? 'opacity-75' : ''}`}
-onMouseEnter={handleMouseEnter}
-onMouseLeave={handleMouseLeave} >
-<Image src={img} alt={title} className="w-full h-full" />
-{isHovered && (
-<div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-<p className="text-light text-center p-4">{summary}</p>
-</div>
-)}
-</div>
-<div className='w-full flex flex-col items-start justify-between mt-4'>
-<span className='text-primary font-bold text-xl'>{type}</span>
-<Link href={link} target="_blank" className='hover:underline underline-offset-2'>
-<h2 className='my-2 w-full text-left text-3xl font-bold'>{title}</h2>
-</Link>
-<div className='w-full mt-2 flex items-center justify-between'>
-<Link href={link} target="_blank" className='text-lg font-semibold underline'>
-Visit
-</Link>
-<Link href={icon} target="_blank" className='w-8'>
-{icon}
-</Link>
-</div>
-</div>
-</article>
-);
-};
+- **Framework:** Next.js 13.2.4 (Pages Router, JavaScript — no TypeScript)
+- **Styling:** Tailwind CSS, with a class-based dark mode
+- **Animation:** Framer Motion (page transitions, scroll-linked timelines, text reveals)
+- **Fonts:** `next/font/google` (Montserrat)
+- **Contact form:** Nodemailer (Gmail SMTP) via a single API route
+- **Other UI libs:** react-slick / slick-carousel (Contact page image carousel), react-toastify (form feedback)
 
-const Projects = () => {
+## Getting Started
 
-return (
-<>
-<Head>
-<title>VontrauwitzDEV | Projects</title>
-<meta name="projects" content="my projects" />
-</Head>
-<main className="w-full mb-16 flex flex-col items-center justify-center">
-<Layout className="pt-16">
-<AnimatedText text="Knowledge is power, but imagination is limitless!" className="mb-16" />
-<div className="grid grid-cols-12 gap-24">
-<div className="col-span-6">
-{projects.map((proj, index) => (
-<FeaturedProject
-                  key={index}
-                  type={proj.type}
-                  title={proj.title}
-                  summary={proj.summary}
-                  img={proj.img}
-                  link={proj.link}
-                  icon={proj.icon}
-                  iconWeb={proj.iconWeb}
-                />
-))}
-</div>
-</div>
-</Layout>
-</main>
-</>
-);
-}
+```bash
+npm install
+npm run dev
+```
 
-export default Projects;
+Open [http://localhost:3000](http://localhost:3000).
+
+## Environment Variables
+
+Create a `.env.local` file with:
+
+```
+EMAIL=<gmail address used to send contact-form emails>
+EMAIL_PASS=<gmail app password>
+NEXT_PUBLIC_MAPS_API_KEY=<Google Maps JavaScript API key>
+```
+
+`EMAIL` / `EMAIL_PASS` are consumed server-side in `src/config/nodemailer.js` by the `/api/contact` route. `NEXT_PUBLIC_MAPS_API_KEY` is reserved for a planned location/map section (the `@googlemaps/js-api-loader` dependency is already installed but not yet wired up).
+
+## Project Structure
+
+```
+public/
+  All-Texts/     # Site content (projects, skills, experience, education, certificates, testimonials)
+                 # as plain JS modules — this is the current "content management" layer.
+  images/        # Static images used across the site
+src/
+  pages/         # File-based routes: /, /about, /projects, /certificates, /contact, /api/contact
+  components/    # Shared UI: NavBar, Footer, Layout, AnimatedText, TransitionEffect, icon set, etc.
+  lib/           # Client-side helpers (contact form fetch wrapper)
+  config/        # Server-side config (Nodemailer transporter)
+  styles/        # Tailwind entrypoint
+```
+
+## Scripts
+
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run start` — run the production build locally
+- `npm run lint` — run ESLint (`next/core-web-vitals`)
+
+## Roadmap
+
+See `PLAN.md` for the current codebase analysis and the phased modernization plan (bug fixes/cleanup, content-model extraction, animation refresh, an authenticated `/admin` dashboard, analytics, and a "Job Application Studio").
