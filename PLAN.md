@@ -307,6 +307,8 @@ Every checkpoint below must pass, in order, before the next begins: `npm run bui
 | **2.11** | React Compiler evaluation | Trial `reactCompiler: true` in an isolated branch/build, measure dev/build time delta per Part II §7's known Babel-overhead caveat. **Default decision: leave off** unless the trial shows a clear win with no meaningful build-time regression. | Documented go/no-go recorded in this file's changelog; default is "off" |
 | **2.12** | Final Phase 2 sign-off | Full `npm run build` + `tsc --noEmit` + `npm run lint` + complete manual browser smoke test (all routes, both themes, every animation in Part I §3, contact form end-to-end) on a Vercel preview deployment before merging to the production branch. | All green; this is the phase's exit gate |
 
+**Checkpoint 2.11 decision:** React Compiler — DEFERRED / NO-GO for Phase 2. Reason: isolated evaluation caused a site-wide hook-order runtime regression in NavBar and increased build time. Compiler changes were fully reverted.
+
 ## 9. Old Files/Conventions That Disappear or Are Replaced
 
 | Old | Fate |
