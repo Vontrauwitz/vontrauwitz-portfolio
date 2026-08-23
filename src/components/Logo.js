@@ -1,14 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import Image from 'next/image';
 import charizard from '../../public/images/gifs/charizard.gif'
 import casa from '../../public/images/gifs/casa-min.gif'
 
 
-const Logo = () => {
+// Declared once at module scope (not inside Logo) so it isn't recreated on
+// every render.
+const MotionLink = motion.create(Link);
 
-  const MotionLink = motion(Link);
+const Logo = () => {
 
   return (
     <div

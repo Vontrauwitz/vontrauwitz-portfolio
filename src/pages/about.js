@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 import profilePic from '../../public/images/profile/yo1.jpg'
 import profilePic2 from '../../public/images/profile/yo1.1.png'
-import { isMotionValue, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { isMotionValue, useInView, useMotionValue, useSpring } from 'motion/react';
 import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
 import Education from '@/components/Education';

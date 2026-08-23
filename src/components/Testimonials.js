@@ -4,7 +4,7 @@ import Layout from './Layout';
 import Image from 'next/image';
 import { cards } from '@/data/testimonialConst';
 import AnimatedText from './AnimatedText';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 
 const ScrollableCard = ({ title, content, image, imageWidth, imageHeight, profileUrl }) => {

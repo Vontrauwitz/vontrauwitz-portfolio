@@ -1,5 +1,5 @@
 import { education } from '@/data/eduConst';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll } from 'motion/react';
 import { useRef } from 'react';
 import LilIcon from './LilIcon';
 

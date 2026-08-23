@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { skills } from '@/data/skillsConst';
 import AnimatedText from '@/components/AnimatedText';
 import Icon from '@/components/Icon';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const CATEGORY_BY_BUTTON = {
   button1: 'frontend',

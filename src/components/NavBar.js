@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Logo from './Logo'
 import { useRouter } from 'next/router';
 import { TwitterIcon, GithubIcon, LinkedinIcon, SunIcon, MoonIcon, InstagramIcon } from './Icons';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import UseThemeSwitcher from './hooks/useThemeSwitcher';
 
 
