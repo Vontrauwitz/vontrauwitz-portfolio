@@ -1,14 +1,25 @@
-import React, { useState } from "react";
-import Layout from '@/components/Layout';
-import Head from 'next/head';
-import AnimatedText from "@/components/AnimatedText";
+"use client";
+
+// Moved from src/pages/projects.js's inline FeaturedProject for Checkpoint
+// 2.5, per PLAN.md Part III §2's target tree. Behavior/markup unchanged;
+// only the file location, the "use client" directive, and light TypeScript
+// typing are new. Stays a client component: hover state (useState,
+// onMouseEnter/onMouseLeave) is real interactivity, not just an animation.
+
 import Link from "next/link";
 import Image from "next/image";
-import { projects } from '@/data/projectConst';
-import Icon from '@/components/Icon';
-import TransitionEffect from "@/components/TransitionEffect";
+import { useState } from "react";
+import Icon from "@/components/Icon";
+import type { projects } from "@/data/projectConst";
 
-const FeaturedProject = ({ type, title, titleNote, summary, note, image, imageWidth, imageHeight, deployUrl, icon, githubUrl }) => {
+type Project = (typeof projects)[number];
+
+type ProjectCardProps = Pick<
+  Project,
+  'type' | 'title' | 'titleNote' | 'summary' | 'note' | 'image' | 'imageWidth' | 'imageHeight' | 'deployUrl' | 'icon' | 'githubUrl'
+>;
+
+const ProjectCard = ({ type, title, titleNote, summary, note, image, imageWidth, imageHeight, deployUrl, icon, githubUrl }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -81,43 +92,4 @@ const FeaturedProject = ({ type, title, titleNote, summary, note, image, imageWi
 
 };
 
-const Projects = () => {
-  return (
-    <>
-      <Head>
-        <title>VontrauwitzDEV | Projects</title>
-        <meta name="projects" content="my projects" />
-      </Head>
-      <TransitionEffect />
-      <main className="w-full mb-16 flex flex-col items-center justify-center">
-        <Layout className="pt-16">
-          <AnimatedText text="Imagination Trumps Knowledge!" className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" />
-          <div className="grid grid-cols-12 gap-10  lg:flex lg:flex-col">
-
-
-            {/* TODO DOS PROYECTOS POR LINEA */}
-            {projects.map((proj) => (
-              <div className="col-span-6" key={proj.slug}>
-                <FeaturedProject
-                  type={proj.type}
-                  title={proj.title}
-                  titleNote={proj.titleNote}
-                  summary={proj.summary}
-                  note={proj.note}
-                  image={proj.image}
-                  imageWidth={proj.imageWidth}
-                  imageHeight={proj.imageHeight}
-                  deployUrl={proj.deployUrl}
-                  icon={proj.icon}
-                  githubUrl={proj.githubUrl}
-                />
-              </div>
-            ))}
-          </div>
-        </Layout>
-      </main>
-    </>
-  );
-};
-
-export default Projects;
+export default ProjectCard;
