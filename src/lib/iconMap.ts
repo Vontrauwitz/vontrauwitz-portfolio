@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react';
+import type { IconProps } from '@/components/ui/icons/types';
 import {
   AwsIcon,
   BlenderIcon,
@@ -41,12 +43,12 @@ import {
   VercelIcon,
   VscIcon,
   WebpackIcon,
-} from '@/components/Icons';
+} from '@/components/ui/icons';
 
 // Stable string keys that content data can reference instead of embedding JSX.
 // Keys map 1:1 to the icon components that were previously imported directly
 // into src/data/*.js content files.
-export const iconMap = {
+export const iconMap: Record<string, ComponentType<IconProps>> = {
   javascript: JsIcon,
   react: ReactIcon,
   nextjs: NextJsIcon,
@@ -91,4 +93,5 @@ export const iconMap = {
   blender: BlenderIcon,
 };
 
-export const resolveIcon = (name) => (name ? iconMap[name] ?? null : null);
+export const resolveIcon = (name?: string | null): ComponentType<IconProps> | null =>
+  (name ? iconMap[name] ?? null : null);

@@ -18,7 +18,7 @@ import profilePicMon2 from '../../../../public/images/contact/montreal2.jpg';
 import profilePicMon3 from '../../../../public/images/contact/montreal3.png';
 import profilePicMon4 from '../../../../public/images/contact/montreal4.jpg';
 import { sendContactForm } from '@/lib/api';
-import { LoadIcon } from '@/components/Icons';
+import { LoadIcon } from '@/components/ui/icons';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";

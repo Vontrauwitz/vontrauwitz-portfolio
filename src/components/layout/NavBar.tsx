@@ -9,30 +9,20 @@
 // Router was fully removed and nothing referenced it anymore — this is now
 // the only NavBar.
 
-import React, { useState, useEffect, useRef, type ComponentType } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/Logo'
 import { usePathname, useRouter } from 'next/navigation';
 import {
   TwitterIcon,
-  GithubIcon as GithubIconRaw,
-  LinkedinIcon as LinkedinIconRaw,
+  GithubIcon,
+  LinkedinIcon,
   SunIcon,
   MoonIcon,
-  InstagramIcon as InstagramIconRaw,
-} from '@/components/Icons';
+  InstagramIcon,
+} from '@/components/ui/icons';
 import { motion } from 'motion/react';
 import UseThemeSwitcher from '@/components/hooks/useThemeSwitcher';
-
-// Icons.js is still untyped JS (Checkpoint 2.9 converts it, not this one).
-// TS infers `className` as a required prop for these three from their
-// implementation, but every call site here renders them with no props at
-// all (sized via the parent element's classes instead) — exactly as the
-// original NavBar.js already did. Re-typing the import as accepting an
-// optional className is compile-time only and changes nothing at runtime.
-const InstagramIcon = InstagramIconRaw as ComponentType<{ className?: string }>;
-const GithubIcon = GithubIconRaw as ComponentType<{ className?: string }>;
-const LinkedinIcon = LinkedinIconRaw as ComponentType<{ className?: string }>;
 
 type CustomLinkProps = {
   href: string;
@@ -96,12 +86,7 @@ const CustomMobilLink = ({ href, title, className = "", toggle }: CustomMobilLin
 
 const NavBar = () => {
 
-  // useThemeSwitcher.js is still untyped JS (converting it is Checkpoint 2.9's
-  // job, not this one) — without a type annotation TS infers a plain array
-  // (not a tuple), so both destructured elements come back typed as
-  // `string | Dispatch<SetStateAction<string>>`. Asserting the real shape
-  // here is compile-time only; it changes nothing at runtime.
-  const [mode, setMode] = UseThemeSwitcher() as [string, (mode: string) => void];
+  const [mode, setMode] = UseThemeSwitcher();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

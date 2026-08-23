@@ -1,7 +1,12 @@
 import React from 'react';
+import type { RefObject } from 'react';
 import { motion, useScroll } from 'motion/react';
 
-const LilIcon = ({ reference }) => {
+type LilIconProps = {
+  reference: RefObject<HTMLElement | null>;
+};
+
+const LilIcon = ({ reference }: LilIconProps) => {
   const { scrollYProgress } = useScroll({
     target: reference,
     offset: ["center end", "center center"],

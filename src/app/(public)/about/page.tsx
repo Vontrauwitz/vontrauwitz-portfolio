@@ -8,7 +8,7 @@ import SkillsTabs from '@/features/skills/components/SkillsTabs';
 import ExperienceTimeline from '@/features/experience/components/ExperienceTimeline';
 import EducationTimeline from '@/features/experience/components/EducationTimeline';
 import Link from 'next/link'
-import { CertificateIcon } from '@/components/Icons'
+import { CertificateIcon } from '@/components/ui/icons'
 import TestimonialList from '@/features/testimonials/components/TestimonialList';
 import TransitionEffect from '@/components/TransitionEffect';
 

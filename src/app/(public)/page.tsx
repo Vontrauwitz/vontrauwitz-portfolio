@@ -4,7 +4,7 @@ import Image from 'next/image'
 import profileimg from "../../../public/images/profile/yo1_optimized.3sf-min.png"
 import AnimatedText from '@/components/AnimatedText'
 import Link from 'next/link'
-import { LinkArrow, ViewCv } from '@/components/Icons'
+import { LinkArrow, ViewCv } from '@/components/ui/icons'
 import TransitionEffect from '@/components/TransitionEffect'
 
 // Title matches the root layout's default (app/layout.tsx) so it doesn't

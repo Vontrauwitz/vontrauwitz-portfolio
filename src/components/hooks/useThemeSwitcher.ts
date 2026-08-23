@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
-const UseThemeSwitcher = () => {
+const useThemeSwitcher = (): [string, Dispatch<SetStateAction<string>>] => {
 
   //TODO css feature investigate
   const preferDarkQuery = "(prefers-color-scheme: dark)";
@@ -58,4 +59,4 @@ const UseThemeSwitcher = () => {
 
 }
 
-export default UseThemeSwitcher;
+export default useThemeSwitcher;

@@ -8,7 +8,15 @@
 //     Accept: "application/json",
 //   }
 // })
-export const sendContactForm = async (data) =>
+
+type ContactFormValues = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+export const sendContactForm = async (data: ContactFormValues) =>
   fetch("/api/contact", {
     method: "POST",
     body: JSON.stringify(data),
