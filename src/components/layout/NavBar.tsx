@@ -1,16 +1,13 @@
 "use client";
 
-// App-Router-compatible fork of src/components/NavBar.js, created for
-// Checkpoint 2.3. That file uses `useRouter` from `next/router` (Pages
-// Router only), which throws when rendered without a mounted Pages Router
-// context — which the App Router never provides. This fork is otherwise
-// identical, ported to `next/navigation`'s `usePathname()`/`useRouter()`.
-//
-// The old src/components/NavBar.js is unchanged and still used by
-// src/pages/_app.js for the routes that haven't migrated yet. Both exist
-// side by side until Checkpoint 2.8 removes the Pages Router entirely, at
-// which point this file becomes the only NavBar and the old one is deleted.
-// See the Checkpoint 2.3 report for the full rationale.
+// Created in Checkpoint 2.3 as an App-Router-compatible port of the old
+// src/components/NavBar.js, which used `useRouter` from `next/router`
+// (Pages Router only) — that throws when rendered without a mounted Pages
+// Router context, which the App Router never provides. Ported to
+// `next/navigation`'s `usePathname()`/`useRouter()` instead; otherwise
+// identical. The old file was deleted in Checkpoint 2.8 once the Pages
+// Router was fully removed and nothing referenced it anymore — this is now
+// the only NavBar.
 
 import React, { useState, useEffect, useRef, type ComponentType } from 'react'
 import Link from 'next/link'
