@@ -1,7 +1,9 @@
-import React from 'react';
-import { motion } from 'motion/react';
+"use client";
 
-const quote = {
+import React from 'react';
+import { motion, type Variants } from 'motion/react';
+
+const quote: Variants = {
   initial: {
     opacity: 1,
   },
@@ -14,7 +16,7 @@ const quote = {
   }
 }
 
-const singleWord = {
+const singleWord: Variants = {
   initial: {
     opacity: 0,
     y: 50,
@@ -28,7 +30,12 @@ const singleWord = {
   }
 }
 
-const AnimatedText = ({ text, className = "" }) => {
+type AnimatedTextProps = {
+  text: string;
+  className?: string;
+};
+
+const AnimatedText = ({ text, className = "" }: AnimatedTextProps) => {
   return (
     <div className='w-full mx-auto py-2 flex items-center justify-center text-center overflow-hidden sm:py:0'>
       <motion.h1 className={`inline-block w-full text-dark font-bold capitalize text-8xl ${className} dark:text-light`}

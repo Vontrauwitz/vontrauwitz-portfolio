@@ -1,19 +1,24 @@
+import type { Metadata } from 'next';
 import Layout from '@/components/Layout'
-import Head from 'next/head'
 import Image from 'next/image'
-import profileimg from "../../public/images/profile/yo1_optimized.3sf-min.png"
+import profileimg from "../../../public/images/profile/yo1_optimized.3sf-min.png"
 import AnimatedText from '@/components/AnimatedText'
 import Link from 'next/link'
 import { LinkArrow, ViewCv } from '@/components/Icons'
 import TransitionEffect from '@/components/TransitionEffect'
 
+// Title matches the root layout's default (app/layout.tsx) so it doesn't
+// need repeating here; only the page-specific "welcome" meta tag (from the
+// original pages/index.js <Head>) needs to be declared.
+export const metadata: Metadata = {
+  other: {
+    welcome: 'welcome',
+  },
+};
+
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>VontrauwitzDEV | Portfolio</title>
-        <meta name="welcome" content="welcome" />
-      </Head>
       <TransitionEffect />
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
         <Layout className='pt-0 '>
@@ -55,7 +60,6 @@ export default function Home() {
                 <Link
                   href="/cv_hans_trauwitz_portfolio.pdf"
                   target={"_blank"}
-                  // className="ml-6 text-lg font-medium capitalize text-dark underline"
                   className='flex items-center bg-dark text-light p-1.5 px-6 rounded-lg text-lg font-semibold
                   hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light md:mb-5'
                 >
@@ -81,10 +85,3 @@ export default function Home() {
     </>
   )
 }
-
-
-
-
-
-
-

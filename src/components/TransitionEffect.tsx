@@ -1,7 +1,9 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'motion/react'
 
-// der => izq 
+// der => izq
 
 const TransitionEffect = () => {
   return (

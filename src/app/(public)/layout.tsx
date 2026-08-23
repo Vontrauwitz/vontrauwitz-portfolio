@@ -1,16 +1,20 @@
 import type { ReactNode } from "react";
+import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/Footer";
 
-// NavBar is intentionally NOT rendered here yet. It imports `useRouter` from
-// `next/router` (Pages Router only) inside CustomLink/CustomMobilLink, which
-// throws under the App Router (no Pages Router context is mounted). Wiring
-// NavBar in requires converting it to `next/navigation`'s usePathname/useRouter
-// as part of actually migrating a route — deferred to that checkpoint, same
-// as the AnimatePresence route-transition wrapper (see layout.tsx notes and
-// the checkpoint report). Footer has no router dependency and works as-is.
+// NavBar here is the next/navigation-based fork (components/layout/NavBar.tsx),
+// not the original src/components/NavBar.js (which still powers the routes
+// that haven't migrated yet, via src/pages/_app.js). See the Checkpoint 2.3
+// report for why the fork exists and when it goes away.
+//
+// AnimatePresence-based route-transition orchestration is still not present
+// here — with only "/" migrated so far there are no two App-Router pages to
+// transition between yet. Deferred to the checkpoint where a second page
+// migrates; see PLAN.md Part III §7.
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <>
+      <NavBar />
       {children}
       <Footer />
     </>
