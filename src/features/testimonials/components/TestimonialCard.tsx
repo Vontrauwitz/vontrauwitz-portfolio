@@ -1,13 +1,22 @@
+// Extracted from src/components/Testimonials.js's inline ScrollableCard for
+// Checkpoint 2.4. Pure presentational, no hooks — stays a Server Component
+// per PLAN.md's audit ("card mapping is server-safe"). See TestimonialList.tsx
+// for the client boundary (the motion.div wrapper) and the note on the
+// server/client labels in PLAN.md Part III §2's target tree.
+
 import Link from 'next/link';
-import React from 'react';
-import Layout from './Layout';
 import Image from 'next/image';
-import { cards } from '@/data/testimonialConst';
-import AnimatedText from './AnimatedText';
-import { motion } from 'motion/react';
 
+type TestimonialCardProps = {
+  title: string;
+  content: string;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  profileUrl: string;
+};
 
-const ScrollableCard = ({ title, content, image, imageWidth, imageHeight, profileUrl }) => {
+const TestimonialCard = ({ title, content, image, imageWidth, imageHeight, profileUrl }: TestimonialCardProps) => {
   return (
     <div className="bg-dark rounded-lg shadow-md p-4 m-2 w-64 h-auto  dark:bg-light text-light font-semibold">
       <div className="flex flex-col items-center mb-5">
@@ -45,29 +54,4 @@ const ScrollableCard = ({ title, content, image, imageWidth, imageHeight, profil
   );
 };
 
-const Testimonials = () => {
-  return (
-    <Layout>
-      <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="What people say! 🙊" />
-      <motion.div
-        initial={{ y: 100 }}
-        whileInView={{ y: 0 }}
-        transition={{ duration: 0.9, type: "spring" }}
-        className="flex flex-wrap justify-center">
-        {cards.map((card) => (
-          <ScrollableCard
-            key={card.slug}
-            title={card.title}
-            content={card.content}
-            image={card.image}
-            imageWidth={card.imageWidth}
-            imageHeight={card.imageHeight}
-            profileUrl={card.profileUrl}
-          />
-        ))}
-      </motion.div>
-    </Layout>
-  );
-};
-
-export default Testimonials;
+export default TestimonialCard;

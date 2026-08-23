@@ -1,9 +1,24 @@
+"use client";
+
+// Moved from src/components/Experience.js for Checkpoint 2.4, per PLAN.md
+// Part III §2's target tree. Behavior/markup unchanged; only the file
+// location, the "use client" directive, and light TypeScript typing are new.
+
 import { experience } from '@/data/expConst';
 import { motion, useScroll } from 'motion/react';
 import { useRef } from 'react';
-import LilIcon from './LilIcon';
+import LilIcon from '@/components/LilIcon';
 
-const Details = ({ position, company, companyUrl, period, location, description }) => {
+type DetailsProps = {
+  position: string;
+  company: string;
+  companyUrl: string;
+  period: string;
+  location: string;
+  description: string;
+};
+
+const Details = ({ position, company, companyUrl, period, location, description }: DetailsProps) => {
 
   const ref = useRef(null)
 
@@ -43,7 +58,7 @@ const Details = ({ position, company, companyUrl, period, location, description 
   )
 }
 
-const Experience = () => {
+const ExperienceTimeline = () => {
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -87,4 +102,4 @@ const Experience = () => {
   );
 }
 
-export default Experience;
+export default ExperienceTimeline;

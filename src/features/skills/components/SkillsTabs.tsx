@@ -1,22 +1,33 @@
+"use client";
+
+// Moved from src/components/Skills.js for Checkpoint 2.4, per PLAN.md Part III
+// §2's target tree. Behavior/markup unchanged; only the file location, the
+// "use client" directive, and light TypeScript typing are new.
+
 import React, { useState } from 'react';
 import { skills } from '@/data/skillsConst';
 import AnimatedText from '@/components/AnimatedText';
 import Icon from '@/components/Icon';
 import { motion } from 'motion/react';
 
-const CATEGORY_BY_BUTTON = {
+// skillsConst.js is still untyped JS (data-file conversion isn't part of
+// this checkpoint), so the item shape is derived from the array itself
+// rather than a named type export.
+type Skill = (typeof skills)[number];
+
+const CATEGORY_BY_BUTTON: Record<string, Skill['category']> = {
   button1: 'frontend',
   button2: 'backend',
   button3: 'tools',
 };
 
-const Skills = () => {
+const SkillsTabs = () => {
   const [selectedButton, setSelectedButton] = useState('button1');
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState<Skill | null>(null);
 
   const listItems = skills.filter((item) => item.category === CATEGORY_BY_BUTTON[selectedButton]);
 
-  const handleButtonClick = (buttonName) => {
+  const handleButtonClick = (buttonName: string) => {
     setSelectedButton(buttonName);
     setSelectedItem(null);
   };
@@ -99,4 +110,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default SkillsTabs;

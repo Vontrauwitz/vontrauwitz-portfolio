@@ -1,54 +1,33 @@
+import type { Metadata } from 'next';
 import AnimatedText from '@/components/AnimatedText';
 import Layout from '@/components/Layout';
-import Head from 'next/head';
 import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
-import profilePic from '../../public/images/profile/yo1.jpg'
-import profilePic2 from '../../public/images/profile/yo1.1.png'
-import { isMotionValue, useInView, useMotionValue, useSpring } from 'motion/react';
-import Skills from '@/components/Skills';
-import Experience from '@/components/Experience';
-import Education from '@/components/Education';
+import profilePic from '../../../../public/images/profile/yo1.jpg'
+import profilePic2 from '../../../../public/images/profile/yo1.1.png'
+import SkillsTabs from '@/features/skills/components/SkillsTabs';
+import ExperienceTimeline from '@/features/experience/components/ExperienceTimeline';
+import EducationTimeline from '@/features/experience/components/EducationTimeline';
 import Link from 'next/link'
 import { CertificateIcon } from '@/components/Icons'
-import Testimonials from '@/components/Testimonials';
+import TestimonialList from '@/features/testimonials/components/TestimonialList';
 import TransitionEffect from '@/components/TransitionEffect';
 
+// Description matches the root layout's default, so only the title needs
+// to be declared here (page-level metadata is shallow-merged with layout
+// metadata; unspecified fields are inherited).
+export const metadata: Metadata = {
+  title: 'VontrauwitzDEV | About',
+};
 
-
-
-const AnimatedNumber = ({ value }) => {
-  const ref = useRef(null);
-
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { duration: 3000 });
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    };
-  }, [isInView, value, motionValue]);
-
-  useEffect(() => {
-    springValue.on("change", (latest) => {
-      // console.log(latest);
-      if (ref.current && latest.toFixed(0) <= value) {
-        ref.current.textContent = latest.toFixed(0)
-      }
-    });
-  }, [springValue, value]);
-
-  return <span ref={ref}></span>
-}
+// AnimatedNumber was dead code in the original pages/about.js too (defined,
+// never rendered here) — it now lives in src/components/AnimatedNumber.tsx
+// as its own client component, since a Server Component file can't import
+// React/motion hooks at all, even unused. Not imported here because nothing
+// in this page renders it, exactly as before.
 
 const About = () => {
   return (
     <>
-      <Head>
-        <title>VontrauwitzDEV | About</title>
-        <meta name="description" content="my description" />
-      </Head>
       <TransitionEffect />
       <main className='flex w-full flex-col items-center justify-center dark:text-light '>
         <Layout className='pt-16'>
@@ -82,13 +61,13 @@ const About = () => {
             </div>
 
           </div>
-          <Skills />
-          <Experience />
-          <Education />
+          <SkillsTabs />
+          <ExperienceTimeline />
+          <EducationTimeline />
           <div className='flex items-center self-start mt-2 mb-10'>
             <Link
               href="/certificates"
-              className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold 
+              className='flex items-center bg-dark text-light p-.5 px-3  rounded-lg text-lg font-semibold
                   hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
               download={true}
             >
@@ -96,7 +75,7 @@ const About = () => {
               <CertificateIcon className={"w-6 ml-4"} />
             </Link>
           </div>
-          <Testimonials />
+          <TestimonialList />
 
 
         </Layout>
@@ -106,4 +85,3 @@ const About = () => {
 }
 
 export default About;
-

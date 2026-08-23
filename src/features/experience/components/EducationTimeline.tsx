@@ -1,9 +1,23 @@
+"use client";
+
+// Moved from src/components/Education.js for Checkpoint 2.4, per PLAN.md
+// Part III §2's target tree. Behavior/markup unchanged; only the file
+// location, the "use client" directive, and light TypeScript typing are new.
+
 import { education } from '@/data/eduConst';
 import { motion, useScroll } from 'motion/react';
 import { useRef } from 'react';
-import LilIcon from './LilIcon';
+import LilIcon from '@/components/LilIcon';
 
-const Details = ({ program, institutionUrl, institution, description, period }) => {
+type DetailsProps = {
+  program: string;
+  institutionUrl: string;
+  institution: string;
+  description: string;
+  period: string;
+};
+
+const Details = ({ program, institutionUrl, institution, description, period }: DetailsProps) => {
 
   const ref = useRef(null)
 
@@ -43,7 +57,7 @@ const Details = ({ program, institutionUrl, institution, description, period }) 
 }
 
 
-const Education = () => {
+const EducationTimeline = () => {
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -86,4 +100,4 @@ const Education = () => {
   );
 }
 
-export default Education;
+export default EducationTimeline;
