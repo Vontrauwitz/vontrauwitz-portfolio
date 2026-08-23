@@ -1,25 +1,44 @@
-import { mailOptions, transporter } from "../../config/nodemailer.js";
+import { NextResponse } from 'next/server';
+import { mailOptions, transporter } from '@/config/nodemailer';
 
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// Moved from src/pages/api/contact.js for Checkpoint 2.7, per PLAN.md's
+// explicit instruction — this is a genuine external HTTP endpoint (the
+// contact form), exactly the kind of thing rule 12 calls out as a Route
+// Handler, not a Server Action. Logic/behavior unchanged: same field
+// validation, same email content, same Nodemailer transporter (still
+// imported from the untouched src/config/nodemailer.js).
+//
+// Route Handlers require one named export per HTTP method rather than a
+// single `handler(req, res)` branching on `req.method` — the original
+// returned `400 { message: 'Bad Request' }` for every non-POST method
+// (not Next's default 405), so that's reproduced explicitly below for
+// every method a client could realistically send, instead of relying on
+// the framework's default behavior for unhandled methods.
 
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
-const CONTACT_MESSAGE_FIELD = {
+const CONTACT_MESSAGE_FIELD: Record<keyof ContactFormData, string> = {
   name: "Name",
   email: "Email",
   subject: "Subject",
   message: "Message",
 };
 
-const generateEmailContent = (data) => {
+const generateEmailContent = (data: ContactFormData) => {
   const stringData = Object.entries(data).reduce(
     (str, [key, val]) =>
-      (str += `${CONTACT_MESSAGE_FIELD[key]}: \n${val} \n \n`),
+      (str += `${CONTACT_MESSAGE_FIELD[key as keyof ContactFormData]}: \n${val} \n \n`),
     ''
   )
 
   const htmlData = Object.entries(data).reduce(
     (str, [key, val]) =>
-      (str += `<h1 class='form-heading' align='left' >${CONTACT_MESSAGE_FIELD[key]}</h1><p class='form-answer' align='left' >${val}</p>`),
+      (str += `<h1 class='form-heading' align='left' >${CONTACT_MESSAGE_FIELD[key as keyof ContactFormData]}</h1><p class='form-answer' align='left' >${val}</p>`),
     ''
   )
 
@@ -30,26 +49,28 @@ const generateEmailContent = (data) => {
   }
 }
 
-const handler = async (req, res) => {
-  if (req.method === "POST") {
-    const data = req.body;
-    if (!data.name || !data.email || !data.subject || !data.message) {
-      return res.status(400).json({ message: 'Bad request' })
-    }
-    try {
-      await transporter.sendMail({
-        ...mailOptions,
-        ...generateEmailContent(data),
-        subject: data.subject,
-      });
-      return res.status(200).json({ success: true })
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json({ message: error.message })
-
-    }
+export async function POST(request: Request) {
+  const data = (await request.json()) as Partial<ContactFormData>;
+  if (!data.name || !data.email || !data.subject || !data.message) {
+    return NextResponse.json({ message: 'Bad request' }, { status: 400 });
   }
-  return res.status(400).json({ message: 'Bad Request' })
+  try {
+    await transporter.sendMail({
+      ...mailOptions,
+      ...generateEmailContent(data as ContactFormData),
+      subject: data.subject,
+    });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    const message = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ message }, { status: 400 });
+  }
 }
 
-export default handler;
+const badRequest = () => NextResponse.json({ message: 'Bad Request' }, { status: 400 });
+
+export const GET = badRequest;
+export const PUT = badRequest;
+export const DELETE = badRequest;
+export const PATCH = badRequest;
