@@ -62,9 +62,8 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.log(error);
-    const message = error instanceof Error ? error.message : String(error);
-    return NextResponse.json({ message }, { status: 400 });
+    console.error(error);
+    return NextResponse.json({ message: 'Unable to send message' }, { status: 500 });
   }
 }
 
