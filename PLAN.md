@@ -1,345 +1,407 @@
-# PLAN.md — Vontrauwitz Portfolio: Codebase Analysis & Modernization Plan
+# PLAN.md — Vontrauwitz Portfolio: Modernization Roadmap
 
-> Status: **Phase 0 and Phase 1 complete.** Phase 0 = hygiene (bug fixes, dead-boilerplate removal, README rewrite). Phase 1 = content-model extraction (all `public/All-Texts/*.js` content is now JSX-free and JSON-serializable, with a centralized icon resolver). Phase 2+ not started. This document describes the codebase as it exists today and proposes a phased, incremental modernization path toward the future goals (admin dashboard, auth, CMS-style content management, analytics, Job Application Studio, premium animations).
+> **This document supersedes all prior phase numbering.** Earlier drafts of this file described a "Phase 2" that was a Mongo/Auth/Cloudinary/admin architecture proposal, with the framework migration deferred to an open-ended "Phase 8 (ongoing)." That sequencing has been **replaced**: the project owner has decided the framework/architecture foundation must be modernized *first*, in isolation, before any backend (database/auth/storage) work begins. There is now exactly **one** authoritative roadmap (below). No other document or section in this repo should be treated as a competing roadmap.
+>
+> **Status as of this revision:** Phase 0 and Phase 1 are complete and unchanged (see Part I). Phase 2 (this document's main subject) is **designed but not implemented** — no dependency has been upgraded, no file has been moved, no code has been written. This is a research-and-design deliverable only, produced against the current stable Next.js 16.x documentation as of 2026-08-22.
 
 ---
 
+## Authoritative Roadmap
+
+| Phase | Name | Status |
+|---|---|---|
+| 0 | Stabilization (bug fixes, dead-code removal, doc hygiene) | ✅ Complete |
+| 1 | Serializable content model (`src/data/*.js`, JSX-free, icon resolver) | ✅ Complete |
+| 2 | Next.js 16 + React 19 + TypeScript + App Router foundational migration | 📐 Designed in this document — not implemented |
+| 3 | MongoDB Atlas + Mongoose + Zod + Data Access Layer | ⏳ Forward design only (Part IV) |
+| 4 | Auth.js (GitHub, single-owner) + Cloudinary signed uploads + secure admin foundation | ⏳ Forward design only (Part IV) |
+| 5 | Projects/Certificates Admin MVP (first real CRUD slice) | ⏳ Forward design only (Part IV) |
+| 6 | Public portfolio visual modernization (page-transition redesign, animation refresh) | ⏳ Forward design only (Part IV) |
+| 7 | Analytics dashboard | ⏳ Forward design only (Part IV) |
+| 8 | Job Application Studio | ⏳ Forward design only (Part IV) |
+| 9 | Remaining CMS modules (skills/experience/education/testimonials/settings admin) + ongoing optimization | ⏳ Forward design only (Part IV) |
+
+**Hard constraint carried through every phase below:** Phase 2 introduces **no** MongoDB, Auth.js, or Cloudinary code. It is a pure framework/language/routing migration. The site continues to read from `src/data/*.js` exactly as it does today; only *how* it's rendered and organized changes. Backend infrastructure begins in Phase 3.
+
+---
+
+# Part I — Baseline Snapshot (accurate as of Phase 1 completion, unchanged by this revision)
+
+This part is carried forward from the prior document verbatim where still accurate — it describes the codebase Phase 2 will migrate *from*.
+
 ## 1. Current Architecture & Folder Structure
 
-This is a **Next.js Pages Router** project (not App Router), using **JavaScript** (no TypeScript, despite `@types/react` being present as a dev dependency — likely just for editor IntelliSense).
+Confirmed via direct repo audit (2026-08-22): **Next.js 13.2.4, Pages Router only, plain JavaScript.**
 
 ```
 vontrauwitz-portfolio/
 ├── public/
-│   ├── All-Texts/              # "CMS" — all hardcoded content lives here as JS modules
-│   │   ├── projectConst.js     # Projects data (JSX embedded in data!)
-│   │   ├── skillsConst.js      # Skills data (frontend/backend/tools), JSX icons embedded
-│   │   ├── expConst.js         # Work experience data
-│   │   ├── eduConst.js         # Education data
-│   │   ├── certConst.js        # Certificates data (fullstack/frontend/backend/misc)
-│   │   └── testimonialConst.js # Testimonial cards data
-│   ├── images/                 # ~100 static images (profile, projects, certs, testimonials, contact, svgs)
 │   ├── cv_hans_trauwitz_portfolio.pdf
-│   └── favicon.ico, next.svg, vercel.svg, thirteen.svg (unused Next.js boilerplate)
+│   ├── favicon.ico
+│   └── images/ (certificates/, contact/, gifs/, profile/, projects/ (+ proy/), svgs/ ~50 icons, testimonials/)
 ├── src/
-│   ├── pages/                  # Pages Router — file-based routing
+│   ├── pages/
 │   │   ├── _app.js             # Global App shell: fonts, NavBar/Footer, AnimatePresence
-│   │   ├── _document.js        # Custom Document: injects dark-mode script before hydration
-│   │   ├── index.js            # Home page ("/")
-│   │   ├── about.js             # About page — embeds Skills, Experience, Education, Testimonials
-│   │   ├── projects.js          # Projects grid page
-│   │   ├── certificates.js      # Certificates page (tabbed gallery)
-│   │   ├── contact.js           # Contact form + image carousel
-│   │   └── api/
-│   │       └── contact.js       # Single API route: POST → sends email via Nodemailer
-│   ├── components/              # Presentational + a few "smart" components
-│   │   ├── AnimatedText.js       # Word-by-word stagger text animation (Framer Motion)
-│   │   ├── Education.js         # Renders eduConst timeline
-│   │   ├── Experience.js        # Renders expConst timeline
-│   │   ├── Skills.js             # Tabbed skills grid
-│   │   ├── Testimonials.js       # Testimonial cards
-│   │   ├── Footer.js
-│   │   ├── NavBar.js             # Desktop + mobile nav, theme toggle, social links
-│   │   ├── Layout.js             # Simple padding/width wrapper
-│   │   ├── LilIcon.js            # Scroll-progress circular indicator (used in timelines)
-│   │   ├── Logo.js                # Animated logo (GIF avatar + Framer Motion Link wrapper)
-│   │   ├── Icons.js               # ~2000 lines: dozens of inline SVG icon components
-│   │   ├── TransitionEffect.js    # Page-transition overlay (3 colored panels sliding)
-│   │   ├── TypingCode.js          # **Dead code** — defined, never imported anywhere
-│   │   └── hooks/
-│   │       └── useThemeSwitcher.js # Dark/light mode hook (localStorage + matchMedia)
-│   ├── lib/
-│   │   └── api.js                # `sendContactForm` — thin fetch wrapper for the contact API
-│   ├── config/
-│   │   └── nodemailer.js         # Nodemailer transporter (Gmail) + mailOptions
-│   └── styles/
-│       ├── globals.css           # Just the 3 Tailwind directives
-│       └── Home.module.css       # **Dead file** — leftover from `create-next-app`, unused
-├── next.config.js                # Minimal: `reactStrictMode: true` only
-├── tailwind.config.js             # Custom colors (dark/light/primary/primaryDark), custom max-width breakpoints
-├── postcss.config.js
-├── jsconfig.json                  # `@/*` → `./src/*` path alias
-├── .eslintrc.json                  # `next/core-web-vitals` only
-├── .env.local                      # EMAIL, EMAIL_PASS, NEXT_PUBLIC_MAPS_API_KEY
-└── README.md                       # **Corrupted/mistaken file** — contains raw JS (an old draft of projects.js), not actual documentation
+│   │   ├── _document.js        # Custom Document: dark-mode flash-prevention script
+│   │   ├── index.js            # "/"
+│   │   ├── about.js            # "/about" — Skills, Experience, Education, Testimonials
+│   │   ├── projects.js         # "/projects"
+│   │   ├── certificates.js     # "/certificates" (tabbed gallery)
+│   │   ├── contact.js          # "/contact" — form + carousel
+│   │   └── api/contact.js      # POST → sends email via Nodemailer
+│   ├── components/
+│   │   ├── AnimatedText.js, Education.js, Experience.js, Footer.js, Icon.js,
+│   │   │   Icons.js (~2000 lines, ~40 inline SVGs), LilIcon.js, Logo.js, Layout.js,
+│   │   │   NavBar.js, Skills.js, Testimonials.js, TransitionEffect.js,
+│   │   │   TypingCode.js (dead/unimported)
+│   │   └── hooks/useThemeSwitcher.js
+│   ├── data/ (projectConst.js, skillsConst.js, expConst.js, eduConst.js, certConst.js, testimonialConst.js)
+│   ├── lib/ (api.js, iconMap.js)
+│   ├── config/nodemailer.js
+│   └── styles/globals.css
+├── next.config.js               # { reactStrictMode: true } only — nothing exotic to port
+├── tailwind.config.js, postcss.config.js
+├── jsconfig.json                # "@/*" → "./src/*"
+├── .eslintrc.json                # legacy format, "next/core-web-vitals" only
+└── .env.local                    # EMAIL, EMAIL_PASS, NEXT_PUBLIC_MAPS_API_KEY
 ```
 
-**Content model today:** there is no CMS, no database. "Content management" = editing `.js` files under `public/All-Texts/` and re-deploying. Several of these files embed **JSX directly inside data objects** (e.g., `icon: <GithubIcon />` in `projectConst.js`, `summary: <div>...</div>` with `<strong>` tags), which tightly couples content to React and will need to be restructured before any admin/CMS work.
+**Dependencies (current):** `next@13.2.4`, `react@18.2.0`, `react-dom@18.2.0`, `framer-motion@^10.6.0`, `react-slick`/`slick-carousel`, `react-toastify@^9.1.3`, `nodemailer@^6.9.3`, `@googlemaps/js-api-loader` (unused, kept intentionally for a future map section), Tailwind 3.3.2, `eslint@8.36.0`/`eslint-config-next@13.2.4`. No TypeScript packages beyond inert `@types/react`/`@types/nodemailer`. No test runner, no CI config, no `vercel.json` (deploy config lives in the Vercel dashboard only).
 
----
+Routing is flat and file-based: `/`, `/about`, `/projects`, `/certificates`, `/contact`, `/api/contact`. No dynamic routes, no middleware, no nested layouts beyond `_app.js`.
 
-## 2. Next.js Version & Routing Architecture
+## 2. Content Model (established in Phase 1 — do not re-litigate)
 
-- **Next.js 13.2.4** (`package.json`) — this is the version that *introduced* the App Router as opt-in, but this project uses the **legacy Pages Router exclusively** (`src/pages/`). There is no `src/app/`.
-- **React 18.2.0 / react-dom 18.2.0.**
-- Routing is fully file-based and flat: `/`, `/about`, `/projects`, `/certificates`, `/contact`, plus one API route `/api/contact`. No dynamic routes (`[slug].js`), no nested layouts beyond the single `_app.js` shell, no middleware, no route groups.
-- `next/font/google` (Montserrat) is used via the modern `next/font` API — this part is already current for a 13.x app.
-- No `getStaticProps`/`getServerSideProps`/`getStaticPaths` anywhere — every page is a plain client-rendered functional component (effectively CSR-only content, despite being SSR-capable by framework default). This matters for future dynamic content (projects from a DB) — it will need data-fetching patterns added.
+All content lives in `src/data/*.js`: JSX-free, JSON-serializable, images stored as root-relative string paths with explicit `imageWidth`/`imageHeight`, icons resolved via string keys against `src/lib/iconMap.js` + `src/components/Icon.js`. This is already Mongo-ready — Phase 3 migrates these shapes into collections with zero further normalization. See prior revisions of this file (git history) for the full field-by-field mapping table if needed; it is not repeated here to keep this document to one authoritative source of truth.
 
-**Migration implication:** moving to the App Router is a separate, non-trivial project decision (routing conventions, data fetching model, Route Handlers instead of `pages/api`, Server Components). Given the "incremental, no full rewrite" constraint, see the phased plan (Section — Modernization Plan) for how to sequence this.
+## 3. Framer Motion Inventory (must survive Phase 2 unchanged)
 
----
-
-## 3. Main Dependencies & Their Purpose
-
-| Package | Version | Purpose | Notes |
-|---|---|---|---|
-| `next` | 13.2.4 | Framework | 2+ major versions behind current (15.x) |
-| `react` / `react-dom` | 18.2.0 | UI library | Current major (18), fine to stay for now |
-| `framer-motion` | ^10.6.0 | All animations: page transitions, text stagger, scroll-linked progress, hover/tap micro-interactions | Central to visual identity — **must preserve** |
-| `react-slick` + `slick-carousel` | ^0.30.2 / ^1.8.1 | Image carousel on Contact page | jQuery-era library; CSS imported directly from `node_modules` |
-| `react-toastify` | ^9.1.3 | Toast notification after contact form submit | Used only in `contact.js` |
-| `nodemailer` | ^6.9.3 | Sends contact-form emails via Gmail SMTP, used server-side in `pages/api/contact.js` | Credentials via `.env.local` (`EMAIL`, `EMAIL_PASS` — a Gmail app password) |
-| `@fortawesome/free-brands-svg-icons`, `@fortawesome/react-fontawesome` | ^6.4.0 / ^0.2.0 | **Unused** — no imports found anywhere in `src/` | Dead dependency |
-| `animate.css` | ^4.1.1 | **Unused** — no imports/class usage found | Dead dependency |
-| `@googlemaps/js-api-loader`, `@types/google.maps` | ^1.16.6 / ^3.55.7 | **Unused** — no code references them, but `NEXT_PUBLIC_MAPS_API_KEY` exists in `.env.local` | Likely scaffolding for the planned "location/map section" that was never built |
-| `tailwindcss` | ^3.3.2 | Styling — utility classes throughout, dark mode via `class` strategy | |
-| `eslint` / `eslint-config-next` | 8.36.0 / 13.2.4 | Linting, matches Next 13 | |
-
-**Dead/unused dependencies to prune:** `@fortawesome/*`, `animate.css`, `@googlemaps/js-api-loader`, `@types/google.maps` (unless the map section is built soon, in which case keep the maps loader and finally wire it up).
-
----
-
-## 4. Existing Animations & Where They Live
-
-All animation is done via **Framer Motion** (`motion` components, `AnimatePresence`, `useScroll`, `useMotionValue`, `useSpring`, `useInView`). No CSS-keyframe animation libraries are actually in use (animate.css is dead weight).
-
-| Animation | File | Mechanism |
+| Effect | File | Mechanism |
 |---|---|---|
-| Word-by-word heading reveal | `components/AnimatedText.js` | `variants` with `staggerChildren`, used on every page's H1 |
-| Page transition overlay (3 sliding color panels) | `components/TransitionEffect.js` | 3 stacked `motion.div`s animating `x`/`width` with staggered `delay` (0, 0.2, 0.4s), rendered per-page (not global) |
-| Route-level enter/exit orchestration | `pages/_app.js` | `<AnimatePresence mode="wait">` wrapping `<Component key={router.asPath} />` |
-| Animated counters | `pages/about.js` (`AnimatedNumber`, currently unused/no visible caller in the JSX but defined) | `useMotionValue` + `useSpring`, updates a ref's `textContent` imperatively on `"change"` |
-| Scroll-linked timeline progress bar | `components/Experience.js`, `components/Education.js` | `useScroll({ target: ref, offset: [...] })` driving a `scaleY` transform on a vertical line |
-| Scroll-linked circular "node" indicator | `components/LilIcon.js` | `useScroll` driving `pathLength` on an SVG circle, used inside each Experience/Education list item |
-| Scroll-triggered slide-up on view | `components/Skills.js`, `components/Testimonials.js` | `whileInView={{ y: 0 }}` from an initial `y` offset |
-| Nav underline hover/active indicator | `components/NavBar.js` (`CustomLink`) | Plain CSS transition (`transition-[width]`), not Framer Motion |
-| Mobile menu open/close | `components/NavBar.js` | `motion.div` with `initial`/`animate` scale+opacity, plus manual `isOpen` state and click-outside handling |
-| Icon hover/tap micro-interactions | `components/NavBar.js` (social icons), `components/Logo.js` | `whileHover={{ y: -2 }}`, `whileTap={{ scale: 0.9 }}` |
-| Theme toggle icon swap | `components/NavBar.js` + `hooks/useThemeSwitcher.js` | Conditional render of `SunIcon`/`MoonIcon`, no motion on the swap itself |
-| Dark-mode flash prevention | `pages/_document.js` | Inline `<Script beforeInteractive>` that reads `localStorage`/`matchMedia` before paint |
-| Dead/unused animation | `components/TypingCode.js` | Fully built typewriter-style text cycler using Framer Motion opacity variants — **not imported anywhere**, orphaned |
+| Word-by-word heading reveal | `AnimatedText.js` | `variants` + `staggerChildren` |
+| 3-panel color-wipe page transition | `TransitionEffect.js` | 3 stacked `motion.div`, staggered delay, `x`/`width` |
+| Route enter/exit orchestration | `_app.js` | `AnimatePresence mode="wait"` keyed by `router.asPath` |
+| Scroll-linked timeline progress line | `Experience.js`, `Education.js` | `useScroll` → `scaleY` |
+| Scroll-linked circular node indicator | `LilIcon.js` | `useScroll` → `pathLength` |
+| Scroll-triggered reveal | `Skills.js`, `Testimonials.js` | `whileInView` |
+| Mobile menu / icon micro-interactions | `NavBar.js`, `Logo.js` | `motion.div`, `whileHover`/`whileTap` |
+| Dark-mode flash prevention | `_document.js` | inline `<Script beforeInteractive>` |
 
-**Visual identity note:** The `TransitionEffect` (three colored diagonal-feeling panels: `#AC485C`, `#EF9E34`, `#2F889E`) is the site's signature transition and is explicitly called out by the user as "aggressive" and slated for replacement — but it is currently the primary carrier of "personality" for route changes, so its replacement needs equal presence, not just removal.
+**The hardest single problem in Phase 2** is `AnimatePresence mode="wait"` keyed by `router.asPath` in `_app.js` — App Router has no single top-level `<Component>` swap point to key off of. This needs a dedicated replacement pattern, designed in Part III §7 below, not an incidental side effect of moving files.
 
----
+## 4. Client/Server Component Boundary Audit
 
-## 5. Existing Page Transitions
+Full component-by-component audit performed against the actual source (not inferred) — this table drives every "use client" placement decision in Phase 2.
 
-- Global orchestration: `_app.js` wraps every routed `<Component>` in `<AnimatePresence mode="wait">`, keyed by `router.asPath`. This forces exit animations to complete before the next page mounts.
-- Each page **individually** renders `<TransitionEffect />` at the top of its JSX (`index.js`, `projects.js`, `certificates.js`, `contact.js` all do this — **`about.js` does not**, which is an existing inconsistency/bug: navigating to `/about` shows no transition overlay).
-- The transition itself has no exit animation defined on 2 of its 3 layers (only the first `motion.div` has an `exit` prop) — meaning on route-out, two of the three color panels don't animate out, they simply unmount. This is likely an unintentional inconsistency rather than a deliberate design choice.
-- There's no shared layout persistence (e.g., NavBar/Footer do not animate — they're outside the `AnimatePresence` boundary in `_app.js`, which is correct and worth preserving as-is).
-
----
-
-## 6. Where Content Is Hardcoded
-
-All content lives in **plain JS files under `public/All-Texts/`**, imported directly into components/pages at build time (not via `getStaticProps` — via literal `import`/`require`, meaning content changes require a full redeploy):
-
-| Content type | File | Shape | Notes |
+| Current file | Needs `"use client"`? | Reason | Target location (Part III tree) |
 |---|---|---|---|
-| Projects | `public/All-Texts/projectConst.js` | Array of `{ type, title, summary, img, link, icon, iconWeb }` | `title`/`summary` are sometimes **JSX elements**, not strings (e.g., wraps text in `<div><strong>`) — this breaks the "just data" assumption and will complicate any admin CRUD or JSON-based storage |
-| Skills | `public/All-Texts/skillsConst.js` | 3 arrays (`frontend`, `backend`, `tools`) of `{ name, link, description, icon }` | `icon` is a JSX element referencing one of ~40 hand-built icon components in `Icons.js`; `link` is always `"/"` (never actually links anywhere — dead field) |
-| Experience | `public/All-Texts/expConst.js` | Array of `{ position, company, companyLink, time, address, work }` | Plain strings only — easiest of the content types to migrate |
-| Education | `public/All-Texts/eduConst.js` | Array of `{ type, schoolLink, time, place, info }` | Plain strings only |
-| Certificates | `public/All-Texts/certConst.js` | 4 arrays (`fullstack`, `frontend`, `backend`, `misc`) of `{ title, school, link, issued, image }` | `image` is a static `import` of a PNG — will need actual file upload once admin-managed |
-| Testimonials | `public/All-Texts/testimonialConst.js` | Array of `{ id, title, content, img, link }` | Plain strings + static image import |
-| CV/Resume | `public/cv_hans_trauwitz_portfolio.pdf` | Static file | Linked directly from `index.js`, both "View" and "Download" buttons point at the same static PDF |
-| Personal bio copy | Inline JSX in `pages/index.js` and `pages/about.js` | Paragraphs hardcoded directly in component markup (not even in the `All-Texts` files) | Least structured of all content — literally prose in JSX |
+| `NavBar.js` | **Yes** | `useState`, `useRef`, `useEffect`, `onClick`, framer-motion | `components/layout/NavBar.tsx` |
+| `Logo.js` | **Yes** | `motion(Link)` wrapper | `components/layout/Logo.tsx` |
+| `AnimatedText.js` | **Yes** | framer-motion `motion.h1`/`motion.span` | `components/motion/AnimatedText.tsx` |
+| `TransitionEffect.js` | **Yes** | framer-motion animation engine | `components/motion/TransitionEffect.tsx` |
+| `LilIcon.js` | **Yes** | `useScroll` hook | `components/motion/LilIcon.tsx` |
+| `Experience.js` | **Yes** | `useRef`, `useScroll` | `features/experience/components/ExperienceTimeline.tsx` |
+| `Education.js` | **Yes** | `useRef`, `useScroll` | `features/experience/components/EducationTimeline.tsx` |
+| `Skills.js` | **Yes** | `useState` (tab selection), `onClick` | `features/skills/components/SkillsTabs.tsx` |
+| `Testimonials.js` | **Split** — only the `motion.div` wrapper needs client; card mapping is server-safe | `features/testimonials/components/{TestimonialList.tsx (server), TestimonialCard.tsx (client)}` |
+| `hooks/useThemeSwitcher.js` | **Yes** | `window.matchMedia`, `localStorage`, `document` | `components/layout/useThemeSwitcher.ts` |
+| Projects hover card (in `pages/projects.js`) | **Yes, leaf only** | `useState(isHovered)`, `onMouseEnter/Leave` | `features/projects/components/ProjectCard.tsx` (client); page/grid stays server |
+| Certificates tabbed gallery (in `pages/certificates.js`) | **Yes, whole gallery** | `useState` (selected tab/item), `onClick` | `features/certificates/components/CertificateGallery.tsx` |
+| Contact form + carousel (in `pages/contact.js`) | **Yes, whole form** | `useState`, `onChange/onSubmit`, `react-toastify`, `react-slick` | `features/contact/components/ContactForm.tsx` |
+| `TypingCode.js` (dead/unimported) | N/A | Not wired up — decide delete-or-integrate in Phase 2 cleanup, not carried forward silently | — |
+| `Footer.js` | **No** | Pure presentational, `new Date().getFullYear()` only | `components/layout/Footer.tsx` |
+| `Layout.js` | **No** | Pure wrapper div | `components/ui/Container.tsx` |
+| `Icon.js` | **No** | Pure resolver by prop | `components/ui/Icon.tsx` |
+| `Icons.js` (~40 SVGs) | **No** | Confirmed zero hooks/handlers/browser APIs — every icon is `(props) => <svg/>` | `components/ui/icons/*.tsx` (split from one 2000-line file, one icon per file, or a typed registry — decide during the checkpoint) |
+| `lib/iconMap.js` | N/A (not a component) | Plain object map | `lib/icon-map.ts` |
+| `lib/api.js` (`sendContactForm`) | N/A (not a component) | `fetch` wrapper, becomes a client call to the new Route Handler | `features/contact/actions/submitContactForm.ts` (client-side fetch helper, calling `app/api/contact/route.ts`) |
+| `_app.js` | **Split required** | `AnimatePresence` (client) wraps `<Component>`; NavBar/Footer stay outside it | Root `app/layout.tsx` (server) + `components/motion/PageTransitions.tsx` (client, wraps `{children}`, keyed by `usePathname()`) |
+| `_document.js` | Not a component | Inline flash-prevention script | Inline `<script>` in `app/layout.tsx`'s `<head>`, no client boundary needed (raw script tag, not React state) |
 
-**Implication for the admin dashboard:** none of this is currently backed by a database or API. Every "manage X from admin" future goal requires: (1) a real data store, (2) a data-fetching layer in the app, (3) migrating existing entries out of these JS files into that store, and (4) resolving the JSX-in-data problem (likely by converting `summary`/`title` to rich text or Markdown fields rendered via a safe renderer, and `icon` references to a fixed enum/string key resolved against the existing `Icons.js` catalog).
-
----
-
-## 7. Existing APIs and Forms
-
-**API surface today is exactly one route:**
-- `POST /api/contact` (`src/pages/api/contact.js`): validates required fields (`name`, `email`, `subject`, `message`) with a 400 on missing fields, builds an HTML email body, sends via `nodemailer` (Gmail SMTP, credentials from `.env.local`). No rate limiting, no CAPTCHA/spam protection, no request-size limits, no CSRF concern beyond same-origin fetch. Errors are logged with `console.log` and returned as JSON with the raw error message (`error.message`) — **leaks internal error detail to the client**, worth tightening.
-
-**Forms:**
-- **Contact form** (`pages/contact.js`): uncontrolled-ish controlled inputs, client-side validation (`validateForm`) for empty name/subject/message and a regex email check. On submit: validates → optimistically calls `router.push('/')` on a 1.5s timeout **before** actually confirming the email sent (the `router.push` runs regardless of whether the `sendContactForm` promise resolves or rejects, because it's in a bare `setTimeout` outside the `try/catch`) → separately awaits `sendContactForm`, shows a toast, resets form. **Bug:** the user is redirected home even if the email send fails, and the error toast path (`catch` block) never actually shows an error toast to the user — it only `console.error`s. This should be fixed as part of any contact-form work.
-- No other forms exist yet (no auth forms, no admin forms — these are 100% future work).
-
-**No existing backend/database, no auth, no session handling, no middleware.** This is a fully static/stateless site aside from the one mail-sending endpoint.
-
----
-
-## 8. Technical Debt, Bugs, Outdated Patterns, Risky Areas
-
-**Bugs:**
-1. Contact form redirects to `/` via `setTimeout` regardless of whether the email actually sent successfully (`pages/contact.js:81-93`) — user sees "success" navigation even on failure, and the catch-block error is silently swallowed (no user-facing error state).
-2. `about.js` never renders `<TransitionEffect />`, unlike every other page — inconsistent page-transition behavior when navigating to About.
-3. `TransitionEffect`'s 2nd and 3rd panels have no `exit` animation defined, so they pop out abruptly on route change instead of animating out like the 1st panel.
-4. `projects.js` `FeaturedProject`: when `link === "/"` (i.e., a project has no real deployed URL — several do: ProFY, Poke App Mobile, Poke App Website, Countries, Food App), the "Visit" link and title-link are suppressed, but the GitHub icon link (`iconWeb`) still renders with `target={iconWeb}` — passing a **URL string as the `target` attribute** instead of `"_blank"`, which is incorrect usage (should be `target="_blank"`) throughout (also present in the working `<Link href={iconWeb} target={iconWeb}>` in `pages/projects.js`).
-5. `useThemeSwitcher.js` has a typo/dead branch: `preferDarkQuery = "(prefer-color-scheme: dark)"` is missing the "s" in "prefers" — `window.matchMedia` on an invalid media query string effectively never matches, so the `mediaQuery.matches` branch is always false. The **only reason dark-mode-by-OS-preference still sort of works** is the separate, correct inline script in `_document.js` that runs once before hydration; the hook's own OS-preference detection is silently broken. Low severity today (works via a different code path) but a latent bug that will bite if `_document.js`'s script is ever touched.
-
-**Outdated / duplicated patterns:**
-- **`src/pages/projects.js` vs stray duplicate**: `README.md` at the repo root is not documentation — it's raw, unformatted JavaScript source containing an *older draft* of the Projects page component (missing `TransitionEffect`, missing responsive classes, different image import). This is almost certainly a mistaken save (e.g., copy-pasted into the wrong file) and should be replaced with real project documentation.
-- **`src/styles/Home.module.css`** — untouched `create-next-app` boilerplate CSS module, never imported by any page. Dead file.
-- **`public/next.svg`, `public/vercel.svg`, `public/thirteen.svg`, `public/images/circular-text.png`** — unused boilerplate/leftover assets.
-- **`components/TypingCode.js`** — a fully-built component, never imported anywhere. Either finish integrating it (it looks intended for a rotating-role subtitle on Home) or delete it.
-- **~17 unused images** under `public/images/projects/*` (top-level, non-`proy/` versions) — superseded by the `proy/` subfolder actually referenced in `projectConst.js`, but never cleaned up. Same for `gifs/casa.gif`, `gifs/casa-min.mp4`, `gifs/charizard2.gif`, `images/react_native_apis.png`.
-- **Dead/unused dependencies**: `@fortawesome/*` packages, `animate.css`, `@googlemaps/js-api-loader` + `@types/google.maps` (env var `NEXT_PUBLIC_MAPS_API_KEY` present but nothing consumes it — clearly scaffolding for the planned but never-built map section).
-- **JSX embedded directly in data files** (`projectConst.js` `summary`/`title` fields, `skillsConst.js`/`certConst.js` `icon` fields) — works fine for a hardcoded site, but is fundamentally incompatible with any future JSON/DB-backed content model without a translation layer.
-- **`Icons.js` is a single 2000+ line file** with ~40 hand-copied inline SVGs (many with large embedded path data, e.g. `ReactIcon`, `ReduxIcon`). Fine for a static site, but worth knowing about before any icon-library migration (e.g., moving to `react-icons` or a similar package to shrink this file and dedupe SVGs that already exist in `public/images/svgs/*` — several icons appear to exist in **both** places, e.g. `Github.svg`/`GithubIcon`, `React.svg`/`ReactIcon`).
-- **No TypeScript** — `@types/react` and `@types/nodemailer` are installed but there is no `tsconfig.json` and no `.ts`/`.tsx` files; these type packages are currently inert.
-- **No tests** — no test runner, no test files anywhere in the repo.
-- **No CI config** — no `.github/workflows`, relies entirely on Vercel's git-push auto-deploy.
-- **Inline `<style jsx>`-free but heavy Tailwind class strings** — some very long className strings (e.g., `NavBar.js`, `index.js` buttons) repeated near-verbatim across pages (the "View"/"Download" CV buttons, the "Certificates" link button) — candidates for a shared `Button` component, but not urgent.
-- **Hardcoded `console.log`/`console.error`** calls left in production code paths (`contact.js`, `api/contact.js`) — fine for a small site, but should be replaced with real logging before analytics/admin work lands.
-
-**Risky areas (things that need care during modernization):**
-- **Secrets in `.env.local`**: `EMAIL`, `EMAIL_PASS` (Gmail app password) and `NEXT_PUBLIC_MAPS_API_KEY`. The `NEXT_PUBLIC_` prefix means the Maps key is already exposed client-side by design (expected for browser Maps JS usage) — just confirm it's a properly *restricted* key (HTTP referrer restrictions) in Google Cloud Console before ever wiring up the map section, since it's presumably unrestricted right now (never used yet). `.env.local` is correctly gitignored, and is not tracked — no leak found in the repo itself.
-- **Nodemailer via Gmail SMTP** with a personal account is fragile at any scale and a common source of deliverability/rate-limit problems — worth reconsidering (e.g., Resend, Postmark, SES) once the contact form gets more traffic or the CV/cover-letter generation features start sending mail too.
-- **No auth, no admin, no database yet** — the entire future roadmap (dashboard, auth, CRUD, analytics, job tracking, PDF generation) is greenfield backend work layered onto a currently 100% static/stateless frontend. This is the single largest architectural gap between "today" and "future goals," not a bug — but it means Phase 2+ below is effectively a new application being grown alongside the existing site, not a small patch.
-- **Deployed on Vercel already, in production** — any dependency upgrade (especially a Next.js major version bump) should go through a preview deployment before merging to the branch Vercel treats as production, since regressions would be user-facing immediately.
+**Net result:** every animation-driven or stateful leaf gets `"use client"`; every purely presentational leaf (`Footer`, `Layout`/`Container`, `Icon`, all ~40 icons) becomes a genuine Server Component with zero runtime JS shipped for it. `Testimonials`, the projects grid, and (partially) the certificates gallery are Server/Client splits, not all-or-nothing client boundaries.
 
 ---
 
-## 9. What Should Be Preserved
+# Part II — Next.js 16 Platform Facts Grounding This Design
 
-- **Visual identity**: color palette (`dark #1b1b1b`, `light #f5f5f5`, `primary #B63E96`, `primaryDark #58E6D9`), Montserrat font, dark/light theme toggle behavior and the flash-prevention script in `_document.js`.
-- **Framer Motion as the animation engine** — it's modern, well-supported, and already deeply integrated (word-stagger text, scroll-linked timelines, hover/tap micro-interactions). No reason to replace the library itself; only specific animations (the page-transition overlay) are flagged for a redesign, per explicit user request.
-- **The scroll-linked timeline mechanism** (`LilIcon.js` + `useScroll` in `Experience.js`/`Education.js`) — this is a nice, already-working parallax-adjacent effect and a good foundation to *extend* into the requested "scroll-linked animations/parallax" goal rather than rebuild from scratch.
-- **The `@/*` → `src/*` alias**, Tailwind dark-mode-by-class strategy, and the custom `max-width`-based responsive breakpoints in `tailwind.config.js` (`lg`, `md`, `sm`, `xs` all as `max` widths, which is an intentional "desktop-first" authoring style used consistently across every component).
-- **Existing page structure and content** (Home, About, Projects, Certificates, Contact) as the public-facing site — the admin/auth/CMS work is additive, not a replacement of the public site's information architecture.
-- **Nodemailer-based contact flow** as a starting point (fix its bugs, keep the mechanism) unless/until a transactional email provider is adopted for the broader mail needs of the Job Application Studio.
+Researched directly against `nextjs.org/docs` and `nextjs.org/blog` (fetched 2026-08-22, docs last-updated 2026-08-18). Every architectural decision in Part III cites back to one of these facts.
 
-## 10. What Should Be Refactored
-
-Roughly in the order they'll block future work:
-
-1. **Content model**: extract all data from `public/All-Texts/*.js` into plain JSON-serializable shapes (no embedded JSX) as the very first step — this alone unlocks moving that content into a database later without touching every consuming component twice. Icon references become string keys resolved against a fixed icon map; rich text (`summary`, `title`) becomes plain strings or Markdown.
-2. **Fix the identified bugs** (Section 8, bugs 1–5) — small, isolated, low-risk fixes that remove latent footguns before bigger changes land on top of them.
-3. **Prune dead code/assets**: `TypingCode.js` (decide: delete or finally use it for the Home subtitle), `Home.module.css`, unused images (`projects/*` non-`proy` versions, unused gifs), unused deps (`@fortawesome/*`, `animate.css`), fix `README.md` to contain actual project documentation instead of stray JS.
-4. **`TransitionEffect` redesign** — replace the 3-panel color-wipe with a more premium transition (e.g., a subtle fade/scale + blur combination, or a shared-element-style crossfade), applied consistently on **every** page including `about.js`, with matching enter/exit animations on all layers.
-5. **Home page animation refresh** — likely bring `AnimatedText`/hero imagery into a more choreographed entrance (using the already-present `useInView`/`useScroll` primitives) and decide the fate of `TypingCode.js` as part of this.
-6. **Introduce scroll-linked parallax** as a generalized pattern (not just the timeline), likely via a small reusable hook wrapping `useScroll`/`useTransform`, reused across Home hero, About imagery, and Projects cards.
-7. **Data layer introduction** (biggest structural change): pick a database + ORM (e.g., Postgres via a managed provider + Prisma, or a lighter option like Supabase/Turso, chosen based on hosting constraints on Vercel), migrate the now-cleaned-up content model into it, and introduce real data-fetching (`getStaticProps`/ISR, or start evaluating a partial App Router migration for Server Components — see below).
-8. **Auth + `/admin`**: add an auth solution (NextAuth.js/Auth.js is the natural fit for Pages Router + Vercel), a protected `/admin` route tree, and CRUD screens for projects/skills/experience/education/certificates, replacing the static JS files as the source of truth.
-9. **File uploads** (project screenshots, certificate images/PDFs): needs object storage (Vercel Blob, S3, or Cloudinary — the project already references Cloudinary in one experience bullet, so the author has prior familiarity with it) plus upload UI in the admin.
-10. **Analytics dashboard + completeness indicators**: needs its own data (page views/events) — likely a lightweight events table plus a charting library, fed by either self-instrumented tracking or a third-party analytics API.
-11. **Job Application Studio**: the most complex new subsystem — job-posting ingestion/parsing, ATS-oriented resume tailoring "without inventing experience" (constrains this to rewriting/re-emphasizing existing content, not generating new claims — worth designing explicit guardrails here), cover-letter generation, application/interview tracking, and PDF export (e.g., `@react-pdf/renderer` or a headless-Chrome/Puppeteer-based render step). This is realistically its own multi-phase project once the data layer and auth exist.
-12. **Consider (not commit to) an App Router migration**, incrementally, once the data layer exists — Next.js Pages Router still works fine on 13.2.4 but is increasingly legacy; a future major version bump (13 → 14/15) plus incremental route-by-route migration to `app/` would align the project with current Next.js conventions and unlock Server Components/Server Actions for the admin CRUD work specifically (arguably the best fit for the admin section, even if the public marketing pages stay on Pages Router longer).
+| # | Fact | Status |
+|---|---|---|
+| 1 | Next.js **16.3.x** is current stable (16.0 GA'd 2025-10-21). Requires **Node.js ≥20.9**, **TypeScript ≥5.1**. App Router runs on **React 19.2** (bundled with Next, not an independent choice). | Stable |
+| 2 | `middleware.ts` is **deprecated**, renamed to **`proxy.ts`** / `export function proxy()`. Runs **Node.js runtime only** — no Edge runtime support. Codemod: `middleware-to-proxy`. Partly motivated by CVE-2025-29927 (a Middleware auth-bypass under Edge Runtime constraints). | Stable convention since 16.0 |
+| 3 | **Official guidance, verbatim intent:** "Always verify authentication and authorization inside each Server Function rather than relying on Proxy alone" — because Server Actions are directly POST-reachable even if a proxy `matcher` excludes their route. Proxy is explicitly documented as best for redirects/rewrites/header work, "recommended as a last resort" for anything else. | Directly grounds Principle 10 |
+| 4 | **Turbopack is the default bundler** for both `next dev` and `next build`, no flag needed. A project with a **custom webpack config fails the build** by default unless `--turbopack`/`--webpack` is explicit. This repo has no webpack customization today — a non-event here. | Stable |
+| 5 | `params`, `searchParams`, `cookies()`, `headers()`, `draftMode()` are **fully async (Promise-based), no sync fallback** — the Next 15 compatibility shim is removed entirely. Codemod: `next-async-request-api`. `npx next typegen` generates `PageProps<'/route'>`/`LayoutProps`/`RouteContext` helper types. | Mandatory breaking change |
+| 6 | **Cache Components** (`cacheComponents: true` in `next.config`) replaces the old `experimental.dynamicIO`/`useCache`/`ppr` flags (all **removed**, not just deprecated). Under it, **all data fetching is dynamic-by-default**; caching is opt-in per function/component via `"use cache"`. `cacheTag()`/`cacheLife()` are now **stable**, `unstable_` prefixes dropped. `revalidateTag(tag)` single-arg form is deprecated — **now requires a `cacheLife` profile as a second argument** (`revalidateTag('projects', 'max')`). New primitives: `updateTag(tag)` (Server-Actions-only, read-your-writes) and `refresh()` (Server-Actions-only, refreshes uncached data only). | `cacheComponents` is **opt-in**, not default; the directive/tag/life APIs themselves are stable |
+| 7 | React Compiler is **stable** (`reactCompiler: true`, top-level `next.config` key) but **not on by default** — it depends on Babel and measurably slows dev/build compile. | Stable, opt-in |
+| 8 | `next/image` default changes in 16: `images.qualities` default is now **`[75]` only** (unlisted values coerced); `minimumCacheTTL` default 60s → **4h**; `imageSizes` no longer includes `16`; local `src` with a query string now requires `images.localPatterns`; `images.domains` deprecated for `images.remotePatterns`. | Stable defaults, plan `next.config` explicitly |
+| 9 | `next lint` is **removed** (not deprecated) — lint directly via ESLint or Biome; `next build` no longer lints as a side effect. `@next/eslint-plugin-next` **defaults to ESLint flat config**. Codemod: `next-lint-to-eslint-cli`. | Mandatory |
+| 10 | An official mechanical upgrade codemod exists: `npx @next/codemod@canary upgrade latest` — handles the proxy rename, Turbopack config relocation, `next lint`→ESLint CLI, `unstable_` prefix removal. **No official codemod exists for Pages→App Router restructuring** — that part is manual, standard App Router migration practice. | Confirmed via official upgrade guide |
+| 11 | Auth.js: `next-auth` is still on the **`@beta` npm tag (v5)** as of this research — **not GA**. `next-auth@4.24.x` is `latest` (old callback API, no native `proxy.ts`/App-Router-first ergonomics). | Flagged risk — see Part IV §1 |
+| 12 | Server Actions vs. Route Handlers — official **Data Access Layer** pattern: a `server-only` module does auth checks + returns minimal DTOs; thin `"use server"` actions/Route Handlers delegate to it. This is exactly the requested `verifyAdmin()` + repository design — it is the *officially blessed* pattern, not an invented one. | Directly grounds Principle 9 & 10 |
 
 ---
 
-## Phased Modernization Plan
+# Part III — Phase 2: Next.js 16 Foundational Migration — Target Architecture
 
-The plan is intentionally incremental: each phase ships independently, keeps the site deployable on Vercel at every step, and doesn't require the next phase to be useful on its own.
+## 1. Scope guardrails (non-negotiable for this phase)
 
-### Phase 0 — Hygiene (low risk, do first) — ✅ COMPLETE
+- **No MongoDB, no Auth.js, no Cloudinary code.** `src/data/*.js` remains the single source of truth for content; it is only relocated and (optionally) retyped as `.ts`, never rewired to a database.
+- **No public URL changes.** `/`, `/about`, `/projects`, `/certificates`, `/contact` resolve identically before and after.
+- **No visual/behavioral change.** Every animation in Part I §3 must look and feel identical after migration. The redesign (Phase 6) happens later, deliberately, as its own reviewable change.
+- **The one exception to "no backend changes":** `src/pages/api/contact.js` moves to `src/app/api/contact/route.ts` as a Route Handler (rule: Route Handlers are for genuine external HTTP endpoints — the contact form is exactly that), with identical Nodemailer logic, not new logic.
 
-- [x] Fixed the 5 identified bugs (contact-form redirect-on-failure, missing `about.js` transition, incomplete exit animations, `target` attribute misuse, broken media-query string).
-- [x] Replaced `README.md` with real project docs.
-- [x] Removed **confirmed** dead boilerplate: `src/styles/Home.module.css`, `public/next.svg`, `public/vercel.svg`, `public/thirteen.svg`, and the unused `@fortawesome/*` / `animate.css` dependencies.
-- [x] Google Maps dependency/env var **kept as-is** (per explicit instruction — a map section is planned).
-- [x] `TypingCode.js` **kept as-is**, undeleted (per explicit instruction — still dead/unimported, revisit in a later phase).
-- No visual or behavioral change intended except the bug fixes above; page-transition *design* was not touched, only its exit-animation inconsistency.
+## 2. Target Folder Tree (final state — phase-annotated)
 
-**Conservatively kept, not deleted** (confirmed unused by code today, but plausible source/reusable assets rather than pure framework boilerplate — flagged for a deliberate decision in a later phase instead of a Phase-0 deletion):
-- `public/images/circular-text.png` and `public/images/svgs/CircularText.svg` — no code references either, no "CircularText" icon exists in `Icons.js`.
-- `public/images/projects/*` top-level files (non-`proy/` versions, ~17 images) — superseded by `public/images/projects/proy/*`, which is what `projectConst.js` actually imports; the top-level files may be uncropped originals.
-- `public/images/gifs/casa.gif`, `casa-min.mp4`, `charizard2.gif` — `casa-min.gif` and `charizard.gif` are the ones actually used in `Logo.js`/`NavBar.js` (via `Icons.js`).
-- `public/images/react_native_apis.png` (top-level) — a same-named file already exists and is used from `public/images/certificates/native_apis.png`.
-- `src/components/TypingCode.js` — fully-built but unimported; left in place per instruction.
+This is the complete target tree across **all** phases, so Phase 2's structural choices don't need revisiting later. Directories/files annotated `[P2]` are created in this phase; `[P3]`/`[P4]`/etc. are reserved empty or simply absent until their phase, not stubbed out prematurely.
 
-**Full list of files changed in Phase 0:**
-| File | Change |
+```
+vontrauwitz-portfolio/
+├── src/
+│   ├── app/                                          [P2]
+│   │   ├── layout.tsx                                 # root: <html>/<head>, fonts, theme flash-prevention inline script
+│   │   ├── globals.css
+│   │   ├── sitemap.ts                                  # file-based Metadata API
+│   │   ├── robots.ts
+│   │   ├── opengraph-image.tsx                         # default OG image
+│   │   ├── icon.tsx / apple-icon.tsx                   # if replacing static favicon.ico is desired; else keep public/favicon.ico
+│   │   ├── (public)/                                   # route group — no effect on URLs
+│   │   │   ├── layout.tsx                              # NavBar/Footer + PageTransitions wrapper (server, composes client leaves)
+│   │   │   ├── page.tsx                                # "/"
+│   │   │   ├── loading.tsx                              # optional, only where a real async gap exists (Phase 3+ once Mongo reads are dynamic)
+│   │   │   ├── about/page.tsx                          # "/about"
+│   │   │   ├── projects/
+│   │   │   │   ├── page.tsx                            # "/projects"
+│   │   │   │   └── generateMetadata / metadata          # project-specific OG/social metadata
+│   │   │   ├── certificates/page.tsx                   # "/certificates"
+│   │   │   └── contact/
+│   │   │       ├── page.tsx                            # "/contact" (server shell)
+│   │   │       └── not-found.tsx                        # optional
+│   │   ├── (admin)/                                    [P4+] reserved — not created in Phase 2
+│   │   │   └── admin/
+│   │   │       ├── layout.tsx                          # server-verified shell — calls verifyAdmin()
+│   │   │       ├── page.tsx                            # dashboard
+│   │   │       ├── login/page.tsx
+│   │   │       ├── projects/{page.tsx,new/page.tsx,[id]/edit/page.tsx}   [P5]
+│   │   │       ├── certificates/{...same pattern...}                     [P5]
+│   │   │       ├── skills/, experience/, education/, testimonials/       [P9]
+│   │   │       ├── applications/                                          [P8]
+│   │   │       ├── analytics/page.tsx                                     [P7]
+│   │   │       └── settings/page.tsx                                      [P9]
+│   │   └── api/
+│   │       ├── contact/route.ts                        [P2]              # POST, moved from pages/api/contact.js
+│   │       ├── auth/[...nextauth]/route.ts              [P4]              # Auth.js handler
+│   │       └── cloudinary/sign/route.ts                 [P4]              # signed-upload signature endpoint
+│   ├── features/                                        [P2 skeleton, filled in over time]
+│   │   ├── projects/
+│   │   │   ├── components/   # ProjectGrid.tsx (server), ProjectCard.tsx (client, hover state)
+│   │   │   ├── queries/      # getPublishedProjects.ts — [P2] reads src/data; [P3] swapped to Mongo via services/
+│   │   │   ├── actions/      # [P5] createProject.ts, updateProject.ts, deleteProject.ts (Server Actions)
+│   │   │   ├── schemas/      # [P3] project.schema.ts (Zod)
+│   │   │   ├── types/        # [P2] Project type, hand-written from Phase 1 shape
+│   │   │   └── services/     # [P3] projectRepository.ts (DAL — Mongoose calls live only here)
+│   │   ├── certificates/      # same shape as projects/
+│   │   ├── experience/        # components/ExperienceTimeline.tsx, EducationTimeline.tsx; queries/ only until P9
+│   │   ├── skills/            # components/SkillsTabs.tsx; queries/ only until P9
+│   │   ├── testimonials/      # components/{TestimonialList.tsx (server), TestimonialCard.tsx (client)}
+│   │   ├── contact/           # [P2] components/ContactForm.tsx (client); actions/submitContactForm.ts
+│   │   ├── analytics/         [P7] components/, queries/, services/ (analyticsEvents + rollup)
+│   │   ├── applications/      [P8] components/, actions/, schemas/, services/
+│   │   ├── resume/            [P8/P9] CV/settings/document-generation logic, PDF export
+│   │   └── github/            [P9] future GitHub API sync (stars, last-commit)
+│   ├── components/
+│   │   ├── ui/                [P2] Container.tsx (was Layout.js), Icon.tsx, icons/*.tsx (split from Icons.js)
+│   │   ├── layout/            [P2] NavBar.tsx, Footer.tsx, Logo.tsx, useThemeSwitcher.ts
+│   │   └── motion/            [P2] AnimatedText.tsx, TransitionEffect.tsx (or its Phase 6 replacement), LilIcon.tsx, PageTransitions.tsx
+│   ├── lib/
+│   │   ├── db/                [P3] connection.ts (cached Mongoose connection, hot-reload-safe)
+│   │   ├── auth/               [P4] auth.ts (Auth.js config), verifyAdmin.ts (centralized authorization)
+│   │   ├── cloudinary/         [P4] client.ts, sign.ts
+│   │   ├── security/           [P3/P4] rate-limit.ts, sanitize.ts
+│   │   ├── validation/         [P3] shared zod helpers (e.g. slug/id parsing)
+│   │   ├── env/                [P2] server.ts, client.ts — typed/validated env access (zod-parsed once Zod exists in P3; plain typed accessors in P2)
+│   │   ├── icon-map.ts         [P2] moved+typed from lib/iconMap.js
+│   │   └── nodemailer/         [P2] client.ts — moved+typed from config/nodemailer.js
+│   ├── data/                   [P2 carryover] projectConst.ts, skillsConst.ts, expConst.ts, eduConst.ts, certConst.ts, testimonialConst.ts — retired collection-by-collection starting Phase 3, per the migration strategy in Part IV §5; not deleted until every collection is trusted on Mongo
+│   ├── proxy.ts                [P4] optimistic /admin route gate only — never the sole authorization mechanism (see Part IV §3)
+│   └── (no middleware.ts — renamed convention, never created under the old name)
+├── public/                     # unchanged: images/, cv PDF, favicon.ico
+├── next.config.ts              [P2] images{} block, top-level turbopack{} key if ever needed, cacheComponents flag (decision in §6), reactCompiler flag (decision in §7)
+├── tsconfig.json                [P2] replaces jsconfig.json
+├── eslint.config.mjs             [P2] replaces .eslintrc.json
+├── tailwind.config.ts            [P2] ported from .js, same design tokens
+├── package.json                  [P2] scripts updated (lint no longer `next lint`)
+└── PLAN.md
+```
+
+## 3. Architecture Principles Adopted (mapping user's principles to concrete decisions)
+
+1. **`src/app` owns routing/composition only.** No business logic in `page.tsx`/`layout.tsx` beyond composing feature components and calling `queries/` functions.
+2. **Feature-oriented `src/features/*`** as specified — `components/actions/queries/schemas/types/services` per feature, populated incrementally (Phase 2 only needs `components/`, `queries/`, `types/` for existing content; `actions/`, `schemas/`, `services/` arrive with Phase 3–5).
+3. **Shared infra under `src/lib/*`** exactly as specified — `db`, `auth`, `cloudinary`, `security`, `validation`, `env`. Phase 2 only populates `env/` (typed env access) and relocates `nodemailer/`+`icon-map.ts`; the rest are reserved directories that simply don't exist until their phase.
+4. **Shared visual components under `src/components/{ui,layout,motion}`** — this is where every "no `use client` needed" and every generic client leaf from the Part I §4 audit lands.
+5. **Route groups `(public)`/`(admin)` with unchanged URLs.** `(public)` is created in Phase 2 (wrapping all 5 existing routes); `(admin)` is reserved but not created until Phase 4 has something to put in it — creating an empty admin shell in Phase 2 would violate the "no auth/DB in Phase 2" guardrail (a dashboard with nothing to authenticate against is dead weight, not architecture).
+6. **Server Components by default** — confirmed via the Part I §4 audit: only genuinely stateful/animated/browser-API leaves get `"use client"`; everything else (icons, footer, container, data-mapping wrappers) stays server-rendered.
+7. **TypeScript introduced now**, incrementally (see §5 below), not deferred.
+8. **Zod** is explicitly **not** introduced in Phase 2 (there are no system boundaries yet that need runtime validation beyond the contact form, which already has hand-rolled validation that is preserved as-is) — it arrives in Phase 3 when Mongo/Server Action boundaries are created. Only exception under consideration: validating the contact Route Handler's body with Zod as a small, self-contained improvement — see §8 (Checkpoint 2.7) for the explicit go/no-go call.
+9. **DAL/repository pattern** — the `features/*/services/` folders are reserved now, populated in Phase 3. Phase 2's `queries/` functions (e.g. `getPublishedProjects()`) already establish the *call shape* pages use, so swapping their internals from "read `src/data`" to "call a Mongoose repository" in Phase 3 requires zero changes to any `page.tsx` or component.
+10. **Centralized `verifyAdmin()`** — designed in Part IV §3, implemented in Phase 4. Phase 2 has nothing to authorize yet, so this is forward design only, cited here so the folder tree (`src/lib/auth/verifyAdmin.ts`) is already correctly placed for when it lands.
+11. **Modern caching (Cache Components)** — evaluated in §6 below; a concrete adoption decision is made for Phase 2 even though there's no dynamic data yet, so Phase 3's Mongo-backed queries inherit a proven pattern rather than retrofitting one.
+12. **Server Actions for admin CRUD, Route Handlers for genuine HTTP** — contact stays a Route Handler in Phase 2 (per rule); admin CRUD Server Actions don't exist until Phase 5.
+13. **Modern Metadata APIs** — `sitemap.ts`, `robots.ts`, `opengraph-image.tsx`, per-page `metadata`/`generateMetadata` all introduced in Phase 2 (§9), since they're pure App Router mechanics with no backend dependency.
+14. **`loading.tsx`/`error.tsx`/`not-found.tsx`** — added only where they provide real value. In Phase 2, every data source is a synchronous static import (no `await`, no network) — so `loading.tsx` has nothing to show yet and is **deferred to Phase 3** when Mongo reads introduce real async boundaries. `error.tsx`/`not-found.tsx` are added in Phase 2 at the `(public)` layout level as a baseline safety net (cheap, no dependency on async data).
+15. **Next.js 16 changes accounted for** — proxy.ts (deferred to Phase 4, nothing to protect yet), Turbopack (default, non-event here), React 19 (comes bundled), async request APIs (this app barely uses `params`/`searchParams` today — audit confirms only trivial usage, if any, per current flat routing), modern Image behavior (explicit `images` config added), modern caching (§6), current lint tooling (§4), React Compiler (evaluated §7, left off by default per official guidance).
+16. **Preserve URLs/content/Framer Motion/timeline effects/theme/visual design** — this is the primary success criterion for every checkpoint's smoke test (§8).
+
+## 4. TypeScript & Lint Tooling Strategy
+
+- **`tsconfig.json`** introduced with `allowJs: true` initially (so `.js` and `.tsx` coexist during the file-by-file migration) and `strict: false` initially; a **dedicated checkpoint (2.9)** flips `strict: true` and removes `allowJs` once every source file has been converted. `jsconfig.json` is deleted the moment `tsconfig.json` exists (Next.js only reads one or the other).
+- Path alias `@/*` → `./src/*` is carried forward unchanged.
+- **ESLint**: migrate `.eslintrc.json` → `eslint.config.mjs` (flat config) via `npx @next/codemod@canary next-lint-to-eslint-cli .`, since `next lint` is removed in v16. `package.json`'s `"lint"` script becomes a direct `eslint .` invocation.
+- Use `npx @next/codemod@canary upgrade latest` as the mechanical first step of the actual implementation (not part of this design doc) — it handles the proxy rename (irrelevant yet, no middleware exists today), Turbopack config relocation, and `unstable_` prefix removal in one pass.
+
+## 5. File-by-File Migration Order
+
+Files convert `.js`→`.tsx`/`.ts` **as they're touched by a checkpoint**, not in one giant pass — this keeps every checkpoint's diff reviewable and its smoke test meaningful.
+
+## 6. Caching Strategy Decision
+
+Per Part II §6: `cacheComponents` is opt-in, not default, and changes rendering semantics (all data fetching becomes dynamic-by-default; caching is explicit per-function).
+
+**Decision for Phase 2: enable `cacheComponents: true` now, applied to the `queries/` layer.** Rationale:
+- Every current data "fetch" is a synchronous static import with no real async cost — there is nothing to break by enabling the flag now, and no risk of the "uncached data outside `<Suspense>`" build errors the docs warn about, since nothing is dynamic yet.
+- It establishes the pattern (`"use cache"` + `cacheTag()` + `cacheLife()` on each `features/*/queries/*.ts` function) while the stakes are zero, so Phase 3's Mongo-backed rewrite of those same functions is a mechanical "swap the body, keep the directive/tags" change instead of a new concept introduced under time pressure.
+- Concretely: `getPublishedProjects()` becomes `"use cache"`; `cacheTag("projects")`; `cacheLife("days")` (portfolio content changes rarely). No revalidation call exists yet in Phase 2 (nothing writes to this data at runtime) — `revalidateTag`/`updateTag` calls are introduced in Phase 5 when admin Server Actions actually mutate content.
+- **Explicit non-goal:** do not attempt to replicate old Pages-Router ISR (`getStaticProps` + `revalidate: N`) — that model doesn't exist in the App Router and reasoning about "revalidate every N seconds" would be solving a problem (stale reads) that doesn't apply to a build-time-static content source.
+
+## 7. Route-Transition Redesign (mechanical, not visual)
+
+App Router has no `router.asPath`-keyed single swap point. Replacement pattern:
+
+```
+components/motion/PageTransitions.tsx   ("use client")
+  - usePathname() as the AnimatePresence key
+  - wraps {children}, mode="wait", identical enter/exit timing to today
+```
+
+Placed inside `app/(public)/layout.tsx` (server), wrapping the `{children}` slot, with `NavBar`/`Footer` rendered as siblings outside it — exactly preserving today's structural rule that chrome (nav/footer) doesn't animate on route change, only the page content does. `TransitionEffect` (the 3-panel color wipe) is rendered inside each page as it is today, unchanged in Phase 2 — its replacement is explicitly Phase 6 work, not bundled here.
+
+## 8. Phase 2 Migration Checkpoints
+
+Every checkpoint below must pass, in order, before the next begins: `npm run build` (Turbopack, default) succeeds, `tsc --noEmit` succeeds (once tsconfig exists), `npm run lint` (flat config, once migrated) is clean, and a manual `next start` smoke test confirms all 5 public routes render, dark/light toggle works, every Framer Motion effect in Part I §3 still plays, and the contact form still sends mail. This directly satisfies the "small checkpoints, gated" requirement.
+
+| # | Checkpoint | Scope | Gate |
+|---|---|---|---|
+| **2.0** | Pre-flight baseline | Record current `npm run build`/`npm run lint`/`next start` behavior as the reference to diff every later checkpoint against. No files touched. | N/A — this *is* the baseline |
+| **2.1** | Dependency/tooling bump, still Pages Router | Bump `next`→16.3.x, `react`/`react-dom`→19.2.x, add `typescript`/`@types/node`, add `tsconfig.json` (`allowJs:true`), run `@next/codemod@canary upgrade latest`, migrate `.eslintrc.json`→`eslint.config.mjs`, replace `"lint": "next lint"` script, add explicit `images{}` block to `next.config.ts` (renamed from `.js`), delete `jsconfig.json`. **No `src/app` yet — routing is 100% unchanged.** | Build/lint/typecheck clean; site behaves byte-for-byte identically since only the compiler/language changed, not the routing |
+| **2.2** | Root layout groundwork | Create `src/app/layout.tsx` (fonts, `<head>` flash-prevention script, global CSS import) and `src/app/(public)/layout.tsx` (NavBar/Footer + `PageTransitions` wrapper) **without deleting `pages/` yet** — Next.js supports `app/` and `pages/` side-by-side, App Router taking precedence only for routes it defines. No page moved yet, so nothing in `app/` resolves to a live route yet (or start with a throwaway `app/(public)/__scaffold/page.tsx` to verify the shell renders, then delete it). | Build succeeds with both routers present; existing `pages/` routes still serve identically |
+| **2.3** | Migrate `/` | Move `pages/index.js` → `app/(public)/page.tsx` (server) + extract any client leaf per the Part I §4 audit. Convert consumed components (`AnimatedText`, `TransitionEffect`) to `.tsx` with `"use client"`. | `/` renders identically; hero animation, theme toggle, nav all work |
+| **2.4** | Migrate `/about` | `pages/about.js` → `app/(public)/about/page.tsx`. Extract `Skills`, `Experience`, `Education`, `Testimonials` into their `features/*/components/` homes per §2's tree, applying the Server/Client split designed for `Testimonials`. | `/about` identical; scroll-linked timeline and tab interactions still work |
+| **2.5** | Migrate `/projects` | `pages/projects.js` → `app/(public)/projects/page.tsx` (server, maps data) + `features/projects/components/ProjectCard.tsx` (client, hover state) + `features/projects/queries/getPublishedProjects.ts` (`"use cache"`, per §6). Add project-specific `generateMetadata`/OG per Principle 13. | `/projects` identical; hover interactions and images render correctly |
+| **2.6** | Migrate `/certificates` | `pages/certificates.js` → `app/(public)/certificates/page.tsx` + `features/certificates/components/CertificateGallery.tsx` (client, whole gallery per audit) + `features/certificates/queries/getCertificates.ts`. | `/certificates` identical; tab/gallery interactions work |
+| **2.7** | Migrate `/contact` + its API route | `pages/contact.js` → `app/(public)/contact/page.tsx` (server shell) + `features/contact/components/ContactForm.tsx` (client, form+carousel+toasts). `pages/api/contact.js` → `app/api/contact/route.ts` (Route Handler, identical Nodemailer logic). **Decision point:** optionally validate the request body with a minimal hand-rolled check (not Zod — Zod isn't introduced until Phase 3) equivalent to today's validation, no new dependency. | `/contact` identical; form submits, email sends, error/success toasts behave exactly as today (including the already-fixed Phase-0 bug fixes) |
+| **2.8** | Delete the old router | Remove `src/pages/` entirely (`_app.js`, `_document.js`, all page files, `api/contact.js`), confirm no remaining import references it. | Build succeeds with `pages/` gone; full manual smoke test of all 5 routes |
+| **2.9** | Finish TypeScript conversion + tighten config | Convert every remaining `.js` file (icons, hooks, lib) to `.ts`/`.tsx`. Flip `tsconfig.json` to `strict: true`, remove `allowJs`. Split `Icons.js` into `components/ui/icons/*.tsx`. | `tsc --noEmit` clean under strict mode; build/lint clean |
+| **2.10** | Metadata & file-based conventions | Add `sitemap.ts`, `robots.ts`, `opengraph-image.tsx`, root `metadata` export, per-page `generateMetadata` where distinct (projects/certificates), `error.tsx`/`not-found.tsx` at the `(public)` layout level. | Build clean; verify `/sitemap.xml`, `/robots.txt`, OG image, and a deliberate 404 all resolve correctly |
+| **2.11** | React Compiler evaluation | Trial `reactCompiler: true` in an isolated branch/build, measure dev/build time delta per Part II §7's known Babel-overhead caveat. **Default decision: leave off** unless the trial shows a clear win with no meaningful build-time regression. | Documented go/no-go recorded in this file's changelog; default is "off" |
+| **2.12** | Final Phase 2 sign-off | Full `npm run build` + `tsc --noEmit` + `npm run lint` + complete manual browser smoke test (all routes, both themes, every animation in Part I §3, contact form end-to-end) on a Vercel preview deployment before merging to the production branch. | All green; this is the phase's exit gate |
+
+## 9. Old Files/Conventions That Disappear or Are Replaced
+
+| Old | Fate |
 |---|---|
-| `src/pages/contact.js` | Fixed redirect-on-failure bug: `router.push('/')` now only fires after a successful send, inside the `try` block, instead of an unconditional `setTimeout`. Added a user-facing `toast.error(...)` in the `catch` block (previously only `console.error`). Discovered and fixed a related latent bug while touching this code: `<ToastContainer />` was imported but never rendered, and `react-toastify/dist/ReactToastify.css` was never imported — so **no toast (success or error) has ever actually been visible to users**. Added both. Removed a stray Spanish debug `console.log`. |
-| `src/pages/about.js` | Added the missing `<TransitionEffect />` (imported and rendered), matching every other page. |
-| `src/components/TransitionEffect.js` | Added matching `exit` props to the 2nd and 3rd color panels (previously only the 1st panel animated out; the other two just vanished). Entrance timing/colors/design untouched. |
-| `src/pages/projects.js` | Fixed `target={link}` and `target={iconWeb}` (passing a URL as the `target` attribute) to `target="_blank"` on the "Visit" and GitHub-icon links. |
-| `src/components/hooks/useThemeSwitcher.js` | Fixed typo `"(prefer-color-scheme: dark)"` → `"(prefers-color-scheme: dark)"` so the hook's own OS dark-mode detection actually matches (previously always false; masked by the separate correct script in `_document.js`). |
-| `README.md` | Replaced corrupted content (raw leftover JS from an old draft of the Projects page) with real project documentation: tech stack, setup, env vars, folder structure, scripts, roadmap pointer to `PLAN.md`. |
-| `package.json` / `package-lock.json` | Removed unused dependencies `@fortawesome/free-brands-svg-icons`, `@fortawesome/react-fontawesome`, `animate.css` (confirmed zero imports anywhere in `src/`). `@googlemaps/js-api-loader` and `@types/google.maps` kept. |
-| `src/styles/Home.module.css` | **Deleted** — unimported `create-next-app` boilerplate. |
-| `public/next.svg`, `public/vercel.svg`, `public/thirteen.svg` | **Deleted** — unreferenced `create-next-app` boilerplate assets (`thirteen.svg` was only ever referenced by the now-also-dead `.thirteen` class in the deleted `Home.module.css`). |
-| `PLAN.md` | This file — marked Phase 0 items complete, documented conservative asset decisions. |
+| `src/pages/` (entire directory) | Replaced by `src/app/(public)/*`, `src/app/api/*` (later `(admin)/admin/*`) |
+| `src/pages/_app.js` | Replaced by `src/app/layout.tsx` + `components/motion/PageTransitions.tsx` |
+| `src/pages/_document.js` | Replaced by `src/app/layout.tsx`'s `<html>`/`<head>` + inline script |
+| `src/pages/api/contact.js` | Replaced by `src/app/api/contact/route.ts` |
+| `jsconfig.json` | Replaced by `tsconfig.json` |
+| `.eslintrc.json` | Replaced by `eslint.config.mjs` |
+| `next.config.js` | Replaced by `next.config.ts` |
+| `src/config/nodemailer.js` | Replaced by `src/lib/nodemailer/client.ts` |
+| `src/lib/api.js` | Replaced by `src/features/contact/actions/submitContactForm.ts` |
+| `src/lib/iconMap.js` | Replaced by `src/lib/icon-map.ts` |
+| `src/components/*.js` | Redistributed into `src/components/{ui,layout,motion}` and `src/features/*/components`, converted to `.tsx` |
+| `"lint": "next lint"` (package.json script) | Replaced by a direct `eslint .` invocation |
+| `middleware.js` (never actually created in this repo, only proposed in an earlier draft) | If ever created, must be named `proxy.ts` from day one — the old name is not a valid Next.js 16 convention |
 
-**Verification:** `npm run lint` → no warnings or errors, both before and after changes. `npm run build` → succeeds both before and after changes, with no new warnings; bundle sizes essentially unchanged (About +~0.2 kB from the added `TransitionEffect` import, Contact's route CSS +~2 kB from the now-actually-imported `ReactToastify.css`).
+---
 
-### Phase 1 — Content model extraction — ✅ COMPLETE
+# Part IV — Forward Design for Phases 3–9 (not implemented; corrected against current research)
 
-- [x] Converted every `public/All-Texts/*.js` file to JSX-free, JSON-serializable data (strings/numbers/booleans/arrays/plain objects only) — still committed as static files at this stage, no DB yet.
-- [x] Removed embedded JSX from project titles/summaries, skill icons, and certificate data (certificates never actually had embedded JSX — see notes below).
-- [x] Built a centralized icon resolver (`src/lib/iconMap.js` + `src/components/Icon.js`) so content references icons by stable string key (e.g. `"github"`, `"javascript"`) instead of embedding icon JSX; all consumers updated to render `<Icon name={...} className={...} />` in place of the old inline elements, with per-entry icon sizing preserved exactly.
-- [x] Converted the two projects that used JSX-wrapped titles/summaries (Criptoweb's "(final name pending)" note, and the "(under construction...)" / "(going to be renewed...)" caveats on several projects) into plain string fields (`titleNote`, `note`), re-rendered by the consuming component instead of stored as JSX.
-- [x] Normalized project data to the requested shape: `slug`, `title`, `type`, `summary`, `image`, `deployUrl`, `githubUrl`, `technologies`, `featured`, plus `titleNote`/`note` to carry wording that used to be embedded JSX. No missing data was invented — see "ambiguous content" notes below for exactly what was left null/empty and why.
-- [x] Applied the same normalization to skills, experience, education, certificates, and testimonials — see the file-by-file notes below for the exact field renames.
-- [x] Kept the static-file source of truth; no database introduced.
+This part carries forward the substance of the prior Mongo/Auth/Cloudinary/admin architecture proposal, **renumbered** to the new phase scheme and **corrected** against the Part II research (Auth.js beta status, `proxy.ts` naming, Cache Components replacing ISR-style thinking). It remains design-only — nothing here is implemented until its phase begins, and Phase 2 must be fully complete first.
 
-**No visual/behavioral change intended.** Verified via `npm run build` + `npm run lint` (clean before and after) and a runtime smoke test against `next start`, diffing rendered HTML for key content (hero text, project titles/notes, certificate titles, experience/education timelines, and a spot-check that the JS-skill icon's actual SVG path data still renders next to "Java Script").
+## 1. Auth.js version risk (correction to prior draft)
 
-**New data model:**
+The prior draft assumed a settled "NextAuth/Auth.js" v5 API. Current research shows **`next-auth` is still on the `@beta` tag** — v5 is not GA. Phase 4 must:
+- Pin an **exact** `next-auth@beta` version (never a floating `@latest`/`@beta`), and record the pinned version in this file when Phase 4 starts.
+- Use the current documented v5-beta conventions: root `auth.ts` exporting `{ auth, handlers, signIn, signOut }`; `AUTH_GITHUB_ID`/`AUTH_GITHUB_SECRET`/`AUTH_SECRET` env var naming (Auth.js's own `AUTH_`-prefixed convention), not the older `GITHUB_ID`/`GITHUB_SECRET`/`NEXTAUTH_SECRET` naming the prior draft used.
+- Treat re-pinning to GA v5 (whenever it ships) as its own small, isolated checkpoint — not bundled into unrelated work.
 
-| File | Old shape | New shape |
-|---|---|---|
-| `public/All-Texts/projectConst.js` | `{ type, title (string\|JSX), summary (string\|JSX), img, link, icon (JSX), iconWeb }` | `{ slug, title, titleNote, type, summary, note, image, deployUrl, githubUrl, icon (string key), technologies: [], featured: false }` |
-| `public/All-Texts/skillsConst.js` | 3 separate exports (`frontend`, `backend`, `tools`), each `{ name, link, description, icon (JSX) }` | One `skills` export, each `{ slug, name, category, description, icon (string key \| null), iconClassName, link: null }` |
-| `public/All-Texts/certConst.js` | 4 separate exports (`fullstack`, `frontend`, `backend`, `misc`), each `{ title, school, link, issued, image }` | One `certificates` export, each `{ slug, title, category, school, credentialUrl, issued, image }` |
-| `public/All-Texts/expConst.js` | `{ position, company, companyLink, time, address, work }` | `{ slug, position, company, companyUrl, period, location, description }` |
-| `public/All-Texts/eduConst.js` | `{ type, schoolLink, time, place, info }` | `{ slug, program, institution, institutionUrl, period, description }` |
-| `public/All-Texts/testimonialConst.js` | `{ id, title, content, img, link }` | `{ slug, title, content, image, profileUrl }` |
+## 2. Single-owner GitHub allow-list
 
-New files: `src/lib/iconMap.js` (string-key → icon-component map), `src/components/Icon.js` (`<Icon name className />` resolver component).
+Official Auth.js pattern is the `signIn` callback (`authjs.dev/guides/restricting-user-access`, documented for email-domain allow-listing) adapted to a GitHub-id check:
+```
+callbacks: {
+  signIn({ profile }) {
+    return profile?.id?.toString() === process.env.ADMIN_GITHUB_ID
+  }
+}
+```
+Session strategy: **JWT** (default, no adapter needed for a single user); `@auth/mongodb-adapter` is the documented upgrade path only if instant server-side session revocation ever becomes a real requirement.
 
-**Files changed (consumers updated to match):** `src/pages/projects.js`, `src/pages/certificates.js`, `src/components/Skills.js`, `src/components/Experience.js`, `src/components/Education.js`, `src/components/Testimonials.js`.
+## 3. Centralized authorization — `verifyAdmin()`
 
-**Ambiguous content preserved instead of guessed:**
-- **`technologies: []`** on every project — the free-text `summary` fields do mention specific stacks (e.g. "React, Redux, Axios, CSS Modules"), but parsing prose into a structured tag list requires subjective judgment about what counts as a "technology" and risks mis-tagging or omitting things. Left empty for an admin to fill in deliberately rather than invented.
-- **`featured: false`** on every project — the current UI doesn't curate/highlight any project differently from another, so there is no existing signal for which (if any) should default to `true`. Defaulted to `false` uniformly rather than guessing a curation that doesn't exist.
-- **`deployUrl: null`** wherever a project's original `link` was just `"/"` (ProFY, Poke App Mobile, Poke App Website, Countries Website, Food App Website) — `"/"` was never a real deployed URL (the UI already special-cased it to hide the "Visit" link), so it's now represented as an honest absence of data instead of a placeholder path.
-- **`period` fields (experience/education) kept as free-text strings**, not split into structured start/end dates — the source strings mix languages and casing inconsistently (e.g. "Dec 2022 - Ene 2024" uses the Spanish abbreviation "Ene" for January; "aug 2014 - Nov 2022" mixes lower/upper case), and parsing them would risk silently mis-reading a date that was never entered in one consistent format.
-- **`skills[].link` kept as `null` for every entry** — the original data had every skill's `link` hardcoded to `"/"`, and the field was never actually rendered anywhere in `Skills.js`. Preserved the field (for a future "learn more" URL) but represented "no data" honestly instead of keeping the placeholder.
-- **`icon: null` preserved for Python/Django/Ruby/RoR** in skills — these already had no icon in the original data (the JSX line was commented out); carried forward as an explicit `null` rather than assigning a lookalike icon.
-- **certConst.js's dead `HenrySvg` import was removed** — it was imported but never referenced anywhere in that file (certificates never had an `icon` field at all), so there was no embedded-JSX problem to fix there, just an unused import to drop while touching the file.
+Per the official Data Access Layer guidance (Part II §12): a `server-only` module (`src/lib/auth/verifyAdmin.ts`) is the **single** authority. Every admin Server Action and every `(admin)` Route Handler calls it directly — `proxy.ts` (Phase 4) may additionally gate `/admin/:path*` for optimistic UX (redirect unauthenticated visitors before they see the shell), but per the official warning in Part II §3, **proxy must never be the only check**, since Server Actions are independently POST-reachable regardless of what a proxy `matcher` covers.
 
-Not started, and intentionally out of scope for this phase: no MongoDB/database, no Cloudinary/file storage, no authentication, no UI/animation redesign, no Next.js upgrade.
+## 4. Cloudinary signed uploads
 
-**Phase 1 follow-up cleanup (post-review) — ✅ COMPLETE**
+Unchanged in substance from the prior draft, confirmed still Cloudinary's current recommended pattern: client requests a signature from `app/api/cloudinary/sign/route.ts` (session-gated via `verifyAdmin()`), server signs constrained upload params (`folder`, `allowed_formats`, byte cap) with `cloudinary.utils.api_sign_request`, client uploads directly to Cloudinary, then PATCHes the owning Server Action/route with the returned `{ secure_url, public_id, width, height }`. Delete-then-write ordering, ownership re-derivation of `publicId` server-side, and folder layout (`portfolio/projects/{slug}`, etc.) all carry forward unchanged.
 
-Two additional cleanup items requested after the first Phase 1 review, both now done:
+## 5. MongoDB + Mongoose
 
-1. **Made image fields truly database-ready.** `projectConst.js`, `certConst.js`, and `testimonialConst.js` previously had `image` fields that were imported/`require()`d `StaticImageData` objects — not plain values a database could store. All three now store `image` as a root-relative string path (e.g. `"/images/projects/proy/ondasagave.jpg"`), matching how any file under `public/` is already served. Since `next/image` can no longer infer intrinsic dimensions from a plain string source, `imageWidth`/`imageHeight` (real pixel dimensions, read from the source files) were added to the records that needed them:
-   - `certConst.js` needed no new fields — `certificates.js` already rendered images at a hardcoded `width={500} height={300}`, decoupled from the source's real size.
-   - `projectConst.js` and `testimonialConst.js` didn't have explicit width/height before (they relied entirely on the static import), so `imageWidth`/`imageHeight` were added and threaded through `src/pages/projects.js` and `src/components/Testimonials.js`.
-   - Confirmed via `grep` that every `src/data/*.js` file now contains zero `import`/`require` statements and zero function/arrow definitions — only strings, numbers, booleans, null, arrays, and plain objects.
+Collection shapes (`projects`, `skills`, `experience`, `education`, `certificates`, `testimonials`, `siteSettings`, later `applications`/`documentVersions`/`analyticsEvents`) carry forward unchanged from the prior draft — they were already designed as a superset of the Phase 1 content shapes and need no correction. The cached-connection pattern (`mongoose.models.X || mongoose.model(...)` + a cached global connection promise) remains current community best practice; Phase 3 should do one fresh doc check against MongoDB's own Vercel integration guide before implementation, since this wasn't independently re-verified against an official example in this research pass (flagged, not blocking).
 
-2. **Moved all content files from `public/All-Texts/` to `src/data/`.** Filenames kept identical (`projectConst.js`, `skillsConst.js`, `expConst.js`, `eduConst.js`, `certConst.js`, `testimonialConst.js`); the old `public/All-Texts/` directory was removed. All six consumers (`src/pages/projects.js`, `src/pages/certificates.js`, `src/components/Skills.js`, `src/components/Experience.js`, `src/components/Education.js`, `src/components/Testimonials.js`) now import via the `@/data/...` alias instead of a relative `../../public/All-Texts/...` path.
+**Correction to the prior draft's data-fetching strategy:** the prior draft's "on-demand ISR via `res.revalidate()`" is Pages Router thinking and does not apply. Phase 3's `features/*/queries/*.ts` functions (already `"use cache"`-wrapped per Phase 2 §6) get their cache invalidated via `revalidateTag(tag, profile)` (public, stale-while-revalidate) or `updateTag(tag)` (admin Server Actions needing read-your-writes) — called from the Phase 5 admin Server Actions after a successful Mongo write, not from a `res.revalidate()` call that no longer exists in the App Router.
 
-Verified with `npm run lint` + `npm run build` (both clean) and a second runtime smoke test against `next start`: confirmed the optimized `/_next/image?url=%2Fimages%2F...` requests actually resolve and serve real image bytes (not just that the markup looks right), and re-checked project titles/notes, certificate titles, and the JS-skill icon's SVG path all still render identically.
+## 6. Zod
 
-### Phase 2 — Animation/visual modernization (the explicitly requested design work)
-- Design and implement the new page-transition animation (replacing `TransitionEffect`), applied uniformly across all pages.
-- Refresh Home page animation choreography.
-- Add the generalized scroll-linked parallax hook and apply it beyond the existing Experience/Education timelines.
-- This phase is purely front-of-house and can ship independently of any backend work, satisfying the "premium feel" goals early.
+Introduced at the Phase 3 boundary: Server Action inputs, Route Handler bodies, and `features/*/schemas/*.schema.ts` all validate through Zod (current stable major, per Part II research). Existing hand-rolled contact-form validation (Phase 2) can be upgraded to Zod at this point too, retiring the Phase 2.7 hand-rolled check as a small follow-up, not a re-litigation.
 
-### Phase 3 — Data layer + auth foundation
-- Introduce the database and ORM.
-- Migrate Phase-1 content into it, with the existing pages switched to read from it (via SSR/ISR) instead of static imports — public site behavior stays visually identical.
-- Add authentication (NextAuth.js/Auth.js) and a protected `/admin` shell (no real admin features yet, just the gate).
+## 7. Admin route structure (App Router version of the old proposal)
 
-### Phase 4 — Admin CRUD + file uploads
-- Build management screens for projects, skills, experience, education, certificates.
-- Add object storage and upload flows for project screenshots and certificate images/PDFs.
-- Wire GitHub URLs, deploy URLs, and (optionally) live GitHub API integration (e.g., pulling stars/last-commit) into the project model.
+```
+app/(admin)/admin/
+  layout.tsx                    → calls verifyAdmin(), renders admin chrome
+  page.tsx                      → /admin dashboard
+  login/page.tsx                → /admin/login
+  projects/page.tsx             → /admin/projects (list)
+  projects/new/page.tsx         → /admin/projects/new
+  projects/[id]/edit/page.tsx   → /admin/projects/[id]/edit
+  certificates/... (same pattern)
+  skills/, experience/, education/, testimonials/  (Phase 9)
+  applications/  (Phase 8)
+  analytics/     (Phase 7)
+  settings/      (Phase 9)
+```
+Mutations are **Server Actions** in `features/*/actions/*.ts` (create/update/delete), each calling `verifyAdmin()` first and a Zod schema second, then the feature's `services/*Repository.ts`. Cloudinary signing and any genuine webhook/external-integration endpoint remain Route Handlers under `app/api/*`, per the rule that distinguishes the two.
 
-### Phase 5 — Analytics dashboard
-- Instrument the public site for page-view/event tracking.
-- Build the analytics dashboard and "portfolio completeness" indicators inside `/admin`.
+## 8. Phase sequence recap (5 → 9)
 
-### Phase 6 — Job Application Studio
-- Job-posting paste + analysis.
-- ATS-oriented resume tailoring constrained to existing, already-entered experience/skills data (no fabrication).
-- Cover-letter generation.
-- Application/interview status tracking.
-- Downloadable CV/cover-letter PDF generation.
-- This phase depends on Phases 3–4 (data layer, auth, structured experience/skills data) being in place, and likely needs an LLM API integration decision (provider, cost, and a clear "ground truth" prompt-design guardrail so generated resume content never invents experience).
+- **Phase 5 (Projects/Certificates Admin MVP):** the first real end-to-end slice — auth, two Mongo collections, two admin CRUD screens, Cloudinary upload/delete, public pages switched from `src/data` reads to Mongo reads behind the same `queries/` call shape established in Phase 2.
+- **Phase 6 (Visual modernization):** replace `TransitionEffect`'s 3-panel wipe, refresh Home choreography, generalize the scroll-linked parallax hook — purely front-of-house, no backend dependency, deliberately sequenced after the foundation is stable per the user's explicit instruction.
+- **Phase 7 (Analytics):** `analyticsEvents` + rollup collection, dashboard inside `/admin`.
+- **Phase 8 (Job Application Studio):** job-posting ingestion, ATS-oriented tailoring constrained to existing entered data (no fabrication), cover-letter generation, `applications`/`documentVersions` collections, PDF export.
+- **Phase 9 (Remaining CMS + optimization):** skills/experience/education/testimonials/settings admin screens, GitHub API sync, and an ongoing (not one-time) framework-currency/performance/accessibility checklist.
 
-### Phase 7 (ongoing, not a single phase) — Framework currency
-- Track Next.js releases and migrate the Pages Router forward (13 → 14/15 → App Router) opportunistically, ideally starting with the `/admin` section once it exists (best fit for Server Components/Actions), leaving the public marketing pages on the Pages Router until there's a concrete reason to move them.
-- Revisit performance/accessibility (image `sizes`/`priority` usage is already reasonably good; audit color contrast in both themes, keyboard navigation on the mobile menu and tabbed Skills/Certificates UIs, and `alt` text quality) as a recurring checklist item each phase, not a one-time pass.
+---
+
+# Part V — Preservation Contract
+
+Carried through every phase without exception until Phase 6 explicitly revisits it by design:
+
+- Color palette (`dark #1b1b1b`, `light #f5f5f5`, `primary #B63E96`, `primaryDark #58E6D9`), Montserrat font, dark/light toggle behavior and flash-prevention.
+- Framer Motion as the animation engine and every effect cataloged in Part I §3.
+- The scroll-linked timeline mechanism (`LilIcon` + `useScroll`) as a foundation to extend later, not replace.
+- The `@/*` → `src/*` alias, Tailwind dark-mode-by-class strategy, and the desktop-first `max-width` breakpoint convention.
+- Existing page structure, URLs, and content as the public-facing site — all backend/admin work is additive.
