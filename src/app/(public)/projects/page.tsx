@@ -5,17 +5,37 @@ import TransitionEffect from "@/components/TransitionEffect";
 import ProjectCard from "@/features/projects/components/ProjectCard";
 import { getPublishedProjects } from "@/features/projects/queries/getPublishedProjects";
 
-// Full generateMetadata/OG work (per Principle 13) is Checkpoint 2.10's
-// explicit scope ("per-page generateMetadata where distinct: projects/
-// certificates") — this is the same minimal static-metadata treatment
-// already used for "/" and "/about", just replacing this page's original
-// <Head> content.
-export const metadata: Metadata = {
-  title: 'VontrauwitzDEV | Projects',
-  other: {
-    projects: 'my projects',
-  },
-};
+// Checkpoint 2.10: uses generateMetadata (not a static `metadata` export)
+// because the description is derived from the real project count via the
+// same getPublishedProjects() query the page itself reads — distinct,
+// factual per-page metadata per Principle 13, with no invented numbers.
+const title = 'VontrauwitzDEV | Projects';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const projects = await getPublishedProjects();
+  const description = `Explore ${projects.length} projects built by Hans Trauwitz, a full-stack developer.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: '/projects',
+    },
+    openGraph: {
+      title,
+      description,
+      url: '/projects',
+      type: 'website',
+      images: ['/opengraph-image'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/opengraph-image'],
+    },
+  };
+}
 
 export default async function Projects() {
   const projects = await getPublishedProjects();

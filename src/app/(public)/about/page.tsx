@@ -12,11 +12,30 @@ import { CertificateIcon } from '@/components/ui/icons'
 import TestimonialList from '@/features/testimonials/components/TestimonialList';
 import TransitionEffect from '@/components/TransitionEffect';
 
-// Description matches the root layout's default, so only the title needs
-// to be declared here (page-level metadata is shallow-merged with layout
-// metadata; unspecified fields are inherited).
+// Checkpoint 2.10: description/OG sourced from this page's own biography
+// copy below, rather than inheriting the root layout's generic description.
+const title = 'VontrauwitzDEV | About';
+const description = 'Learn about Hans Trauwitz, a Full Stack developer focused on robust, user-centered digital experiences — skills, experience, and education.';
+
 export const metadata: Metadata = {
-  title: 'VontrauwitzDEV | About',
+  title,
+  description,
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title,
+    description,
+    url: '/about',
+    type: 'website',
+    images: ['/opengraph-image'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/opengraph-image'],
+  },
 };
 
 // AnimatedNumber was dead code in the original pages/about.js too (defined,

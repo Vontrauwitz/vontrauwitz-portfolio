@@ -4,15 +4,37 @@ import TransitionEffect from '@/components/TransitionEffect';
 import CertificateGallery from '@/features/certificates/components/CertificateGallery';
 import { getCertificates } from '@/features/certificates/queries/getCertificates';
 
-// Full generateMetadata/OG work (per Principle 13) is Checkpoint 2.10's
-// explicit scope — same minimal static-metadata treatment already used for
-// "/", "/about", and "/projects".
-export const metadata: Metadata = {
-  title: 'VontrauwitzDEV | Certificates',
-  other: {
-    certificates: 'my certificates',
-  },
-};
+// Checkpoint 2.10: generateMetadata (not a static `metadata` export) so the
+// description reflects the real certificate count via the same
+// getCertificates() query the page itself reads — distinct, factual
+// per-page metadata per Principle 13, with no invented numbers.
+const title = 'VontrauwitzDEV | Certificates';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const certificates = await getCertificates();
+  const description = `Browse ${certificates.length} certificates and courses completed by Hans Trauwitz.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: '/certificates',
+    },
+    openGraph: {
+      title,
+      description,
+      url: '/certificates',
+      type: 'website',
+      images: ['/opengraph-image'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/opengraph-image'],
+    },
+  };
+}
 
 export default async function Certificates() {
   const certificates = await getCertificates();

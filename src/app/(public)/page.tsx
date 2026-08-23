@@ -8,11 +8,29 @@ import { LinkArrow, ViewCv } from '@/components/ui/icons'
 import TransitionEffect from '@/components/TransitionEffect'
 
 // Title matches the root layout's default (app/layout.tsx) so it doesn't
-// need repeating here; only the page-specific "welcome" meta tag (from the
-// original pages/index.js <Head>) needs to be declared.
+// need repeating here. Checkpoint 2.10 replaces the placeholder "welcome"
+// meta tag (ported verbatim from the original pages/index.js <Head>) with
+// real description/OG metadata, sourced from this page's own copy below.
+const title = 'VontrauwitzDEV | Portfolio';
+const description = 'Hans Trauwitz — Code Artist and full-stack developer turning ideas into digital reality. Explore projects, skills, and experience.';
+
 export const metadata: Metadata = {
-  other: {
-    welcome: 'welcome',
+  description,
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title,
+    description,
+    url: '/',
+    type: 'website',
+    images: ['/opengraph-image'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/opengraph-image'],
   },
 };
 

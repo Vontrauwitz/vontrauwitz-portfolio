@@ -3,13 +3,29 @@ import Layout from '@/components/Layout';
 import TransitionEffect from '@/components/TransitionEffect';
 import ContactForm from '@/features/contact/components/ContactForm';
 
-// Full generateMetadata/OG work (per Principle 13) is Checkpoint 2.10's
-// explicit scope — same minimal static-metadata treatment already used for
-// "/", "/about", "/projects", and "/certificates".
+// Checkpoint 2.10: description/OG sourced from this page's own copy below
+// (ContactForm.tsx's "open to freelance opportunities" text).
+const title = 'VontrauwitzDEV | Contact';
+const description = 'Get in touch with Hans Trauwitz for freelance opportunities and collaborations.';
+
 export const metadata: Metadata = {
-  title: 'VontrauwitzDEV | Contact',
-  other: {
-    contact: 'contact me',
+  title,
+  description,
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title,
+    description,
+    url: '/contact',
+    type: 'website',
+    images: ['/opengraph-image'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/opengraph-image'],
   },
 };
 
