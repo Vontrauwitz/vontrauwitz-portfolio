@@ -20,8 +20,9 @@ import profilePicMon4 from '../../../../public/images/contact/montreal4.jpg';
 import { sendContactForm } from '@/lib/api';
 import { LoadIcon } from '@/components/ui/icons';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ContactToast from './ContactToast';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -89,15 +90,21 @@ const ContactForm = () => {
       setIsLoading(true);
       try {
         await sendContactForm(values);
-        const toastId = toast.success('El mensaje se envió correctamente');
-        setTimeout(() => toast.dismiss(toastId), 3000); // Esto quitará la notificación después de 3 segundos
+        const toastId = toast.success(
+          <ContactToast title="Message sent successfully" description="Thanks! I'll get back to you soon." />
+        );
+        setTimeout(() => toast.dismiss(toastId), 3000);
         setState(initState);
+        // 2000ms rather than the original 1500ms — the richer two-line toast
+        // needs a beat longer to read before the route change unmounts it.
         setTimeout(() => {
           router.push('/');
-        }, 1500);
+        }, 2000);
       } catch (error) {
         console.error("Error al enviar el formulario:", error);
-        const toastId = toast.error('Hubo un error al enviar el mensaje. Intenta de nuevo.');
+        const toastId = toast.error(
+          <ContactToast title="Message couldn't be sent" description="Please try again in a moment." />
+        );
         setTimeout(() => toast.dismiss(toastId), 3000);
       } finally {
         setIsLoading(false); // Desactivar el loading después de enviar el formulario
@@ -170,8 +177,17 @@ const ContactForm = () => {
       </div>
       {/* react-toastify v10 changed these two defaults (closeOnClick
           true→false, draggable true→'touch') — set explicitly so the
-          v11 upgrade doesn't silently change toast behavior. */}
-      <ToastContainer closeOnClick draggable />
+          v11 upgrade doesn't silently change toast behavior. theme="dark",
+          toastClassName and transition are the portfolio-branded styling
+          hooks; the actual visual overrides live in globals.css. */}
+      <ToastContainer
+        closeOnClick
+        draggable
+        theme="dark"
+        transition={Slide}
+        toastClassName="portfolio-toast"
+        progressClassName="portfolio-toast-progress"
+      />
     </>
   );
 };

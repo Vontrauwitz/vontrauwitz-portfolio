@@ -2,3 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Portfolio-branded react-toastify skin. The base look comes from the
+   library's own documented CSS custom properties (overridden here rather
+   than fighting selector specificity); the border accent and progress-bar
+   opacity aren't exposed as variables, so those get a small compound-class
+   override further down. Applies to every toast via ToastContainer's
+   toastClassName/progressClassName props in ContactForm. */
+:root {
+  --toastify-color-dark: rgba(27, 27, 27, 0.94);
+  --toastify-text-color-dark: #f5f5f5;
+  --toastify-toast-width: 320px;
+  --toastify-toast-min-height: 56px;
+  --toastify-toast-padding: 12px 14px;
+  --toastify-toast-bd-radius: 14px;
+  --toastify-toast-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  --toastify-font-family: var(--font-mont), ui-sans-serif, system-ui, sans-serif;
+  --toastify-color-progress-success: #58e6d9;
+  --toastify-color-progress-error: #b63e96;
+}
+
+.Toastify__toast.portfolio-toast {
+  border: 1px solid rgba(182, 62, 150, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.Toastify__progress-bar.portfolio-toast-progress {
+  height: 2px;
+  opacity: 0.55;
+}
+
