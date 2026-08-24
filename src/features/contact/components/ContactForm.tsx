@@ -82,12 +82,7 @@ const ContactForm = () => {
     return Object.values(newErrors).every((error) => !error);
   };
 
-  // Typed to accept both events because the original also wires this
-  // directly to the submit button's onClick (redundant with the form's
-  // onSubmit — a submit-type button inside a form already triggers submit
-  // on click — but preserved as-is, not removed). Only `e.preventDefault()`
-  // is used, which both event types provide.
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (validateForm()) {
@@ -146,7 +141,7 @@ const ContactForm = () => {
             </div>
             <div>
               <button
-                onClick={handleSubmit}
+                type="submit"
                 className='flex items-center bg-dark text-light p-.5 px-3 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-black dark:text-dark dark:bg-light hover:dark:bg-dark hover:dark:text-light hover:dark:border-light'
                 disabled={isLoading}
               >
@@ -173,7 +168,10 @@ const ContactForm = () => {
           </Slider>
         </div>
       </div>
-      <ToastContainer />
+      {/* react-toastify v10 changed these two defaults (closeOnClick
+          true→false, draggable true→'touch') — set explicitly so the
+          v11 upgrade doesn't silently change toast behavior. */}
+      <ToastContainer closeOnClick draggable />
     </>
   );
 };
