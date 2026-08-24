@@ -48,14 +48,6 @@ const escapeHtml = (value: string) =>
 const EMAIL_FONT_STACK =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
-const renderField = (label: string, value: string, { multiline = false } = {}) => `
-  <tr>
-    <td style="padding: 0 0 18px 0;">
-      <span style="display:block; font-family: ${EMAIL_FONT_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #B63E96;">${label}</span>
-      <span style="display:block; font-family: ${EMAIL_FONT_STACK}; font-size: 15px; line-height: 22px; color: #1b1b1b; padding-top: 4px;${multiline ? ' white-space: pre-wrap;' : ''}">${value}</span>
-    </td>
-  </tr>`;
-
 const generateEmailContent = (data: ContactFormData) => {
   const stringData = Object.entries(data).reduce(
     (str, [key, val]) =>
@@ -68,12 +60,15 @@ const generateEmailContent = (data: ContactFormData) => {
   const subject = escapeHtml(data.subject);
   const message = escapeHtml(data.message);
 
-  const fieldsHtml = [
-    renderField('Name', name),
-    renderField('Email', email),
-    renderField('Subject', subject),
-    renderField('Message', message, { multiline: true }),
-  ].join('');
+  // Same user-controlled value, different context: the mailto href needs
+  // URI-percent-encoding (not HTML-escaping) since it's a URL query
+  // component, not HTML text/attribute content.
+  const replySubject = encodeURIComponent(`Re: ${data.subject}`);
+
+  const sentAt = new Date().toLocaleString('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
 
   return {
     text: stringData,
@@ -87,47 +82,87 @@ const generateEmailContent = (data: ContactFormData) => {
     <style type="text/css">
       body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
       table { border-collapse: collapse !important; }
-      body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #f5f5f5; }
-      @media screen and (max-width: 525px) {
-        .wrapper { width: 100% !important; max-width: 100% !important; }
-        .section-padding { padding: 20px 16px !important; }
-        .content-padding { padding: 22px 20px !important; }
+      body { margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #f5f5f5; }
+      a { text-decoration: none; }
+      @media screen and (max-width: 620px) {
+        .wrapper { width: 100% !important; }
+        .content-padding { padding: 24px 20px !important; }
+        .title-text { font-size: 24px !important; line-height: 30px !important; }
+        .col-right { border-left: none !important; padding-left: 0 !important; padding-top: 20px !important; }
       }
     </style>
   </head>
   <body style="margin: 0 !important; padding: 0 !important; background-color: #f5f5f5;">
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
-        <td align="center" style="padding: 28px 12px;" class="section-padding">
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 520px;" class="wrapper">
+        <td align="center" style="padding: 32px 12px;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" class="wrapper">
             <tr>
-              <td style="background-color: #1b1b1b; border-top: 4px solid #B63E96; border-radius: 12px 12px 0 0; padding: 26px 32px;" class="content-padding">
+              <td style="background-color: #B63E96; height: 5px; line-height: 5px; font-size: 1px; border-radius: 0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="background-color: #0f0f0f; padding: 32px 32px 28px 32px;" class="content-padding">
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                   <tr>
-                    <td style="font-family: ${EMAIL_FONT_STACK}; font-size: 19px; font-weight: 700; color: #f5f5f5;">
+                    <td class="title-text" style="font-family: ${EMAIL_FONT_STACK}; font-size: 28px; line-height: 34px; font-weight: 700; color: #ffffff;">
                       New Portfolio Message
                     </td>
                   </tr>
                   <tr>
-                    <td style="font-family: ${EMAIL_FONT_STACK}; font-size: 13px; color: #B63E96; padding-top: 4px;">
-                      Someone reached out through your portfolio contact form
+                    <td style="font-family: ${EMAIL_FONT_STACK}; font-size: 14px; font-weight: 700; color: #B63E96; padding: 10px 0 0 0;">
+                      Someone reached out through your portfolio contact form.
                     </td>
                   </tr>
                 </table>
               </td>
             </tr>
             <tr>
-              <td style="background-color: #ffffff; padding: 28px 32px 10px 32px; border-radius: 0 0 12px 12px;" class="content-padding">
+              <td style="background-color: #ffffff; border-radius: 14px; padding: 30px 28px;" class="content-padding">
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                  ${fieldsHtml}
+                  <tr>
+                    <td>
+                      <div class="col-left" style="display: inline-block; width: 100%; max-width: 258px; vertical-align: top; box-sizing: border-box; padding-right: 20px; font-size: 14px; line-height: normal;">
+                        <span style="display: block; font-family: ${EMAIL_FONT_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #B63E96;">From</span>
+                        <span style="display: block; font-family: ${EMAIL_FONT_STACK}; font-size: 15px; font-weight: 600; color: #0f0f0f; padding-top: 6px;">${name}</span>
+                        <a href="mailto:${email}" style="display: inline-block; font-family: ${EMAIL_FONT_STACK}; font-size: 14px; font-weight: 700; color: #B63E96; text-decoration: none; padding-top: 2px;">${email}</a>
+                        <span style="display: block; font-family: ${EMAIL_FONT_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #B63E96; padding-top: 18px;">Subject</span>
+                        <span style="display: block; font-family: ${EMAIL_FONT_STACK}; font-size: 15px; color: #0f0f0f; padding-top: 6px; word-break: break-word;">${subject}</span>
+                      </div><div class="col-right" style="display: inline-block; width: 100%; max-width: 258px; vertical-align: top; box-sizing: border-box; padding-left: 20px; border-left: 1px solid #ececec; font-size: 14px; line-height: normal;">
+                        <span style="display: block; font-family: ${EMAIL_FONT_STACK}; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #B63E96;">Message</span>
+                        <span style="display: block; font-family: ${EMAIL_FONT_STACK}; font-size: 15px; line-height: 22px; color: #333333; white-space: pre-wrap; padding-top: 6px;">${message}</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding: 28px 0 0 0;">
+                      <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="background-color: #B63E96; border-radius: 6px;">
+                            <a href="mailto:${email}?subject=${replySubject}" style="display: inline-block; font-family: ${EMAIL_FONT_STACK}; font-size: 14px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 11px 22px;">Reply to ${name} &rarr;</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
                 </table>
               </td>
             </tr>
             <tr>
-              <td align="center" style="padding: 18px 12px 0 12px;">
-                <span style="font-family: ${EMAIL_FONT_STACK}; font-size: 12px; color: #8a8a8a;">
-                  Sent from the contact form on your portfolio.
-                </span>
+              <td align="center" style="padding: 26px 20px 0 20px;">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td style="border-top: 1px solid #e2e2e2; font-size: 1px; line-height: 1px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding: 18px 0 0 0;">
+                      <span style="font-family: ${EMAIL_FONT_STACK}; font-size: 15px; font-weight: 700; color: #B63E96; vertical-align: middle;">&#8853;</span>
+                      <span style="font-family: ${EMAIL_FONT_STACK}; font-size: 12px; color: #9a9a9a; vertical-align: middle; padding-left: 6px;">Sent from the contact form on your portfolio.</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-family: ${EMAIL_FONT_STACK}; font-size: 11px; color: #b5b5b5; padding: 4px 0 0 0;">${sentAt}</td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </table>
