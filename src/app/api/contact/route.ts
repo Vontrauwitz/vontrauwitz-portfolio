@@ -5,8 +5,8 @@ import { mailOptions, transporter } from '@/config/nodemailer';
 // explicit instruction — this is a genuine external HTTP endpoint (the
 // contact form), exactly the kind of thing rule 12 calls out as a Route
 // Handler, not a Server Action. Logic/behavior unchanged: same field
-// validation, same email content, same Nodemailer transporter (still
-// imported from the untouched src/config/nodemailer.js).
+// validation, same email content, same Nodemailer transporter (imported
+// from src/config/nodemailer.ts, typed in Checkpoint 2.9).
 //
 // Route Handlers require one named export per HTTP method rather than a
 // single `handler(req, res)` branching on `req.method` — the original

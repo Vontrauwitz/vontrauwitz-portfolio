@@ -80,7 +80,7 @@ All content lives in `src/data/*.js`: JSX-free, JSON-serializable, images stored
 |---|---|---|
 | Word-by-word heading reveal | `AnimatedText.js` | `variants` + `staggerChildren` |
 | 3-panel color-wipe page transition | `TransitionEffect.js` | 3 stacked `motion.div`, staggered delay, `x`/`width` |
-| Route enter/exit orchestration | `_app.js` | `AnimatePresence mode="wait"` keyed by `router.asPath` |
+| Route enter transition | `TransitionEffect.tsx` | Per-page 3-panel wipe using `initial`→`animate`. The original Pages Router exit/enter orchestration with `AnimatePresence mode="wait"` was evaluated for restoration during Checkpoint 2.12, but reproduced a silent animation freeze under the current App Router + Motion 13 + React 19 architecture. The attempted restoration was fully reverted. Accepted as a documented Phase 2 deviation; route-transition architecture may be reconsidered during the later visual/animation redesign. |
 | Scroll-linked timeline progress line | `Experience.js`, `Education.js` | `useScroll` → `scaleY` |
 | Scroll-linked circular node indicator | `LilIcon.js` | `useScroll` → `pathLength` |
 | Scroll-triggered reveal | `Skills.js`, `Testimonials.js` | `whileInView` |
@@ -286,6 +286,8 @@ components/motion/PageTransitions.tsx   ("use client")
 ```
 
 Placed inside `app/(public)/layout.tsx` (server), wrapping the `{children}` slot, with `NavBar`/`Footer` rendered as siblings outside it — exactly preserving today's structural rule that chrome (nav/footer) doesn't animate on route change, only the page content does. `TransitionEffect` (the 3-panel color wipe) is rendered inside each page as it is today, unchanged in Phase 2 — its replacement is explicitly Phase 6 work, not bundled here.
+
+**Checkpoint 2.12 outcome:** this `PageTransitions.tsx`/`usePathname()`/`AnimatePresence` pattern was implemented and tested exactly as specified above. It reproduced a silent animation freeze — `TransitionEffect`'s panels stuck at their initial position indefinitely, with no console error or warning — under the current App Router + Motion 13 + React 19 architecture, on every route tested. The implementation was fully reverted; no trace of it remains in `src`. Phase 2 therefore intentionally retains the existing per-page `TransitionEffect` wipe without `AnimatePresence` exit orchestration. Future animation/redesign work should treat this as a known finding — the same implementation should not be blindly retried; a different route-transition approach (or a newer Motion/React combination) would need to be evaluated first.
 
 ## 8. Phase 2 Migration Checkpoints
 
