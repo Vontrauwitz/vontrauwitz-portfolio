@@ -12,7 +12,7 @@
 |---|---|---|
 | 0 | Stabilization (bug fixes, dead-code removal, doc hygiene) | ✅ Complete |
 | 1 | Serializable content model (`src/data/*.js`, JSX-free, icon resolver) | ✅ Complete |
-| 2 | Next.js 16 + React 19 + TypeScript + App Router foundational migration | 📐 Designed in this document — not implemented |
+| 2 | Next.js 16 + React 19 + TypeScript + App Router foundational migration | ✅ Complete (signed off 2026-08-23 at commit `285f9ca`; contact-form/email hardening continued through `135b4e0` on 2026-08-24) |
 | 3 | MongoDB Atlas + Mongoose + Zod + Data Access Layer | ⏳ Forward design only (Part IV) |
 | 4 | Auth.js (GitHub, single-owner) + Cloudinary signed uploads + secure admin foundation | ⏳ Forward design only (Part IV) |
 | 5 | Projects/Certificates Admin MVP (first real CRUD slice) | ⏳ Forward design only (Part IV) |
@@ -274,6 +274,8 @@ Per Part II §6: `cacheComponents` is opt-in, not default, and changes rendering
 - It establishes the pattern (`"use cache"` + `cacheTag()` + `cacheLife()` on each `features/*/queries/*.ts` function) while the stakes are zero, so Phase 3's Mongo-backed rewrite of those same functions is a mechanical "swap the body, keep the directive/tags" change instead of a new concept introduced under time pressure.
 - Concretely: `getPublishedProjects()` becomes `"use cache"`; `cacheTag("projects")`; `cacheLife("days")` (portfolio content changes rarely). No revalidation call exists yet in Phase 2 (nothing writes to this data at runtime) — `revalidateTag`/`updateTag` calls are introduced in Phase 5 when admin Server Actions actually mutate content.
 - **Explicit non-goal:** do not attempt to replicate old Pages-Router ISR (`getStaticProps` + `revalidate: N`) — that model doesn't exist in the App Router and reasoning about "revalidate every N seconds" would be solving a problem (stale reads) that doesn't apply to a build-time-static content source.
+
+**Correction — final implemented decision (recorded after Phase 2 sign-off, original design discussion above left unchanged):** `cacheComponents` was **not** enabled during Phase 2. Every shipped `features/*/queries/*.ts` function (`getPublishedProjects()`, `getCertificates()`) is a plain `async` function reading the existing `src/data/*.ts` static import — no `"use cache"`, no `cacheTag()`, no `cacheLife()`. Enabling `cacheComponents` is a global `next.config` flag that changes rendering semantics for the entire app, not something to fold into an individual route migration without its own isolated checkpoint and test pass — so it was deliberately deferred rather than adopted as planned above. **Phase 3 must not enable it implicitly**; nothing in the Phase 3 checkpoint plan (MongoDB/Mongoose/Zod foundation) depends on it, and Phase 3 introduces no write paths that would create a staleness problem for it to solve. Cache/tag invalidation (`cacheTag()`/`revalidateTag()`/`updateTag()`) will be evaluated when real write paths/admin CRUD exist — Phase 5, when admin Server Actions first mutate Mongo-backed content.
 
 ## 7. Route-Transition Redesign (mechanical, not visual)
 
