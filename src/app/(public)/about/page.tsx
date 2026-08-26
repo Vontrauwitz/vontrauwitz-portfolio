@@ -5,6 +5,7 @@ import Image from 'next/image';
 import profilePic from '../../../../public/images/profile/yo1.jpg'
 import profilePic2 from '../../../../public/images/profile/yo1.1.png'
 import SkillsTabs from '@/features/skills/components/SkillsTabs';
+import { getSkills } from '@/features/skills/queries/getSkills';
 import ExperienceTimeline from '@/features/experience/components/ExperienceTimeline';
 import EducationTimeline from '@/features/experience/components/EducationTimeline';
 import Link from 'next/link'
@@ -44,7 +45,9 @@ export const metadata: Metadata = {
 // React/motion hooks at all, even unused. Not imported here because nothing
 // in this page renders it, exactly as before.
 
-const About = () => {
+const About = async () => {
+  const skills = await getSkills();
+
   return (
     <>
       <TransitionEffect />
@@ -80,7 +83,7 @@ const About = () => {
             </div>
 
           </div>
-          <SkillsTabs />
+          <SkillsTabs skills={skills} />
           <ExperienceTimeline />
           <EducationTimeline />
           <div className='flex items-center self-start mt-2 mb-10'>

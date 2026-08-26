@@ -11,7 +11,9 @@
     "seed:projects": "tsx --env-file=.env.local --conditions=react-server scripts/seed/seedProjects.ts",
     "verify:projects": "tsx --env-file=.env.local --conditions=react-server scripts/seed/verifyProjects.ts",
     "seed:certificates": "tsx --env-file=.env.local --conditions=react-server scripts/seed/seedCertificates.ts",
-    "verify:certificates": "tsx --env-file=.env.local --conditions=react-server scripts/seed/verifyCertificates.ts"
+    "verify:certificates": "tsx --env-file=.env.local --conditions=react-server scripts/seed/verifyCertificates.ts",
+    "seed:skills": "tsx --env-file=.env.local --conditions=react-server scripts/seed/seedSkills.ts",
+    "verify:skills": "tsx --env-file=.env.local --conditions=react-server scripts/seed/verifySkills.ts"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",

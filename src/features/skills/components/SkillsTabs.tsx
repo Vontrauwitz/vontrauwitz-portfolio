@@ -3,17 +3,19 @@
 // Moved from src/components/Skills.js for Checkpoint 2.4, per PLAN.md Part III
 // §2's target tree. Behavior/markup unchanged; only the file location, the
 // "use client" directive, and light TypeScript typing are new.
+//
+// Checkpoint 3.5 Stage A: no longer imports the runtime `skills` array
+// from @/data/skillsConst — receives it as a prop from the (server)
+// about/page.tsx via getSkills() instead, same pattern already used for
+// Projects/Certificates. The `Skill` type now comes from getSkills.ts (a
+// proper domain type) rather than being derived from a runtime data
+// import just for typing.
 
-import React, { useState } from 'react';
-import { skills } from '@/data/skillsConst';
+import { useState } from 'react';
 import AnimatedText from '@/components/AnimatedText';
 import Icon from '@/components/Icon';
 import { motion } from 'motion/react';
-
-// skillsConst.js is still untyped JS (data-file conversion isn't part of
-// this checkpoint), so the item shape is derived from the array itself
-// rather than a named type export.
-type Skill = (typeof skills)[number];
+import type { Skill } from '@/features/skills/queries/getSkills';
 
 const CATEGORY_BY_BUTTON: Record<string, Skill['category']> = {
   button1: 'frontend',
@@ -21,7 +23,11 @@ const CATEGORY_BY_BUTTON: Record<string, Skill['category']> = {
   button3: 'tools',
 };
 
-const SkillsTabs = () => {
+type SkillsTabsProps = {
+  skills: Skill[];
+};
+
+const SkillsTabs = ({ skills }: SkillsTabsProps) => {
   const [selectedButton, setSelectedButton] = useState('button1');
   const [selectedItem, setSelectedItem] = useState<Skill | null>(null);
 
