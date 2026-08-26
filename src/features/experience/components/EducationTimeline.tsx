@@ -3,19 +3,18 @@
 // Moved from src/components/Education.js for Checkpoint 2.4, per PLAN.md
 // Part III §2's target tree. Behavior/markup unchanged; only the file
 // location, the "use client" directive, and light TypeScript typing are new.
+//
+// Checkpoint 3.6 Stage A: no longer imports the runtime `education` array
+// from @/data/eduConst — receives it as a prop from the (server)
+// about/page.tsx via getEducation() instead, same pattern already used
+// for Projects/Certificates/Skills.
 
-import { education } from '@/data/eduConst';
 import { motion, useScroll } from 'motion/react';
 import { useRef } from 'react';
 import LilIcon from '@/components/LilIcon';
+import type { Education } from '@/features/experience/queries/getEducation';
 
-type DetailsProps = {
-  program: string;
-  institutionUrl: string;
-  institution: string;
-  description: string;
-  period: string;
-};
+type DetailsProps = Omit<Education, 'slug'>;
 
 const Details = ({ program, institutionUrl, institution, description, period }: DetailsProps) => {
 
@@ -57,7 +56,11 @@ const Details = ({ program, institutionUrl, institution, description, period }: 
 }
 
 
-const EducationTimeline = () => {
+type EducationTimelineProps = {
+  education: Education[];
+};
+
+const EducationTimeline = ({ education }: EducationTimelineProps) => {
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({

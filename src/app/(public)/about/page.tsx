@@ -8,6 +8,8 @@ import SkillsTabs from '@/features/skills/components/SkillsTabs';
 import { getSkills } from '@/features/skills/queries/getSkills';
 import ExperienceTimeline from '@/features/experience/components/ExperienceTimeline';
 import EducationTimeline from '@/features/experience/components/EducationTimeline';
+import { getExperience } from '@/features/experience/queries/getExperience';
+import { getEducation } from '@/features/experience/queries/getEducation';
 import Link from 'next/link'
 import { CertificateIcon } from '@/components/ui/icons'
 import TestimonialList from '@/features/testimonials/components/TestimonialList';
@@ -47,6 +49,8 @@ export const metadata: Metadata = {
 
 const About = async () => {
   const skills = await getSkills();
+  const experience = await getExperience();
+  const education = await getEducation();
 
   return (
     <>
@@ -84,8 +88,8 @@ const About = async () => {
 
           </div>
           <SkillsTabs skills={skills} />
-          <ExperienceTimeline />
-          <EducationTimeline />
+          <ExperienceTimeline experience={experience} />
+          <EducationTimeline education={education} />
           <div className='flex items-center self-start mt-2 mb-10'>
             <Link
               href="/certificates"

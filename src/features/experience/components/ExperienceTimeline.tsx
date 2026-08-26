@@ -3,20 +3,18 @@
 // Moved from src/components/Experience.js for Checkpoint 2.4, per PLAN.md
 // Part III §2's target tree. Behavior/markup unchanged; only the file
 // location, the "use client" directive, and light TypeScript typing are new.
+//
+// Checkpoint 3.6 Stage A: no longer imports the runtime `experience` array
+// from @/data/expConst — receives it as a prop from the (server)
+// about/page.tsx via getExperience() instead, same pattern already used
+// for Projects/Certificates/Skills.
 
-import { experience } from '@/data/expConst';
 import { motion, useScroll } from 'motion/react';
 import { useRef } from 'react';
 import LilIcon from '@/components/LilIcon';
+import type { Experience } from '@/features/experience/queries/getExperience';
 
-type DetailsProps = {
-  position: string;
-  company: string;
-  companyUrl: string;
-  period: string;
-  location: string;
-  description: string;
-};
+type DetailsProps = Omit<Experience, 'slug'>;
 
 const Details = ({ position, company, companyUrl, period, location, description }: DetailsProps) => {
 
@@ -58,7 +56,11 @@ const Details = ({ position, company, companyUrl, period, location, description 
   )
 }
 
-const ExperienceTimeline = () => {
+type ExperienceTimelineProps = {
+  experience: Experience[];
+};
+
+const ExperienceTimeline = ({ experience }: ExperienceTimelineProps) => {
 
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
