@@ -1,11 +1,16 @@
-import { certificates } from '@/data/certConst';
+import { getCertificates as getCertificatesFromRepository } from '@/features/certificates/services/certificateRepository';
 
-// Same treatment as features/projects/queries/getPublishedProjects.ts
-// (Checkpoint 2.5): introduces the queries/ layer's call shape now so a
-// later Mongo-backed swap only changes this function's body, but stays a
-// plain async read — no "use cache"/cacheTag/cacheLife/cacheComponents.
-// That's still deliberately out of scope until it gets its own isolated
-// checkpoint (see the Checkpoint 2.5 report for the full rationale).
+// Checkpoint 3.4: now delegates to certificateRepository (Mongo-backed,
+// with a static-data fallback — see that file for the read/fallback
+// strategy) instead of directly importing src/data/certConst. Same
+// treatment as Projects (Checkpoint 3.3): this function's exported name,
+// signature, and return shape are unchanged, so /certificates and its
+// generateMetadata (both already `await getCertificates()`) needed zero
+// changes.
+//
+// Still no "use cache"/cacheTag/cacheLife/cacheComponents — same
+// rationale as getPublishedProjects.ts: no write path exists yet (no
+// admin CRUD until Phase 5), so there's no staleness problem to solve.
 export async function getCertificates() {
-  return certificates;
+  return getCertificatesFromRepository();
 }
