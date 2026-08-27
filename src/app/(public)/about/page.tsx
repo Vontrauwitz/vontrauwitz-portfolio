@@ -13,6 +13,7 @@ import { getEducation } from '@/features/experience/queries/getEducation';
 import Link from 'next/link'
 import { CertificateIcon } from '@/components/ui/icons'
 import TestimonialList from '@/features/testimonials/components/TestimonialList';
+import { getTestimonials } from '@/features/testimonials/queries/getTestimonials';
 import TransitionEffect from '@/components/TransitionEffect';
 
 // Checkpoint 2.10: description/OG sourced from this page's own biography
@@ -51,6 +52,7 @@ const About = async () => {
   const skills = await getSkills();
   const experience = await getExperience();
   const education = await getEducation();
+  const testimonials = await getTestimonials();
 
   return (
     <>
@@ -101,7 +103,7 @@ const About = async () => {
               <CertificateIcon className={"w-6 ml-4"} />
             </Link>
           </div>
-          <TestimonialList />
+          <TestimonialList cards={testimonials} />
 
 
         </Layout>

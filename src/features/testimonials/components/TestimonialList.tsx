@@ -9,14 +9,23 @@
 // is the server-safe presentational leaf. Following the reasoning, not the
 // transposed labels, to keep the single group whileInView animation exactly
 // as it behaves today (one reveal for the whole list, not per card).
+//
+// Checkpoint 3.7 Stage A: no longer imports the runtime `cards` array
+// from @/data/testimonialConst — receives it as a prop from the (server)
+// about/page.tsx via getTestimonials() instead, same pattern already used
+// for Skills/Experience/Education.
 
 import Layout from '@/components/Layout';
-import { cards } from '@/data/testimonialConst';
 import AnimatedText from '@/components/AnimatedText';
 import { motion } from 'motion/react';
 import TestimonialCard from './TestimonialCard';
+import type { Testimonial } from '@/features/testimonials/queries/getTestimonials';
 
-const TestimonialList = () => {
+type TestimonialListProps = {
+  cards: Testimonial[];
+};
+
+const TestimonialList = ({ cards }: TestimonialListProps) => {
   return (
     <Layout>
       <AnimatedText className="mb-16 lg:!text-7xl md:!text-5xl sm:!text-4xl" text="What people say! 🙊" />
