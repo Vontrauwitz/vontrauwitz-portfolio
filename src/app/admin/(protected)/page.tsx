@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { auth, signOut } from '@/lib/auth/auth';
 
 export const metadata: Metadata = {
@@ -83,6 +84,18 @@ export default async function AdminDashboardPage() {
           </li>
           <li className="rounded-lg border-2 border-dark/10 px-4 py-3 text-dark/40 dark:border-light/10 dark:text-light/40">
             Certificates — coming soon
+          </li>
+          {/* Checkpoint 4.5 — the only real link in this list so far: the
+              signed upload infrastructure actually exists now, unlike the
+              two placeholders above. This is its test surface, not final
+              CMS UI. */}
+          <li>
+            <Link
+              href="/admin/uploads"
+              className="block rounded-lg border-2 border-dark/10 px-4 py-3 text-dark hover:border-primary dark:border-light/10 dark:text-light hover:dark:border-primaryDark"
+            >
+              Upload test (Cloudinary, infra-only)
+            </Link>
           </li>
         </ul>
       </div>
