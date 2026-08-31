@@ -74,8 +74,8 @@ export default async function AdminDashboardPage() {
         <h2 className="mb-4 text-lg font-semibold text-dark dark:text-light">
           Content
         </h2>
-        {/* Checkpoint 5.1 — Projects is now a real CRUD area; Certificates
-            remains a placeholder until its own checkpoint. */}
+        {/* Checkpoint 5.1/5.2 — Projects and Certificates are both real
+            CRUD areas now. */}
         <ul className="space-y-2">
           <li>
             <Link
@@ -85,8 +85,13 @@ export default async function AdminDashboardPage() {
               Projects
             </Link>
           </li>
-          <li className="rounded-lg border-2 border-dark/10 px-4 py-3 text-dark/40 dark:border-light/10 dark:text-light/40">
-            Certificates — coming soon
+          <li>
+            <Link
+              href="/admin/certificates"
+              className="block rounded-lg border-2 border-dark/10 px-4 py-3 text-dark hover:border-primary dark:border-light/10 dark:text-light hover:dark:border-primaryDark"
+            >
+              Certificates
+            </Link>
           </li>
           {/* Checkpoint 4.5 — the only real link in this list so far: the
               signed upload infrastructure actually exists now, unlike the

@@ -14,10 +14,18 @@ import { certificateSchema, type Certificate } from '../schemas/certificate.sche
 // src/data/certConst.ts array so the public site can never go down from a
 // Mongo outage. Same temporary-scaffolding status as Projects' fallback —
 // see PLAN.md Part IV §5's retirement protocol.
+//
+// Checkpoint 5.2: now filters to `published: true` and sorts by `order`
+// ascending — the two fields Checkpoint 5.2's migration script
+// (scripts/migrate/backfillCertificateAdminFields.ts) backfilled onto
+// every existing document before this filter/sort went live. Same
+// safety net as Projects: certificateSchema's `.default()`s (published
+// true, order 0) mean a document somehow missing either never disappears
+// from or crashes the public page.
 export async function getCertificates(): Promise<Certificate[]> {
   try {
     await connectToDatabase();
-    const docs = await CertificateModel.find({}).lean();
+    const docs = await CertificateModel.find({ published: true }).sort({ order: 1 }).lean();
 
     // .lean() returns plain objects, not Mongoose Documents, but they
     // still carry Mongo-only fields (_id, __v). Stripping those and

@@ -22,6 +22,17 @@ import { z } from 'zod';
 // it as a real date would invent a stricter shape the data doesn't
 // actually have. `image` stays a plain non-empty string (root-relative
 // public/ path), matching Projects' `image` field treatment.
+//
+// Checkpoint 5.2 — `imagePublicId`/`order`/`published` added with
+// `.default()`, same rationale as project.schema.ts's identical addition
+// in Checkpoint 5.1: this schema is also what
+// scripts/seed/seedCertificates.ts validates the *static* certConst.ts
+// array against (which predates these fields entirely), and what
+// certificateRepository.ts's getCertificates() re-validates every Mongo
+// document through on every public read. The real source of truth for
+// actual values is Mongo (backfilled by this checkpoint's migration
+// script) and certificateInput.schema.ts (the .strict() schema every
+// admin write goes through, no defaults there).
 export const certificateSchema = z.object({
   slug: z.string().min(1),
   title: z.string().min(1),
@@ -30,6 +41,9 @@ export const certificateSchema = z.object({
   credentialUrl: z.url(),
   issued: z.string().min(1),
   image: z.string().min(1),
+  imagePublicId: z.string().min(1).nullable().default(null),
+  order: z.number().int().min(0).default(0),
+  published: z.boolean().default(true),
 });
 
 export type Certificate = z.infer<typeof certificateSchema>;

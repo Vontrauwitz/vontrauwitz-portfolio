@@ -23,7 +23,9 @@
     "verify:cloudinarySign": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyCloudinarySign.ts",
     "verify:cloudinaryLive": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyCloudinaryLive.ts",
     "migrate:projectAdminFields": "tsx --env-file=.env.local --conditions=react-server scripts/migrate/backfillProjectAdminFields.ts",
-    "verify:projectAdmin": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyProjectAdmin.ts"
+    "verify:projectAdmin": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyProjectAdmin.ts",
+    "migrate:certificateAdminFields": "tsx --env-file=.env.local --conditions=react-server scripts/migrate/backfillCertificateAdminFields.ts",
+    "verify:certificateAdmin": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyCertificateAdmin.ts"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",

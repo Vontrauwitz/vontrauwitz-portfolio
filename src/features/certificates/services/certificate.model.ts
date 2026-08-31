@@ -14,22 +14,41 @@ import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 // `category` is a Mongoose `enum` matching the Zod schema's exactly —
 // same 4-value closed set, kept aligned between the two schemas.
 //
-// Not imported by any repository, query, page, or component yet — that's
-// wired up in the same Checkpoint 3.4 commit as this file's own
-// repository counterpart (certificateRepository.ts).
-const certificateMongooseSchema = new Schema({
-  slug: { type: String, required: true, unique: true, trim: true },
-  title: { type: String, required: true, trim: true },
-  category: {
-    type: String,
-    required: true,
-    enum: ["fullstack", "frontend", "backend", "misc"],
+// Checkpoint 5.2 additions — the same admin-CRUD fields Projects gained
+// in Checkpoint 5.1, deliberately NOT including imageWidth/imageHeight:
+// CertificateGallery.tsx renders every image at a hardcoded 500x300 box
+// regardless of source dimensions (see that component and certConst.ts's
+// own header comment), so there is no real UI need for stored dimensions
+// — adding them would be exactly the "blindly add fields" this checkpoint
+// was told not to do.
+//   - `imagePublicId`: nullable, null for the 20 records migrated from
+//     src/data/certConst.ts (plain /public paths, never uploaded to
+//     Cloudinary); set only once an admin uploads a replacement image via
+//     the existing CERTIFICATE_IMAGE signed flow (Checkpoint 4.5).
+//   - `order` / `published`: admin-editable list position and public
+//     visibility, no schema-level default — every write path (this
+//     checkpoint's migration script, and certificateInput.schema.ts for
+//     all future admin writes) supplies an explicit value.
+//   - `timestamps: true`: Mongoose-managed createdAt/updatedAt.
+const certificateMongooseSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, trim: true },
+    title: { type: String, required: true, trim: true },
+    category: {
+      type: String,
+      required: true,
+      enum: ["fullstack", "frontend", "backend", "misc"],
+    },
+    school: { type: String, required: true, trim: true },
+    credentialUrl: { type: String, required: true },
+    issued: { type: String, required: true },
+    image: { type: String, required: true },
+    imagePublicId: { type: String, default: null },
+    order: { type: Number, required: true },
+    published: { type: Boolean, required: true },
   },
-  school: { type: String, required: true, trim: true },
-  credentialUrl: { type: String, required: true },
-  issued: { type: String, required: true },
-  image: { type: String, required: true },
-});
+  { timestamps: true }
+);
 
 export type CertificateDocument = InferSchemaType<typeof certificateMongooseSchema>;
 
