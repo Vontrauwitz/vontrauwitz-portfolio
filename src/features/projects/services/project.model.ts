@@ -3,10 +3,7 @@ import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 
 // Persistence-layer counterpart to ../schemas/project.schema.ts — same
 // fields, same nullability (see that file for the field-by-field rationale
-// derived from src/data/projectConst.ts). No `timestamps` here: Checkpoint
-// 3.2's instruction is to mirror the current Project shape exactly, and
-// `createdAt`/`updatedAt` don't exist in that shape — they may be added
-// once Phase 5 admin CRUD gives them an actual use, not preemptively here.
+// derived from src/data/projectConst.ts).
 //
 // `slug` gets `unique: true` — grounded in projectConst.ts's own header
 // comment ("stable, URL-safe id... for future per-project routes/admin
@@ -21,25 +18,48 @@ import mongoose, { Schema, type InferSchemaType, type Model } from "mongoose";
 // validates what a caller must provide; Mongoose's default is a fallback
 // for persistence, not a statement about valid input shape.
 //
-// Not imported by any repository, query, page, or component yet — that's
-// Checkpoint 3.3. This checkpoint only establishes the model shape and the
-// hot-reload-safe registration pattern every later domain will reuse.
-const projectMongooseSchema = new Schema({
-  slug: { type: String, required: true, unique: true, trim: true },
-  title: { type: String, required: true, trim: true },
-  titleNote: { type: String, default: null },
-  type: { type: String, required: true },
-  summary: { type: String, required: true },
-  note: { type: String, default: null },
-  image: { type: String, required: true },
-  imageWidth: { type: Number, required: true },
-  imageHeight: { type: Number, required: true },
-  deployUrl: { type: String, default: null },
-  githubUrl: { type: String, required: true },
-  icon: { type: String, required: true },
-  technologies: { type: [String], default: [] },
-  featured: { type: Boolean, required: true, default: false },
-});
+// Checkpoint 5.1 additions — the fields Phase 3's own comment here
+// explicitly deferred ("may be added once Phase 5 admin CRUD gives them an
+// actual use, not preemptively here"):
+//   - `imagePublicId`: nullable, not required. `null` for the 9 records
+//     migrated from src/data/projectConst.ts (they're static /public paths,
+//     never uploaded to Cloudinary); set only once an admin actually
+//     uploads a replacement image via the signed Cloudinary flow. Exists
+//     so a future asset-replacement/deletion feature can derive the
+//     Cloudinary public_id to delete from the stored Project record
+//     itself, never from client input (PLAN.md security principle, and
+//     this checkpoint's own §9 requirement) — deliberately not acted on
+//     yet (see projectAdminRepository.ts's deleteProject() comment).
+//   - `order` / `published`: admin-editable list position and visibility.
+//     No default here on purpose — every write path (the Checkpoint 5.1
+//     migration script for the 9 existing docs, and projectInput.schema.ts
+//     for all future admin writes) supplies an explicit value; a silent
+//     Mongoose default would mask a caller forgetting to set one.
+//   - `timestamps: true`: Mongoose-managed createdAt/updatedAt, set only
+//     by Mongoose itself on insert/update — never accepted as client
+//     input anywhere in the admin API (see projectInput.schema.ts).
+const projectMongooseSchema = new Schema(
+  {
+    slug: { type: String, required: true, unique: true, trim: true },
+    title: { type: String, required: true, trim: true },
+    titleNote: { type: String, default: null },
+    type: { type: String, required: true },
+    summary: { type: String, required: true },
+    note: { type: String, default: null },
+    image: { type: String, required: true },
+    imageWidth: { type: Number, required: true },
+    imageHeight: { type: Number, required: true },
+    imagePublicId: { type: String, default: null },
+    deployUrl: { type: String, default: null },
+    githubUrl: { type: String, required: true },
+    icon: { type: String, required: true },
+    technologies: { type: [String], default: [] },
+    featured: { type: Boolean, required: true, default: false },
+    order: { type: Number, required: true },
+    published: { type: Boolean, required: true },
+  },
+  { timestamps: true }
+);
 
 export type ProjectDocument = InferSchemaType<typeof projectMongooseSchema>;
 

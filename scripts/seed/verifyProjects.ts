@@ -5,6 +5,15 @@
 // protocol). Compared by `slug`, not array order — Mongo's natural
 // document order isn't guaranteed to match the static array's order.
 //
+// Checkpoint 5.1 update: `imagePublicId`/`order`/`published` are excluded
+// from the comparison below. Those three are genuinely new, admin-only
+// fields (Checkpoint 5.1's migration backfilled them onto every existing
+// document) that src/data/projectConst.ts never had and never will —
+// asserting equality on them would fail this check permanently, not
+// detect a real problem. The original migrated content (every field this
+// script already checked before Checkpoint 5.1) is still asserted
+// byte-for-byte identical, unchanged.
+//
 // Run via: npm run verify:projects
 import assert from 'node:assert/strict';
 import mongoose from 'mongoose';
@@ -35,7 +44,13 @@ async function main() {
     // Mongoose-injected keys beyond _id/__v and guarantees the comparison
     // is against a genuinely Project-shaped object, not raw driver output.
     const parsed = projectSchema.parse(rest);
-    mongoBySlug.set(parsed.slug, parsed);
+    // Strip the Checkpoint 5.1 admin-only fields before comparing — see
+    // this file's header comment.
+    const { imagePublicId, order, published, ...comparable } = parsed;
+    void imagePublicId;
+    void order;
+    void published;
+    mongoBySlug.set(parsed.slug, comparable);
   }
 
   let missing = 0;

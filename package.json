@@ -21,7 +21,9 @@
     "seed:testimonials": "tsx --env-file=.env.local --conditions=react-server scripts/seed/seedTestimonials.ts",
     "verify:testimonials": "tsx --env-file=.env.local --conditions=react-server scripts/seed/verifyTestimonials.ts",
     "verify:cloudinarySign": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyCloudinarySign.ts",
-    "verify:cloudinaryLive": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyCloudinaryLive.ts"
+    "verify:cloudinaryLive": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyCloudinaryLive.ts",
+    "migrate:projectAdminFields": "tsx --env-file=.env.local --conditions=react-server scripts/migrate/backfillProjectAdminFields.ts",
+    "verify:projectAdmin": "tsx --env-file=.env.local --conditions=react-server scripts/verify/verifyProjectAdmin.ts"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",

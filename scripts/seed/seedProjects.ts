@@ -15,6 +15,22 @@
 // upsert:true) rather than inserting — running this script any number of
 // times converges on the same 9 documents, never duplicates. Never touches
 // any other collection.
+//
+// Checkpoint 5.1 correction: `imagePublicId`/`order`/`published` are now
+// applied via `$setOnInsert`, never `$set` — a real bug caught while
+// building Checkpoint 5.1's admin CRUD. projectSchema.parse() gives every
+// static record the SAME defaults for these three fields (order: 0,
+// published: true, imagePublicId: null — see that schema's own comment),
+// since the static array has no concept of them at all. Before this fix,
+// re-running this script after Checkpoint 5.1's migration had backfilled
+// real per-project `order` values (0–8) would have silently overwritten
+// every one of them back to `order: 0`, and would have clobbered any
+// admin edit to `published`/`imagePublicId` too — exactly the "destroy
+// existing Mongo data blindly" this checkpoint was told not to do.
+// `$setOnInsert` only applies those three on a genuine upsert-insert (a
+// static project that doesn't exist in Mongo yet); every other field
+// still refreshes via `$set` on every run, matching this script's
+// original "keep Mongo content synced with the static source" purpose.
 import mongoose from 'mongoose';
 import { projects } from '@/data/projectConst';
 import { projectSchema } from '@/features/projects/schemas/project.schema';
@@ -29,10 +45,17 @@ async function main() {
   await connectToDatabase();
   console.log('Connected to Mongo.');
 
-  for (const project of validated) {
+  for (const [index, project] of validated.entries()) {
+    const { imagePublicId, order, published, ...content } = project;
+    void imagePublicId;
+    void order;
+    void published;
     await ProjectModel.findOneAndUpdate(
       { slug: project.slug },
-      project,
+      {
+        $set: content,
+        $setOnInsert: { order: index, published: true, imagePublicId: null },
+      },
       { upsert: true, setDefaultsOnInsert: true }
     );
     console.log(`  ✓ upserted: ${project.slug}`);

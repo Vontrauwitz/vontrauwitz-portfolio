@@ -16,10 +16,19 @@ import { projectSchema, type Project } from '../schemas/project.schema';
 // deliberately temporary scaffolding — PLAN.md Part IV §5 retires it,
 // collection by collection, only once each domain's Mongo data has been
 // trusted in production for a deliberate observation window.
+//
+// Checkpoint 5.1: now filters to `published: true` and sorts by `order`
+// ascending — the two fields Checkpoint 5.1's migration script
+// (scripts/migrate/backfillProjectAdminFields.ts) backfilled onto every
+// existing document before this filter/sort went live, so this never
+// silently empties the public page. projectSchema's `.default()`s for
+// both fields (see that file) are a second safety net if a document
+// somehow still lacks them — `published` defaults `true` (never hides a
+// project nobody explicitly unpublished) and `order` defaults `0`.
 export async function getProjects(): Promise<Project[]> {
   try {
     await connectToDatabase();
-    const docs = await ProjectModel.find({}).lean();
+    const docs = await ProjectModel.find({ published: true }).sort({ order: 1 }).lean();
 
     // .lean() returns plain objects (not Mongoose Documents) — satisfies
     // "return plain serializable Project objects, not Mongoose Documents"
@@ -45,6 +54,12 @@ export async function getProjects(): Promise<Project[]> {
       '[projectRepository] Mongo read or validation failed, falling back to static project data. Reason:',
       error instanceof Error ? error.name : 'UnknownError'
     );
-    return staticProjects;
+    // Same projectSchema.parse() pass as the Mongo path above — the static
+    // array predates imagePublicId/order/published (Checkpoint 5.1) and
+    // has no ordering/publish concept of its own, so this applies the same
+    // `.default()`s (imagePublicId: null, order: 0, published: true) to
+    // every static record, keeping the fallback's output shape identical
+    // to the Mongo path's rather than a separately-typed exception.
+    return staticProjects.map((project) => projectSchema.parse(project));
   }
 }

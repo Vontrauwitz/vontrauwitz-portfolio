@@ -74,13 +74,16 @@ export default async function AdminDashboardPage() {
         <h2 className="mb-4 text-lg font-semibold text-dark dark:text-light">
           Content
         </h2>
-        {/* Placeholders only — Phase 5 wires these up as real CRUD areas.
-            Not real links: nothing exists at /admin/projects or
-            /admin/certificates yet, and a link to a 404 is worse than a
-            plainly-disabled placeholder. */}
+        {/* Checkpoint 5.1 — Projects is now a real CRUD area; Certificates
+            remains a placeholder until its own checkpoint. */}
         <ul className="space-y-2">
-          <li className="rounded-lg border-2 border-dark/10 px-4 py-3 text-dark/40 dark:border-light/10 dark:text-light/40">
-            Projects — coming soon
+          <li>
+            <Link
+              href="/admin/projects"
+              className="block rounded-lg border-2 border-dark/10 px-4 py-3 text-dark hover:border-primary dark:border-light/10 dark:text-light hover:dark:border-primaryDark"
+            >
+              Projects
+            </Link>
           </li>
           <li className="rounded-lg border-2 border-dark/10 px-4 py-3 text-dark/40 dark:border-light/10 dark:text-light/40">
             Certificates — coming soon
